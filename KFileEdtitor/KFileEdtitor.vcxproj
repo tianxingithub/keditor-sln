@@ -89,11 +89,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DisplayWidget.cpp" />
+    <ClCompile Include="TreeWidget.cpp" />
     <QtRcc Include="KFileEdtitor.qrc" />
+    <QtUic Include="DisplayWidget.ui" />
     <QtUic Include="KFileEdtitor.ui" />
     <QtMoc Include="KFileEdtitor.h" />
     <ClCompile Include="KFileEdtitor.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="TreeWidget.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="TreeWidget.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="DisplayWidget.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
