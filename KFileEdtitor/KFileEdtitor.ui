@@ -6,27 +6,36 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>497</width>
-    <height>484</height>
+    <width>306</width>
+    <height>485</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>KFileEdtitor</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <layout class="QVBoxLayout" name="verticalLayout_4">
     <item>
-     <widget class="QSplitter" name="splitter">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <widget class="QWidget" name="verticalLayoutWidget">
-       <layout class="QVBoxLayout" name="verticalLayout"/>
-      </widget>
-      <widget class="QWidget" name="horizontalLayoutWidget">
-       <layout class="QHBoxLayout" name="horizontalLayout"/>
-      </widget>
-     </widget>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QWidget" name="widget" native="true">
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout"/>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="widget_2" native="true">
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout"/>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -35,7 +44,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>497</width>
+     <width>306</width>
      <height>23</height>
     </rect>
    </property>

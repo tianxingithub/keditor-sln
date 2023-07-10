@@ -6,8 +6,10 @@ KFileEdtitor::KFileEdtitor(QWidget *parent)
 {
     ui->setupUi(this);
     treeWidget = new TreeWidget(ui->centralWidget);
-    displayWidget = new DisplayWidget(ui->centralWidget);
+    ui->widget->layout()->addWidget(treeWidget);
 
+    displayWidget = new DisplayWidget(ui->centralWidget);
+    ui->widget_2->layout()->addWidget(displayWidget);
 }
 
 KFileEdtitor::~KFileEdtitor()

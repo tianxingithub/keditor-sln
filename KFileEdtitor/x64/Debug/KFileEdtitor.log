@@ -1,2 +1,10 @@
-﻿  KFileEdtitor.vcxproj -> E:\Repository\KFileEdtitor\x64\Debug\KFileEdtitor.exe
+﻿  uic KFileEdtitor.ui
+cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
+cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
+  KFileEdtitor.cpp
+cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
+  main.cpp
+cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
+  moc_KFileEdtitor.cpp
+  KFileEdtitor.vcxproj -> E:\Repository\KFileEdtitor\x64\Debug\KFileEdtitor.exe
   KFileEdtitor.vcxproj -> E:\Repository\KFileEdtitor\x64\Debug\KFileEdtitor.pdb (Full PDB)
