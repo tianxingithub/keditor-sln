@@ -2,6 +2,8 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_KFileEdtitor.h"
+#include "TreeWidget.h"
+#include "DisplayWidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class KFileEdtitorClass; };
@@ -17,4 +19,6 @@ public:
 
 private:
     Ui::KFileEdtitorClass *ui;
+    TreeWidget* treeWidget;
+    DisplayWidget* displayWidget;
 };
