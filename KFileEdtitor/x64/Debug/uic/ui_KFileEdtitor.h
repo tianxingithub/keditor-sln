@@ -16,8 +16,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QStatusBar>
-#include <QtWidgets/QToolBar>
+#include <QtWidgets/QSplitter>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -30,24 +29,20 @@ public:
     QAction *actionSave;
     QAction *actionImport;
     QWidget *centralWidget;
-    QVBoxLayout *verticalLayout_4;
-    QHBoxLayout *horizontalLayout_2;
-    QWidget *widget;
     QVBoxLayout *verticalLayout_2;
+    QSplitter *splitter;
+    QWidget *verticalLayoutWidget;
     QVBoxLayout *verticalLayout;
-    QWidget *widget_2;
-    QVBoxLayout *verticalLayout_3;
+    QWidget *horizontalLayoutWidget;
     QHBoxLayout *horizontalLayout;
     QMenuBar *menuBar;
     QMenu *menu;
-    QToolBar *mainToolBar;
-    QStatusBar *statusBar;
 
     void setupUi(QMainWindow *KFileEdtitorClass)
     {
         if (KFileEdtitorClass->objectName().isEmpty())
             KFileEdtitorClass->setObjectName(QString::fromUtf8("KFileEdtitorClass"));
-        KFileEdtitorClass->resize(306, 485);
+        KFileEdtitorClass->resize(257, 325);
         actionOpen = new QAction(KFileEdtitorClass);
         actionOpen->setObjectName(QString::fromUtf8("actionOpen"));
         actionSave = new QAction(KFileEdtitorClass);
@@ -56,59 +51,40 @@ public:
         actionImport->setObjectName(QString::fromUtf8("actionImport"));
         centralWidget = new QWidget(KFileEdtitorClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
-        verticalLayout_4 = new QVBoxLayout(centralWidget);
-        verticalLayout_4->setSpacing(6);
-        verticalLayout_4->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
-        horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        widget = new QWidget(centralWidget);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        verticalLayout_2 = new QVBoxLayout(widget);
-        verticalLayout_2->setSpacing(6);
+        verticalLayout_2 = new QVBoxLayout(centralWidget);
+        verticalLayout_2->setSpacing(3);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
-        verticalLayout = new QVBoxLayout();
-        verticalLayout->setSpacing(6);
+        verticalLayout_2->setContentsMargins(9, 9, 9, 9);
+        splitter = new QSplitter(centralWidget);
+        splitter->setObjectName(QString::fromUtf8("splitter"));
+        splitter->setOrientation(Qt::Horizontal);
+        verticalLayoutWidget = new QWidget(splitter);
+        verticalLayoutWidget->setObjectName(QString::fromUtf8("verticalLayoutWidget"));
+        verticalLayout = new QVBoxLayout(verticalLayoutWidget);
+        verticalLayout->setSpacing(0);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-
-        verticalLayout_2->addLayout(verticalLayout);
-
-
-        horizontalLayout_2->addWidget(widget);
-
-        widget_2 = new QWidget(centralWidget);
-        widget_2->setObjectName(QString::fromUtf8("widget_2"));
-        verticalLayout_3 = new QVBoxLayout(widget_2);
-        verticalLayout_3->setSpacing(6);
-        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        splitter->addWidget(verticalLayoutWidget);
+        horizontalLayoutWidget = new QWidget(splitter);
+        horizontalLayoutWidget->setObjectName(QString::fromUtf8("horizontalLayoutWidget"));
+        horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
+        horizontalLayout->setSpacing(0);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        horizontalLayout->setContentsMargins(0, 0, 0, 0);
+        splitter->addWidget(horizontalLayoutWidget);
 
-        verticalLayout_3->addLayout(horizontalLayout);
-
-
-        horizontalLayout_2->addWidget(widget_2);
-
-
-        verticalLayout_4->addLayout(horizontalLayout_2);
+        verticalLayout_2->addWidget(splitter);
 
         KFileEdtitorClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(KFileEdtitorClass);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 306, 23));
+        menuBar->setGeometry(QRect(0, 0, 257, 23));
         menu = new QMenu(menuBar);
         menu->setObjectName(QString::fromUtf8("menu"));
         KFileEdtitorClass->setMenuBar(menuBar);
-        mainToolBar = new QToolBar(KFileEdtitorClass);
-        mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
-        KFileEdtitorClass->addToolBar(Qt::TopToolBarArea, mainToolBar);
-        statusBar = new QStatusBar(KFileEdtitorClass);
-        statusBar->setObjectName(QString::fromUtf8("statusBar"));
-        KFileEdtitorClass->setStatusBar(statusBar);
 
         menuBar->addAction(menu->menuAction());
         menu->addAction(actionOpen);

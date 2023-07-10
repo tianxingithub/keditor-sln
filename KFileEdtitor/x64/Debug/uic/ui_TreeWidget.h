@@ -23,7 +23,7 @@ public:
     {
         if (TreeWidgetClass->objectName().isEmpty())
             TreeWidgetClass->setObjectName(QString::fromUtf8("TreeWidgetClass"));
-        TreeWidgetClass->resize(600, 400);
+        TreeWidgetClass->resize(183, 413);
 
         retranslateUi(TreeWidgetClass);
 

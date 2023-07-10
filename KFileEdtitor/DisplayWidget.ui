@@ -6,18 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>218</width>
-    <height>499</height>
+    <width>309</width>
+    <height>413</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>DisplayWidget</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QTextBrowser" name="textDisplay"/>
-   </item>
-  </layout>
+  <layout class="QVBoxLayout" name="verticalLayout_2"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

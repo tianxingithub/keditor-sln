@@ -6,24 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>310</width>
-    <height>510</height>
+    <width>183</width>
+    <height>413</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>TreeWidget</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QSplitter" name="splitter">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <widget class="QTreeView" name="treeView"/>
-     <widget class="QTableView" name="tableView"/>
-    </widget>
-   </item>
-  </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

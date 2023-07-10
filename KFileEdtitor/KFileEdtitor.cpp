@@ -6,10 +6,14 @@ KFileEdtitor::KFileEdtitor(QWidget *parent)
 {
     ui->setupUi(this);
     treeWidget = new TreeWidget(ui->centralWidget);
-    ui->widget->layout()->addWidget(treeWidget);
+    treeWidget->setMinimumSize(200, 400);
+    ui->verticalLayout->addWidget(treeWidget);
+   // ui->widget->layout()->addWidget(treeWidget);
 
     displayWidget = new DisplayWidget(ui->centralWidget);
-    ui->widget_2->layout()->addWidget(displayWidget);
+    displayWidget->setMinimumSize(400, 400);
+	ui->horizontalLayout->addWidget(displayWidget);
+	// ui->widget->layout()->addWidget(treeWidget);
 }
 
 KFileEdtitor::~KFileEdtitor()

@@ -2,6 +2,7 @@
 
 #include <QWidget>
 #include "ui_DisplayWidget.h"
+#include "QTextBrowser"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class DisplayWidgetClass; };
@@ -17,4 +18,5 @@ public:
 
 private:
 	Ui::DisplayWidgetClass *ui;
+	QTextBrowser* textDisplay;
 };
