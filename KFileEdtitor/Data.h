@@ -12,6 +12,9 @@ public:
 	//! 树节点的键值
 	QMap<QString , QMap<QString , QString >*>* rootMap;
 
+	//! 树节点的顺序
+	QList<QString>* rootOrder;
+
 	//! 树节点属性的顺序
 	QMap<QString , QList<QString >*>* order;
 

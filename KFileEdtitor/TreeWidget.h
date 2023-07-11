@@ -2,8 +2,9 @@
 
 #include <QWidget>
 #include "ui_TreeWidget.h"
-#include "QTreeView"
-#include "QTableView"
+#include "QTreeWidget"
+#include "QTreeWidget"
+#include "QTableWidget"
 #include "QPushButton"
 #include "QVBoxLayout"
 #include "QSplitter"
@@ -13,7 +14,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class TreeWidgetClass; };
 QT_END_NAMESPACE
 
-class CustomTreeView : public QTreeView
+class CustomTreeView : public QTreeWidget
 {
 
 };
@@ -31,11 +32,11 @@ private:
 	Ui::TreeWidgetClass *ui;
 public:
 	//! 树节点View
-	QTreeView* treeItem;
+	QTreeWidget* treeItem;
 
 	//! 树节点属性tableView
-	QTableView* itemAttr;
+	QTableWidget* itemAttr;
 
 	//! 根节点
-	QStandardItem* root;
+	QTreeWidgetItem* root;
 };

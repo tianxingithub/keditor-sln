@@ -1,5 +1,6 @@
 #include "TreeWidget.h"
 #include <QStandardItemModel>
+#include <QTreeWidgetItem>
 
 TreeWidget::TreeWidget(QWidget *parent)
 	: QWidget(parent)
@@ -9,28 +10,23 @@ TreeWidget::TreeWidget(QWidget *parent)
 
 	QSplitter* splitter = new QSplitter(Qt::Vertical);
 
-	treeItem = new QTreeView(splitter);
-	itemAttr = new QTableView(splitter);
+	treeItem = new QTreeWidget(splitter);
+	itemAttr = new QTableWidget(splitter);
 
 	QVBoxLayout* layout = new QVBoxLayout();
 	layout->addWidget(splitter);
 
 	this->setLayout(layout);
-	
-
-	// 创建 QStandardItemModel 作为树的数据模型
-	QStandardItemModel* model = new QStandardItemModel();
 
 	// 创建根节点
-	root = new QStandardItem(u8"激发数值分析");
+	root = new QTreeWidgetItem(treeItem);
+	root->setText(0, u8"激活能量数值");
+	root->setIcon(0, QIcon("E:/Logo/fir.png"));
+
+
 	
-	root->setIcon(QIcon("E:/Logo/fir.png"));
-	model->appendRow(root);//model->insertRow(0, rootItem);
 
-	// 创建 QTreeView 并设置数据模型
-	treeItem->setModel(model);
 	treeItem->expandAll();  // 展开所有节点
-
 	treeItem->show();
 }
 

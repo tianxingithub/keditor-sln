@@ -21,7 +21,7 @@ public:
 
 private:
     void getData();
-    void displayData();
+    void displayItem();
     void treeViewDoubleClick();
     void treeViewClick();
 
