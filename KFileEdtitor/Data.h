@@ -6,6 +6,9 @@
 class Data
 {
 public:
+	Data();
+	~Data();
+public:
 	//! 树节点的键值
 	QMap<QString , QMap<QString , QString >*>* rootMap;
 

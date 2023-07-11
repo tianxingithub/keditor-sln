@@ -7,10 +7,17 @@
 #include "QPushButton"
 #include "QVBoxLayout"
 #include "QSplitter"
+#include <QStandardItemModel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class TreeWidgetClass; };
 QT_END_NAMESPACE
+
+class CustomTreeView : public QTreeView
+{
+
+};
+
 
 class TreeWidget : public QWidget
 {
@@ -22,9 +29,13 @@ public:
 
 private:
 	Ui::TreeWidgetClass *ui;
-	//! 树节点
+public:
+	//! 树节点View
 	QTreeView* treeItem;
 
-	//! 树节点属性
+	//! 树节点属性tableView
 	QTableView* itemAttr;
+
+	//! 根节点
+	QStandardItem* root;
 };

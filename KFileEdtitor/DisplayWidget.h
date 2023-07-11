@@ -18,5 +18,6 @@ public:
 
 private:
 	Ui::DisplayWidgetClass *ui;
+public:
 	QTextBrowser* textDisplay;
 };

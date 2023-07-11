@@ -1,7 +1,3 @@
-﻿  ReadWrite.cpp
-  qrc_KFileEdtitor.cpp
-  moc_KFileEdtitor.cpp
-  moc_TreeWidget.cpp
-  moc_DisplayWidget.cpp
+﻿  KFileEdtitor.cpp
   KFileEdtitor.vcxproj -> E:\Repository\KFileEdtitor\x64\Debug\KFileEdtitor.exe
   KFileEdtitor.vcxproj -> E:\Repository\KFileEdtitor\x64\Debug\KFileEdtitor.pdb (Full PDB)

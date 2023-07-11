@@ -4,6 +4,7 @@
 #include "ui_KFileEdtitor.h"
 #include "TreeWidget.h"
 #include "DisplayWidget.h"
+#include "ReadWrite.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class KFileEdtitorClass; };
@@ -16,9 +17,24 @@ class KFileEdtitor : public QMainWindow
 public:
     KFileEdtitor(QWidget *parent = nullptr);
     ~KFileEdtitor();
+    void addPlot();
+
+private:
+    void getData();
+    void displayData();
+    void treeViewDoubleClick();
+    void treeViewClick();
 
 private:
     Ui::KFileEdtitorClass *ui;
+
+
+public:
+
+private:
     TreeWidget* treeWidget;
     DisplayWidget* displayWidget;
+
+    ReadWrite* fileRW;
+    Data* data;
 };
