@@ -1,7 +1,8 @@
 #include "KFileEdtitor.h"
 #include "qfiledialog.h"
 #include <QHeaderView>
-
+#include "qlabel.h"
+#include "QTextEdit"
 
 KFileEdtitor::KFileEdtitor(QWidget *parent)
     : QMainWindow(parent)
@@ -38,8 +39,8 @@ void KFileEdtitor::addPlot()
 
 void KFileEdtitor::funDemo()
 {
-    itemWidget = new ItemWidget(this);
-    itemWidget->show();
+    itemDialog = new ItemDialog(this);
+    itemDialog->show();
 }
 
 void KFileEdtitor::getData()
@@ -71,8 +72,59 @@ void KFileEdtitor::displayItem()
 
 void KFileEdtitor::treeViewDoubleClick()
 {
+    if (this->data == nullptr)
+        return;
+    QTreeWidgetItem* item = treeWidget->treeItem->currentItem();
+    QString key = item->text(0);
+    if (key == u8"激活能量数值")return;
 
-    displayWidget->textDisplay->append("treeViewDoubleClick");
+    itemDialog = new ItemDialog(this);
+    itemDialog->setWindowTitle(key);
+
+    int labelCount = 0;
+    int w = 90, h = 30, px = 10, py = 40;
+
+    QMap<QString, QString>* kv = nullptr;
+    QList<QString>* attOrder = nullptr;
+
+    kv = data->rootMap->value('*' + key);
+    attOrder = data->order->value('*' + key);
+
+    if (kv == nullptr || attOrder == nullptr)
+        return;
+
+    for each (auto k in *attOrder)
+    {
+        QLabel* label = new QLabel(itemDialog);
+        label->setText(k);
+        label->setGeometry((w + px) * (labelCount % 8) + 45, (h + py) * (labelCount / 8), w, h);
+        
+        if (k.mid(0, 6) == "unused") 
+        {
+            QTextBrowser* value = new QTextBrowser(itemDialog);
+			value->setText(kv->value(k));
+			value->setGeometry((w + px) * (labelCount % 8) + 45, (h + py) * (labelCount / 8) + 35, w, h);
+        }
+        else
+        {
+			QTextEdit* value = new QTextEdit(itemDialog);
+			value->setText(kv->value(k));
+			value->setGeometry((w + px) * (labelCount % 8) + 45, (h + py) * (labelCount / 8) + 35, w, h);
+        }
+        labelCount++;
+    }
+
+    int xx = (w + px) * 9, yy = (h + py) * (labelCount / 8 + 1) + 50;
+    itemDialog->resize(xx, yy);
+
+    itemDialog->save->move(xx - 240, yy - 50);
+    itemDialog->save->setVisible(true);
+    itemDialog->cacel->move(xx - 140, yy - 50);
+    itemDialog->cacel->setVisible(true);
+
+
+    itemDialog->show();
+    //displayWidget->textDisplay->append("treeViewDoubleClick");
 }
 
 void KFileEdtitor::treeViewClick()
@@ -109,6 +161,10 @@ void KFileEdtitor::treeViewClick()
     int lineCount = 0;
     for each (auto k in *valueOrder)
     {
+        if (k.mid(0, 6) == "unused") 
+        {
+            continue;
+        }
         model->setItem(lineCount, 0, new QStandardItem(k));
         model->setItem(lineCount, 1, new QStandardItem(itemValue->value(k)));
         lineCount++;

@@ -1,16 +1,16 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'ItemWidget.h'
+** Meta object code from reading C++ file 'ItemDialog.h'
 **
 ** Created by: The Qt Meta Object Compiler version 67 (Qt 5.12.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../../ItemWidget.h"
+#include "../../../ItemDialog.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'ItemWidget.h' doesn't include <QObject>."
+#error "The header file 'ItemDialog.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
 #error "This file was generated using the moc from 5.12.1. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -63,7 +63,7 @@ void ItemDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
 }
 
 QT_INIT_METAOBJECT const QMetaObject ItemDialog::staticMetaObject = { {
-    &QWidget::staticMetaObject,
+    &QDialog::staticMetaObject,
     qt_meta_stringdata_ItemDialog.data,
     qt_meta_data_ItemDialog,
     qt_static_metacall,
@@ -82,12 +82,12 @@ void *ItemDialog::qt_metacast(const char *_clname)
     if (!_clname) return nullptr;
     if (!strcmp(_clname, qt_meta_stringdata_ItemDialog.stringdata0))
         return static_cast<void*>(this);
-    return QWidget::qt_metacast(_clname);
+    return QDialog::qt_metacast(_clname);
 }
 
 int ItemDialog::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QWidget::qt_metacall(_c, _id, _a);
+    _id = QDialog::qt_metacall(_c, _id, _a);
     return _id;
 }
 QT_WARNING_POP

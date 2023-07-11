@@ -56,10 +56,10 @@ Data* ReadWrite::readData(QString filepath, QTextBrowser* display)
 			QStringList key = str.split(" "); // 下标1开始，最后一个为unused要丢弃
 			
 			int len = key.length();
-			if (key[len - 1].mid(0, 6) == "unused")
+			/*if (key[len - 1].mid(0, 6) == "unused")
 			{
 				--len;
-			}
+			}*/
 			
 			line = file.readLine(); // 属性的值 下标0开始
 			
@@ -73,8 +73,11 @@ Data* ReadWrite::readData(QString filepath, QTextBrowser* display)
 			for (int i = 0; i < len - 1; i++)
 			{
 				QT_TRY{
-					itemMap->insert(key[i + 1], value[i]);
 					itemOrder->append(key[i + 1]);
+					if(key[i + 1].mid(0,6)=="unused")
+						itemMap->insert(key[i + 1], "NONE");
+					else
+						itemMap->insert(key[i + 1], value[i]);														
 				}
 				QT_CATCH(...)
 				{
