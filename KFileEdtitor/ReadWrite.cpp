@@ -81,6 +81,7 @@ Data* ReadWrite::readData(QString filepath, QTextBrowser* display)
 				}
 			}
 			re->rootMap->insert(kItem, itemMap);
+			re->order->insert(kItem, itemOrder);
 		}
 	}
 

@@ -6,17 +6,17 @@ KFileEdtitor::KFileEdtitor(QWidget *parent)
     , ui(new Ui::KFileEdtitorClass())
 {
     ui->setupUi(this);
+
     treeWidget = new TreeWidget(ui->centralWidget);
     treeWidget->setMinimumSize(200, 400);
     ui->verticalLayout->addWidget(treeWidget);
-   // ui->widget->layout()->addWidget(treeWidget);
 
     displayWidget = new DisplayWidget(ui->centralWidget);
     displayWidget->setMinimumSize(400, 400);
 	ui->horizontalLayout->addWidget(displayWidget);
-	// ui->widget->layout()->addWidget(treeWidget);
 
     fileRW = new ReadWrite();
+    data = nullptr;
 
     addPlot();
 }
@@ -66,6 +66,34 @@ void KFileEdtitor::treeViewDoubleClick()
 
 void KFileEdtitor::treeViewClick()
 {
-    //displayWidget->textDisplay->append("treeViewClick");
+    if (this->data == nullptr)
+        return;
 
+    treeWidget->itemAttr->clearContents(); // 清除所有单元格的内容
+    //! 得到当前点击的键
+    QTreeWidgetItem* item = treeWidget->treeItem->currentItem();
+
+    // 添加行数据
+
+
+
+    //! 加载键的属性值并显示
+    QMap<QString, QString >* itemValue = nullptr;
+    QList<QString >* valueOrder = nullptr;
+
+    itemValue = data->rootMap->value(item->text(0));  // 出错
+    valueOrder = data->order->value(item->text(0));
+
+    if (itemValue == nullptr || valueOrder == nullptr)
+        return;
+
+    for each (auto k in *valueOrder)
+    {
+        int rowCount = treeWidget->itemAttr->rowCount();// 当前行数
+        treeWidget->itemAttr->setItem(rowCount, 0, new QTableWidgetItem(k));
+    }
+
+
+    delete itemValue;
+    delete valueOrder;
 }

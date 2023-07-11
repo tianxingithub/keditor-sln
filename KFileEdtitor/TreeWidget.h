@@ -39,4 +39,8 @@ public:
 
 	//! ¸ù½Úµã
 	QTreeWidgetItem* root;
+
+private:
+	void initTree();
+	void initTable();
 };
