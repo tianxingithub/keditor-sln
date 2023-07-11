@@ -13,7 +13,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;" Label="Configuration">
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <OutputDirectory>.\</OutputDirectory>
     <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
     <CharacterSet>NotSet</CharacterSet>
@@ -33,8 +33,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\HanShan\AppData\Local\Temp\ekzacapj.12s;D:\Qt5.12.1\5.12.1\msvc2015_64\include;D:\Qt5.12.1\5.12.1\msvc2015_64\include\QtWidgets;D:\Qt5.12.1\5.12.1\msvc2015_64\include\QtGui;D:\Qt5.12.1\5.12.1\msvc2015_64\include\QtANGLE;D:\Qt5.12.1\5.12.1\msvc2015_64\include\QtCore;C:\Users\HanShan\AppData\Local\Temp\ekzacapj.12s;C:\VulkanSDK\1.0.51.0\include;D:\Qt5.12.1\5.12.1\msvc2015_64\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\Users\HanShan\AppData\Local\Temp\53kgk2wr.kah;D:\Qt5.12.1\5.12.1\msvc2015_64\include;D:\Qt5.12.1\5.12.1\msvc2015_64\include\QtWidgets;D:\Qt5.12.1\5.12.1\msvc2015_64\include\QtGui;D:\Qt5.12.1\5.12.1\msvc2015_64\include\QtANGLE;D:\Qt5.12.1\5.12.1\msvc2015_64\include\QtCore;C:\Users\HanShan\AppData\Local\Temp\53kgk2wr.kah;C:\VulkanSDK\1.0.51.0\include;D:\Qt5.12.1\5.12.1\msvc2015_64\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>.\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -73,7 +73,7 @@
     <CustomBuild Include="moc_predefs.h.cbt">
       <FileType>Document</FileType>
       <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">D:\Qt5.12.1\5.12.1\msvc2015_64\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">cl -BxD:\Qt5.12.1\5.12.1\msvc2015_64\bin\qmake.exe -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -Zi -MDd -W0 -E D:\Qt5.12.1\5.12.1\msvc2015_64\mkspecs\features\data\dummy.cpp 2>NUL >moc_predefs.h</Command>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">cl -BxD:\Qt5.12.1\5.12.1\msvc2015_64\bin\qmake.exe -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zi -MDd -W0 -E D:\Qt5.12.1\5.12.1\msvc2015_64\mkspecs\features\data\dummy.cpp 2>NUL >moc_predefs.h</Command>
       <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">Generate moc_predefs.h</Message>
       <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">moc_predefs.h;%(Outputs)</Outputs>
     </CustomBuild>

@@ -1,15 +1,7 @@
-﻿  uic DisplayWidget.ui
-cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
-cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
-cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
-  DisplayWidget.cpp
-  KFileEdtitor.cpp
-cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
-  main.cpp
-cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
-cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
-  moc_DisplayWidget.cpp
-cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
+﻿  ReadWrite.cpp
+  qrc_KFileEdtitor.cpp
   moc_KFileEdtitor.cpp
+  moc_TreeWidget.cpp
+  moc_DisplayWidget.cpp
   KFileEdtitor.vcxproj -> E:\Repository\KFileEdtitor\x64\Debug\KFileEdtitor.exe
   KFileEdtitor.vcxproj -> E:\Repository\KFileEdtitor\x64\Debug\KFileEdtitor.pdb (Full PDB)

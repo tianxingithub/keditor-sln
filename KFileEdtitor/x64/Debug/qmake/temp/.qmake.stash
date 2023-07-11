@@ -1,26 +1,20 @@
 QMAKE_CXX.QT_COMPILER_STDCXX = 199711L
-QMAKE_CXX.QMAKE_MSC_VER = 1936
-QMAKE_CXX.QMAKE_MSC_FULL_VER = 193632535
+QMAKE_CXX.QMAKE_MSC_VER = 1900
+QMAKE_CXX.QMAKE_MSC_FULL_VER = 190024210
 QMAKE_CXX.COMPILER_MACROS = \
     QT_COMPILER_STDCXX \
     QMAKE_MSC_VER \
     QMAKE_MSC_FULL_VER
 QMAKE_CXX.INCDIRS = \
-    D:\\vs2022pro\\VC\\Tools\\MSVC\\14.36.32532\\include \
-    D:\\vs2022pro\\VC\\Tools\\MSVC\\14.36.32532\\atlmfc\\include \
-    D:\\vs2022pro\\VC\\Auxiliary\\VS\\include \
-    "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22000.0\\ucrt" \
-    D:\\vs2022pro\\VC\\Auxiliary\\VS\\UnitTest\\include \
-    "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22000.0\\um" \
-    "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22000.0\\shared" \
-    "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22000.0\\winrt" \
-    "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22000.0\\cppwinrt" \
-    "C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.8\\Include\\um"
+    D:\\visualstudio2015\\VC\\include \
+    D:\\visualstudio2015\\VC\\atlmfc\\include \
+    "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.10240.0\\ucrt" \
+    "C:\\Program Files (x86)\\Windows Kits\\8.1\\Include\\um" \
+    "C:\\Program Files (x86)\\Windows Kits\\8.1\\Include\\shared" \
+    "C:\\Program Files (x86)\\Windows Kits\\8.1\\Include\\winrt"
 QMAKE_CXX.LIBDIRS = \
-    D:\\vs2022pro\\VC\\Tools\\MSVC\\14.36.32532\\lib\\x64 \
-    D:\\vs2022pro\\VC\\Tools\\MSVC\\14.36.32532\\atlmfc\\lib\\x64 \
-    D:\\vs2022pro\\VC\\Auxiliary\\VS\\lib\\x64 \
-    "C:\\Program Files (x86)\\Windows Kits\\10\\lib\\10.0.22000.0\\ucrt\\x64" \
-    D:\\vs2022pro\\VC\\Auxiliary\\VS\\UnitTest\\lib \
-    "C:\\Program Files (x86)\\Windows Kits\\10\\lib\\10.0.22000.0\\um\\x64" \
-    "C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.8\\lib\\um\\x64"
+    D:\\visualstudio2015\\VC\\lib\\amd64 \
+    D:\\visualstudio2015\\VC\\atlmfc\\lib\\amd64 \
+    "C:\\Program Files (x86)\\Windows Kits\\10\\lib\\10.0.10240.0\\ucrt\\x64" \
+    "C:\\Program Files (x86)\\Windows Kits\\8.1\\lib\\winv6.3\\um\\x64" \
+    "C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.6.1\\Lib\\um\\x64"
