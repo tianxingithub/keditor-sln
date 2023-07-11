@@ -35,7 +35,7 @@ public:
 	QTreeWidget* treeItem;
 
 	//! 树节点属性tableView
-	QTableWidget* itemAttr;
+	QTableView* itemAttr;
 
 	//! 根节点
 	QTreeWidgetItem* root;

@@ -12,7 +12,7 @@ TreeWidget::TreeWidget(QWidget *parent)
 	QSplitter* splitter = new QSplitter(Qt::Vertical);
 
 	treeItem = new QTreeWidget(splitter);
-	itemAttr = new QTableWidget(splitter);
+	itemAttr = new QTableView(splitter);
 
 	QVBoxLayout* layout = new QVBoxLayout();
 	layout->addWidget(splitter);
@@ -30,10 +30,10 @@ TreeWidget::~TreeWidget()
 
 void TreeWidget::initTable()
 {
-	itemAttr->setColumnCount(2);// 设置列数
-	QStringList headerLabels;
-	headerLabels << u8"属性" << u8"值";
-	itemAttr->setHorizontalHeaderLabels(headerLabels);
+	//itemAttr->setColumnCount(2);// 设置列数
+	//QStringList headerLabels;
+	//headerLabels << u8"属性" << u8"值";
+	//itemAttr->setHorizontalHeaderLabels(headerLabels);
 	//itemAttr->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	//itemAttr->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 }

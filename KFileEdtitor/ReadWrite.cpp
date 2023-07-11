@@ -15,6 +15,7 @@ ReadWrite::~ReadWrite()
 
 Data* ReadWrite::readData(QString filepath, QTextBrowser* display)
 {
+
 	Data* re = new Data();
 	QFile file(filepath);
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
