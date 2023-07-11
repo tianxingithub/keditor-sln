@@ -5,6 +5,7 @@
 #include "TreeWidget.h"
 #include "DisplayWidget.h"
 #include "ReadWrite.h"
+#include "ItemWidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class KFileEdtitorClass; };
@@ -24,6 +25,7 @@ private:
     void displayItem();
     void treeViewDoubleClick();
     void treeViewClick();
+    void funDemo();
 
 private:
     Ui::KFileEdtitorClass *ui;
@@ -34,7 +36,7 @@ public:
 private:
     TreeWidget* treeWidget;
     DisplayWidget* displayWidget;
-
+    ItemWidget* itemWidget;
     ReadWrite* fileRW;
     Data* data;
 };

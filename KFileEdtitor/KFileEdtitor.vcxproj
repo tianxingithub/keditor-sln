@@ -91,11 +91,13 @@
   <ItemGroup>
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="DisplayWidget.cpp" />
+    <ClCompile Include="ItemWidget.cpp" />
     <ClCompile Include="ReadWrite.cpp" />
     <ClCompile Include="TreeWidget.cpp" />
     <ClCompile Include="Viewer.cpp" />
     <QtRcc Include="KFileEdtitor.qrc" />
     <QtUic Include="DisplayWidget.ui" />
+    <QtUic Include="ItemWidget.ui" />
     <QtUic Include="KFileEdtitor.ui" />
     <QtMoc Include="KFileEdtitor.h" />
     <ClCompile Include="KFileEdtitor.cpp" />
@@ -110,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Data.h" />
+    <QtMoc Include="ItemWidget.h" />
     <ClInclude Include="ReadWrite.h" />
     <ClInclude Include="Viewer.h" />
   </ItemGroup>

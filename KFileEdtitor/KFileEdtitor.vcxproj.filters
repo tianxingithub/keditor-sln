@@ -55,6 +55,9 @@
     <ClCompile Include="Viewer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ItemWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="TreeWidget.h">
@@ -63,12 +66,18 @@
     <QtMoc Include="DisplayWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="ItemWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="DisplayWidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="TreeWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ItemWidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

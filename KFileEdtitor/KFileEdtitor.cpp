@@ -33,6 +33,13 @@ void KFileEdtitor::addPlot()
     connect(ui->actionOpen, &QAction::triggered, this, &KFileEdtitor::getData);
     connect(treeWidget->treeItem, &QTreeWidget::doubleClicked, this, &KFileEdtitor::treeViewDoubleClick);
     connect(treeWidget->treeItem, &QTreeWidget::clicked, this, &KFileEdtitor::treeViewClick);
+    connect(ui->menuDemo, &QAction::triggered, this, &KFileEdtitor::funDemo);
+}
+
+void KFileEdtitor::funDemo()
+{
+    itemWidget = new ItemWidget(this);
+    itemWidget->show();
 }
 
 void KFileEdtitor::getData()

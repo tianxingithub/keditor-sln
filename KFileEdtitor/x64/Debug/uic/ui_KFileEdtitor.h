@@ -27,7 +27,7 @@ class Ui_KFileEdtitorClass
 public:
     QAction *actionOpen;
     QAction *actionSave;
-    QAction *actionImport;
+    QAction *menuDemo;
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout_2;
     QSplitter *splitter;
@@ -47,8 +47,8 @@ public:
         actionOpen->setObjectName(QString::fromUtf8("actionOpen"));
         actionSave = new QAction(KFileEdtitorClass);
         actionSave->setObjectName(QString::fromUtf8("actionSave"));
-        actionImport = new QAction(KFileEdtitorClass);
-        actionImport->setObjectName(QString::fromUtf8("actionImport"));
+        menuDemo = new QAction(KFileEdtitorClass);
+        menuDemo->setObjectName(QString::fromUtf8("menuDemo"));
         centralWidget = new QWidget(KFileEdtitorClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         verticalLayout_2 = new QVBoxLayout(centralWidget);
@@ -89,7 +89,7 @@ public:
         menuBar->addAction(menu->menuAction());
         menu->addAction(actionOpen);
         menu->addAction(actionSave);
-        menu->addAction(actionImport);
+        menu->addAction(menuDemo);
 
         retranslateUi(KFileEdtitorClass);
 
@@ -99,9 +99,9 @@ public:
     void retranslateUi(QMainWindow *KFileEdtitorClass)
     {
         KFileEdtitorClass->setWindowTitle(QApplication::translate("KFileEdtitorClass", "KFileEdtitor", nullptr));
-        actionOpen->setText(QApplication::translate("KFileEdtitorClass", "Open", nullptr));
-        actionSave->setText(QApplication::translate("KFileEdtitorClass", "Save", nullptr));
-        actionImport->setText(QApplication::translate("KFileEdtitorClass", "Import", nullptr));
+        actionOpen->setText(QApplication::translate("KFileEdtitorClass", "\346\211\223\345\274\200", nullptr));
+        actionSave->setText(QApplication::translate("KFileEdtitorClass", "\345\257\274\345\207\272", nullptr));
+        menuDemo->setText(QApplication::translate("KFileEdtitorClass", "Demo", nullptr));
         menu->setTitle(QApplication::translate("KFileEdtitorClass", "\346\226\207\344\273\266", nullptr));
     } // retranslateUi
 
