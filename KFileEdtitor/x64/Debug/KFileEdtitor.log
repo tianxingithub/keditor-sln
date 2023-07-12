@@ -1,4 +1,2 @@
-﻿  ItemDialog.cpp
-e:\repository\kfileedtitor\kfileedtitor\KFileEdtitor.h(56): error C2143: 语法错误: 缺少“;”(在“*”的前面)
-e:\repository\kfileedtitor\kfileedtitor\KFileEdtitor.h(56): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
-e:\repository\kfileedtitor\kfileedtitor\KFileEdtitor.h(56): error C2238: 意外的标记位于“;”之前
+﻿  KFileEdtitor.vcxproj -> E:\Repository\KFileEdtitor\x64\Debug\KFileEdtitor.exe
+  KFileEdtitor.vcxproj -> E:\Repository\KFileEdtitor\x64\Debug\KFileEdtitor.pdb (Full PDB)

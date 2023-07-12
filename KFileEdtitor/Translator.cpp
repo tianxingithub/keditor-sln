@@ -1,7 +1,7 @@
 #include "Translator.h"
 #include "QTextCodec"
 
-Translator::Translator(QString path = "")
+Translator::Translator(QString path)
 {
 	filepath = path;
 	json = nullptr;

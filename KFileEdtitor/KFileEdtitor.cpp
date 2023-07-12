@@ -23,6 +23,7 @@ KFileEdtitor::KFileEdtitor(QWidget *parent)
 
     fileRW = new ReadWrite();
     data = nullptr;
+    itemDialog = nullptr;
 
     addPlot();
 }
@@ -179,9 +180,9 @@ void KFileEdtitor::freshData()
     //! 得到原来的节点坡地
     auto oldK = data->rootMap->value(k);
     //! 更新地址
-    data->rootMap->insert(k, dialogData);
+    data->rootMap->insert(k, dialogData); 
     //! 释放原地址
-    delete oldK;
+    //delete oldK;
 
     //! 更新修改后的属性
     treeViewClick();

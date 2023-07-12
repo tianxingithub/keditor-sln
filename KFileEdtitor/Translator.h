@@ -17,13 +17,13 @@ public:
 	QString filepath;
 
 public:
-	Translator(QString filepath);
+	Translator(QString filepath = "");
 
 private:
 	//! ¶ÁÈ¡·­ÒëÎÄ¼ş
 	QJsonObject* readJson();
 
-public:
+public slots:
 	void TestJson();
 	
 };

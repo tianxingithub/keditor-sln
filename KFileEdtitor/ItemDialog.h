@@ -4,7 +4,6 @@
 #include "ui_ItemWidget.h"
 #include "qpushbutton.h"
 #include "QDialog"
-#include "KFileEdtitor.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class ItemWidgetClass; };
