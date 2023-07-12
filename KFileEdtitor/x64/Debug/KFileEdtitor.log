@@ -1,2 +1,3 @@
-﻿  KFileEdtitor.vcxproj -> E:\Repository\KFileEdtitor\x64\Debug\KFileEdtitor.exe
-  KFileEdtitor.vcxproj -> E:\Repository\KFileEdtitor\x64\Debug\KFileEdtitor.pdb (Full PDB)
+﻿  KFileEdtitor.cpp
+KFileEdtitor.cpp(41): error C2664: “QMetaObject::Connection QObject::connect(const QObject *,const char *,const char *,Qt::ConnectionType) const”: 无法将参数 3 从“Translator”转换为“const Translator *”
+  KFileEdtitor.cpp(41): note: 没有可用于执行该转换的用户定义的转换运算符，或者无法调用该运算符

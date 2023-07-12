@@ -38,7 +38,7 @@ void KFileEdtitor::addPlot()
     connect(treeWidget->treeItem, &QTreeWidget::doubleClicked, this, &KFileEdtitor::treeViewDoubleClick);
     connect(treeWidget->treeItem, &QTreeWidget::clicked, this, &KFileEdtitor::treeViewClick);
     //connect(ui->menuDemo, &QAction::triggered, this, &KFileEdtitor::funDemo);
-    //connect(ui->menuDemo, &QAction::triggered, new Translator(), &Translator::TestJson);
+    connect(ui->menuDemo, &QAction::triggered, Translator(), &Translator::TestJson);
 }
 
 void KFileEdtitor::funDemo()
@@ -46,7 +46,10 @@ void KFileEdtitor::funDemo()
     //translator =  new Translator("E:/kTranslation.json");
     if (translator->json != nullptr)
     {
-        QString jLable = translator->json->value("dfric").toString();
+        auto a=translator->json;
+        auto b= a->value("slsfac");
+        auto c = b.toString();
+        QString jLable = translator->json->value("slsfac").toString();
         qDebug() << jLable;
     }
     
