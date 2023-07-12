@@ -18,7 +18,7 @@ KFileEdtitor::KFileEdtitor(QWidget *parent)
     displayWidget->setMinimumSize(600, 500);
 	ui->horizontalLayout->addWidget(displayWidget);
 
-    //jsonTranslator = new Translator("E:/PERACD/.sln/k/kTranslation.json");
+    translator = nullptr;
 
     fileRW = new ReadWrite();
     data = nullptr;
@@ -41,8 +41,8 @@ void KFileEdtitor::addPlot()
 
 void KFileEdtitor::funDemo()
 {
-    itemDialog = new ItemDialog(this);
-    itemDialog->show();
+    translator =  new Translator("E:/kTranslation.json");
+
 }
 
 void KFileEdtitor::getData()
