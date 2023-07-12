@@ -4,6 +4,7 @@
 #include "ui_ItemWidget.h"
 #include "qpushbutton.h"
 #include "QDialog"
+#include "QTextEdit"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class ItemWidgetClass; };
@@ -23,6 +24,9 @@ public:
 	QPushButton* cacel;
 	//! 对话框里面控件的QMap
 	QMap<QString, QString >* dialogData;
+
+	//! 修改框里面的值
+	QList<QTextEdit*> onlyValue;
 public:
 	//! 得到对话框里面控件的信息
 	void getDialogData();

@@ -45,7 +45,7 @@ Data* ReadWrite::readData(QString filepath, QTextBrowser* display)
 			//! Ìí¼ÓÊ÷½ÚµãË³Ğò
 			re->rootOrder->append(str);
 			str = str.simplified();
-			kItem = str;
+			kItem = str.mid(1);
 			itemMap = new QMap<QString, QString>();
 			itemOrder = new QList<QString>();
 		}

@@ -14,6 +14,7 @@ ItemDialog::ItemDialog(QWidget*parent)
 	cacel->setVisible(false);
 	
 	dialogData = nullptr;
+	//onlyValue = nullptr;
 
 	ui->setupUi(this);
 	connect(this->save, &QPushButton::clicked, this, &ItemDialog::getDialogData);
@@ -31,10 +32,11 @@ void ItemDialog::getDialogData()
 	//! 储存对话框里面的键值信息
 	QMap<QString, QString >* kv = new QMap<QString, QString>;
 	//! 遍历所有Label控件和TextEdit控件
-	QList<QLabel*> labelList = this->findChildren<QLabel*>();
-	QList<QTextEdit*> textEditList = this->findChildren<QTextEdit*>();
-	
+	QList<QLabel*> labelList = this->findChildren<QLabel*>(); // 有顺序
+	QList<QTextEdit*> textEditList = this->findChildren<QTextEdit*>(); // 有顺序
+	onlyValue = this->findChildren<QTextEdit*>();
 	//! 把键值信息写入到QMap中
+	
 	for (int i = 0; i < labelList.size(); i++) 
 	{
 		kv->insert(labelList.at(i)->text(), textEditList.at(i)->toPlainText());

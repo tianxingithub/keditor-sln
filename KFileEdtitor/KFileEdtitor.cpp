@@ -88,6 +88,12 @@ void KFileEdtitor::displayItem()
 
 void KFileEdtitor::treeViewDoubleClick()
 {
+    showDialog();
+    freshData();
+}
+
+void KFileEdtitor::showDialog()
+{
     if (this->data == nullptr)
         return;
     QTreeWidgetItem* item = treeWidget->treeItem->currentItem();
@@ -103,8 +109,8 @@ void KFileEdtitor::treeViewDoubleClick()
     QMap<QString, QString>* kv = nullptr;
     QList<QString>* attOrder = nullptr;
 
-    kv = data->rootMap->value('*' + key);
-    attOrder = data->order->value('*' + key);
+    kv = data->rootMap->value(key);
+    attOrder = data->order->value(key);
 
     if (kv == nullptr || attOrder == nullptr)
         return;
@@ -113,7 +119,7 @@ void KFileEdtitor::treeViewDoubleClick()
     {
         QLabel* label = new QLabel(itemDialog);
         //! 配置中文
-        if (translator != nullptr) 
+        if (translator != nullptr)
         {
             QString jLable = translator->json->value(k).toString();
             if (jLable != "")
@@ -125,10 +131,10 @@ void KFileEdtitor::treeViewDoubleClick()
                 label->setText(k);
             }
         }
-        else 
+        else
         {
             label->setText(k);
-        }        
+        }
 
         //! 如果Lable是unused直接放在最后面
         if (k.mid(0, 6) == "unused")
@@ -140,22 +146,22 @@ void KFileEdtitor::treeViewDoubleClick()
         {
             label->setGeometry((w + px) * (numCount % 8) + 45, (h + py) * (numCount / 8), w, h);
         }
-        
+
         //! 把unused属性的值设置为不可修改的textBrowser
-        if (k.mid(0, 6) == "unused") 
+        if (k.mid(0, 6) == "unused")
         {
             QTextBrowser* value = new QTextBrowser(itemDialog);
-			value->setText(kv->value(k));
+            value->setText(kv->value(k));
             value->setAlignment(Qt::AlignCenter);
             numCount = numCount - (7 - (numCount % 8));
-			value->setGeometry((w + px) * (7 % 8) + 45, (h + py) * (numCount / 8) + 35, w, h);
+            value->setGeometry((w + px) * (7 % 8) + 45, (h + py) * (numCount / 8) + 35, w, h);
             numCount = numCount + (7 - (numCount % 8));
         }
         else
         {
-			QTextEdit* value = new QTextEdit(itemDialog);
-			value->setText(kv->value(k));
-			value->setGeometry((w + px) * (numCount % 8) + 45, (h + py) * (numCount / 8) + 35, w, h);
+            QTextEdit* value = new QTextEdit(itemDialog);
+            value->setText(kv->value(k));
+            value->setGeometry((w + px) * (numCount % 8) + 45, (h + py) * (numCount / 8) + 35, w, h);
         }
         numCount++;
     }
@@ -171,20 +177,21 @@ void KFileEdtitor::treeViewDoubleClick()
     itemDialog->show();
     //freshData();
     //displayWidget->textDisplay->append("freshData()");
+    
 }
 
 void KFileEdtitor::freshData()
 {
-    
+
     //displayWidget->textDisplay->append("freshData()");
-    
+
     if (itemDialog == nullptr)
     {
         displayWidget->textDisplay->append("itemDialog = nullptr");
         return;
     }
     //! 对话框里面的数据
-    auto diaData = itemDialog->dialogData;   
+    auto diaData = itemDialog->dialogData;
     if (diaData == nullptr)
     {
         displayWidget->textDisplay->append("diaData = nullptr");
@@ -192,27 +199,38 @@ void KFileEdtitor::freshData()
     }
     //! 对话框标题：Data的节点
     QString k = itemDialog->windowTitle();
-    //! 得到原来的节点坡地
-    auto oldK = data->rootMap->value(k);
+    //! 得到原来的节点
+    //auto oldK = data->rootMap->value(k);
+
+    //! 修改后的节点信息
+    QList<QString> kk = *(data->order->value(k));
+    QList<QString>v;
+    auto node = itemDialog->onlyValue;
+    for (auto n : node)
+    {
+        v.append(n->toPlainText());
+    }
+    QMap<QString, QString>* newData = new QMap<QString, QString>;
+    for (int i = 0; i < v.size(); i++)
+    {
+        newData->insert(kk[i], v[i]);
+    }
+
     //! 更新地址
-    data->rootMap->insert(k, diaData); 
+    data->rootMap->insert(k, newData);
     //! 释放原地址
     //delete oldK;
 
-    //! 遍历diaData的kv
-    //auto it = diaData->begin();
-    auto it = data->rootMap->value(k)->begin();
-    while (it != diaData->end()) {
-        displayWidget->textDisplay->append(it.key() + " " + it.value());
-        it++;
-    }
 
     //! 更新修改后的属性
-    treeViewClick();
+    //treeViewClick();
 }
+
+
 
 void KFileEdtitor::treeViewClick()
 {
+    
     //displayWidget->textDisplay->append("treeViewClick()");
     if (this->data == nullptr)
         return;
@@ -221,6 +239,7 @@ void KFileEdtitor::treeViewClick()
     QTreeWidgetItem* item = treeWidget->treeItem->currentItem();
     if (item->text(0) == u8"激活能量数值")
         return;
+    freshData();
 
     /* 创建数据模型 */
     QStandardItemModel* model = new QStandardItemModel();
@@ -240,8 +259,8 @@ void KFileEdtitor::treeViewClick()
 
     auto a = item->text(0);
     auto b = data->rootMap;
-    itemValue = data->rootMap->value('*' + item->text(0));  // nullptr
-    valueOrder = data->order->value('*' + item->text(0));
+    itemValue = data->rootMap->value(item->text(0));  // nullptr
+    valueOrder = data->order->value(item->text(0));
 
     if (itemValue == nullptr || valueOrder == nullptr)
         return;

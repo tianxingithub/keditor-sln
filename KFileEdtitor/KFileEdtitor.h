@@ -33,7 +33,7 @@ private:
     //! 在TableWidget里面显示属性
     void treeViewClick();
     
-
+    
     // 【测试用】
     void funDemo();
 
@@ -46,6 +46,8 @@ public:
     Translator* translator;
 	//! 获取对话框数据并更新
 	void freshData();
+    //! 弹出数据
+    void showDialog();
 
 private:
     //! 文件节点树
