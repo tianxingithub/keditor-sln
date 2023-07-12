@@ -18,8 +18,6 @@ public:
 
 public:
 	Translator(QString filepath);
-	Translator();
-	~Translator();
 
 private:
 	//! ¶ÁÈ¡·­ÒëÎÄ¼ş

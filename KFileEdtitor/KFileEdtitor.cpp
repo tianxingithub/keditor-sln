@@ -37,8 +37,8 @@ void KFileEdtitor::addPlot()
     connect(ui->actionOpen, &QAction::triggered, this, &KFileEdtitor::getData);
     connect(treeWidget->treeItem, &QTreeWidget::doubleClicked, this, &KFileEdtitor::treeViewDoubleClick);
     connect(treeWidget->treeItem, &QTreeWidget::clicked, this, &KFileEdtitor::treeViewClick);
-    //connect(ui->menuDemo, &QAction::triggered, this, &KFileEdtitor::funDemo);
-    connect(ui->menuDemo, &QAction::triggered, Translator(), &Translator::TestJson);
+    connect(ui->menuDemo, &QAction::triggered, this, &KFileEdtitor::funDemo);
+    //connect(ui->menuDemo, &QAction::triggered, new Translator(), &Translator::TestJson);
 }
 
 void KFileEdtitor::funDemo()
@@ -48,9 +48,10 @@ void KFileEdtitor::funDemo()
     {
         auto a=translator->json;
         auto b= a->value("slsfac");
+        //qDebug() << b;
         auto c = b.toString();
         QString jLable = translator->json->value("slsfac").toString();
-        qDebug() << jLable;
+        //qDebug() << jLable;
     }
     
 }
@@ -111,10 +112,15 @@ void KFileEdtitor::treeViewDoubleClick()
         //! ÅäÖÃÖÐÎÄ
         if (translator != nullptr) 
         {
-            //QString jLable = (*(translator->json))[k].toString();
-            //QString jLable = translator->json->value(k).toString();
-            //label->setText(jLable);
-            label->setText(k);
+            QString jLable = translator->json->value(k).toString();
+            if (jLable != "")
+            {
+                label->setText(jLable);
+            }
+            else
+            {
+                label->setText(k);
+            }
         }
         else 
         {

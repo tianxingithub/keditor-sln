@@ -49,12 +49,13 @@ QJsonObject* Translator::readJson()
 	}
 
 	// 将JSON数据转换为对象
-	json = new QJsonObject(jsonDoc.object());
+	QJsonObject* re = new QJsonObject(jsonDoc.object());
 
 	// 读取对象中的数据
 
-	QString name2 = json->value("rwnpal").toString();
+	QString name2 = re->value("rwnpal").toString();
 	qDebug() << name2;
+	return re;
 }
 
 void Translator::TestJson()
