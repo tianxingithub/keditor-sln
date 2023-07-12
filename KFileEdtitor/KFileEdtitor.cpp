@@ -11,11 +11,11 @@ KFileEdtitor::KFileEdtitor(QWidget *parent)
     ui->setupUi(this);
 
     treeWidget = new TreeWidget(ui->centralWidget);
-    treeWidget->setMinimumSize(200, 400);
+    treeWidget->setMinimumSize(250, 600);
     ui->verticalLayout->addWidget(treeWidget);
 
     displayWidget = new DisplayWidget(ui->centralWidget);
-    displayWidget->setMinimumSize(400, 400);
+    displayWidget->setMinimumSize(600, 500);
 	ui->horizontalLayout->addWidget(displayWidget);
 
     fileRW = new ReadWrite();
@@ -97,13 +97,22 @@ void KFileEdtitor::treeViewDoubleClick()
     {
         QLabel* label = new QLabel(itemDialog);
         label->setText(k);
-        label->setGeometry((w + px) * (labelCount % 8) + 45, (h + py) * (labelCount / 8), w, h);
+        if (k.mid(0, 6) == "unused")
+        {
+            label->setGeometry((w + px) * (7 % 8) + 45, (h + py) * (labelCount / 8), w, h);
+        }
+        else
+        {
+            label->setGeometry((w + px) * (labelCount % 8) + 45, (h + py) * (labelCount / 8), w, h);
+        }
+        
         
         if (k.mid(0, 6) == "unused") 
         {
             QTextBrowser* value = new QTextBrowser(itemDialog);
 			value->setText(kv->value(k));
-			value->setGeometry((w + px) * (labelCount % 8) + 45, (h + py) * (labelCount / 8) + 35, w, h);
+            value->setAlignment(Qt::AlignCenter);
+			value->setGeometry((w + px) * (7 % 8) + 45, (h + py) * (labelCount / 8) + 35, w, h);
         }
         else
         {

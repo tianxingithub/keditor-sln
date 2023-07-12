@@ -22,4 +22,6 @@ private:
 public:
 	//! 显示文件控件
 	QTextBrowser* textDisplay;
+	//! 垂直布局
+	//QVBoxLayout* layout;
 };

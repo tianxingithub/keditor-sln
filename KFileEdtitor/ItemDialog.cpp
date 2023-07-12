@@ -1,5 +1,7 @@
 #include "ItemDialog.h"
 #include "qlayout.h"
+#include "QLabel"
+#include "QTextEdit"
 
 ItemDialog::ItemDialog(QWidget*parent)
 	: QDialog(parent)
@@ -24,6 +26,20 @@ ItemDialog::~ItemDialog()
 
 void ItemDialog::saveItem()
 {
+	//! 储存对话框里面的键值信息
+	QMap<QString, QString >* kv = new QMap<QString, QString>;
+	//! 遍历所有Label控件和TextEdit控件
+	QList<QLabel*> labelList = this->findChildren<QLabel*>();
+	QList<QTextEdit*> textEditList = this->findChildren<QTextEdit*>();
+	
+	//! 把键值信息写入到QMap中
+	for (int i = 0; i < labelList.size(); i++) 
+	{
+		kv->insert(labelList.at(i)->text(), textEditList.at(i)->toPlainText());
+	}
+	//! 把QMap传出去, 解析|判断是否合理
 
+	//! 关闭当前窗体
+	this->close();
 }
 

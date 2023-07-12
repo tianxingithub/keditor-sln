@@ -16,6 +16,7 @@ TreeWidget::TreeWidget(QWidget *parent)
 
 	QVBoxLayout* layout = new QVBoxLayout();
 	layout->addWidget(splitter);
+	layout->setContentsMargins(0, 0, 0, 0);
 	this->setLayout(layout);
 
 	initTree();
@@ -35,9 +36,7 @@ void TreeWidget::initTable()
 
 void TreeWidget::initTree()
 {
-
-
-	treeItem->setRootIsDecorated(false);
+		treeItem->setRootIsDecorated(false);
 	treeItem->setColumnCount(1);
 	treeItem->header()->setVisible(false);
 	// 创建根节点

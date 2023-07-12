@@ -75,7 +75,7 @@ Data* ReadWrite::readData(QString filepath, QTextBrowser* display)
 				QT_TRY{
 					itemOrder->append(key[i + 1]);
 					if(key[i + 1].mid(0,6)=="unused")
-						itemMap->insert(key[i + 1], "NONE");
+						itemMap->insert(key[i + 1], "NULL");
 					else
 						itemMap->insert(key[i + 1], value[i]);														
 				}

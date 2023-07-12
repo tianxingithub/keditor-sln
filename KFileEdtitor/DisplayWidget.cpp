@@ -8,10 +8,11 @@ DisplayWidget::DisplayWidget(QWidget *parent)
 	, ui(new Ui::DisplayWidgetClass())
 {
 	ui->setupUi(this);
-		
+	
 	textDisplay = new QTextBrowser();
 
-	this->setLayout(new QVBoxLayout);
+	//this->setLayout(new QVBoxLayout);
+	this->layout()->setContentsMargins(0, 0, 0, 0);
 	this->layout()->addWidget(textDisplay);
 	
 }
