@@ -19,7 +19,7 @@ class CustomTreeView : public QTreeWidget
 
 };
 
-
+//! 文件节点和节点属性
 class TreeWidget : public QWidget
 {
 	Q_OBJECT

@@ -9,6 +9,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class ItemWidgetClass; };
 QT_END_NAMESPACE
 
+//! 双击节点弹出的对话框
 class ItemDialog : public QDialog
 {
 	Q_OBJECT

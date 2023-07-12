@@ -8,6 +8,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class DisplayWidgetClass; };
 QT_END_NAMESPACE
 
+//! 文本显示的类
 class DisplayWidget : public QWidget
 {
 	Q_OBJECT

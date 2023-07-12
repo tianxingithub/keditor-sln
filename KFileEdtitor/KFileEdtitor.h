@@ -11,6 +11,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class KFileEdtitorClass; };
 QT_END_NAMESPACE
 
+//! 主界面类
 class KFileEdtitor : public QMainWindow
 {
     Q_OBJECT

@@ -1,6 +1,8 @@
 #pragma once
 #include "Data.h"
 #include "qtextbrowser.h"
+
+//! 读写解析文件类
 class ReadWrite
 {
 public:
