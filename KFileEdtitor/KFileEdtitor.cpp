@@ -165,9 +165,26 @@ void KFileEdtitor::treeViewDoubleClick()
     itemDialog->cacel->move(xx - 140, yy - 50);
     itemDialog->cacel->setVisible(true);
 
-
     itemDialog->show();
+
     //displayWidget->textDisplay->append("treeViewDoubleClick");
+}
+
+void KFileEdtitor::freshData()
+{
+    //! 对话框里面的数据
+    auto dialogData = itemDialog->getDialogData();
+    //! 对话框标题：Data的节点
+    QString k = itemDialog->windowTitle();
+    //! 得到原来的节点坡地
+    auto oldK = data->rootMap->value(k);
+    //! 更新地址
+    data->rootMap->insert(k, dialogData);
+    //! 释放原地址
+    delete oldK;
+
+    //! 更新修改后的属性
+    treeViewClick();
 }
 
 void KFileEdtitor::treeViewClick()

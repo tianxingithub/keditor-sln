@@ -4,6 +4,7 @@
 #include "ui_ItemWidget.h"
 #include "qpushbutton.h"
 #include "QDialog"
+#include "KFileEdtitor.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class ItemWidgetClass; };
@@ -24,7 +25,7 @@ public:
 
 public:
 	//! 得到对话框里面控件的信息
-	void saveItem();
+	QMap<QString, QString >* getDialogData();
 
 
 private:

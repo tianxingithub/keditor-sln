@@ -44,6 +44,8 @@ private:
 public:
 	//! 翻译json对象
     Translator* translator;
+	//! 获取对话框数据并更新
+	void freshData();
 
 private:
     //! 文件节点树

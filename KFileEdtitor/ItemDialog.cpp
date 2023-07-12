@@ -16,7 +16,8 @@ ItemDialog::ItemDialog(QWidget*parent)
 	cacel->move(300, 200);*/
 
 	ui->setupUi(this);
-	connect(this->save, &QPushButton::clicked, this, &ItemDialog::saveItem);
+	//connect(this->save, &QPushButton::clicked, this, &ItemDialog::getDialogData);
+	//connect(this->save, &QPushButton::clicked, new KFileEdtitor, &KFileEdtitor::freshData);
 	connect(this->cacel, &QPushButton::clicked, this, &QWidget::close);
 }
 
@@ -25,7 +26,7 @@ ItemDialog::~ItemDialog()
 	delete ui;
 }
 
-void ItemDialog::saveItem()
+QMap<QString, QString >* ItemDialog::getDialogData()
 {
 	//! 储存对话框里面的键值信息
 	QMap<QString, QString >* kv = new QMap<QString, QString>;
@@ -36,12 +37,17 @@ void ItemDialog::saveItem()
 	//! 把键值信息写入到QMap中
 	for (int i = 0; i < labelList.size(); i++) 
 	{
-		//qDebug() << labelList.at(i)->text();
 		kv->insert(labelList.at(i)->text(), textEditList.at(i)->toPlainText());
 	}
 	//! 把QMap传出去, 解析|判断是否合理
+	//! 树节点的值
+	QString title = this->windowTitle();
+	//qDebug() << title;
+	
 
 	//! 关闭当前窗体
 	this->close();
+
+	return kv;
 }
 
