@@ -23,6 +23,7 @@ public:
 	QPushButton* cacel;
 
 public:
+	//! 得到对话框里面控件的信息
 	void saveItem();
 
 

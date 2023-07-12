@@ -20,5 +20,6 @@ public:
 private:
 	Ui::DisplayWidgetClass *ui;
 public:
+	//! 显示文件控件
 	QTextBrowser* textDisplay;
 };

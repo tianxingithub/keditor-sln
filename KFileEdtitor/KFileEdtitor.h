@@ -22,10 +22,15 @@ public:
     void addPlot();
 
 private:
+    //! 得到解析后的数据
     void getData();
+    //! 显示文件的树节点信息
     void displayItem();
+    //! 双击树子节点弹出属性值
     void treeViewDoubleClick();
+    //! 在TableWidget里面显示属性
     void treeViewClick();
+    // 【测试用】
     void funDemo();
 
 private:
