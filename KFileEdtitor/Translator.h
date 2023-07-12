@@ -22,6 +22,9 @@ public:
 private:
 	//! ¶ÁÈ¡·­ÒëÎÄ¼ş
 	QJsonObject* readJson();
+
+public:
+	void TestJson();
 	
 };
 

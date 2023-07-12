@@ -19,6 +19,7 @@ KFileEdtitor::KFileEdtitor(QWidget *parent)
 	ui->horizontalLayout->addWidget(displayWidget);
 
     translator = nullptr;
+    translator = new Translator("E:/kTranslation.json");
 
     fileRW = new ReadWrite();
     data = nullptr;
@@ -41,8 +42,13 @@ void KFileEdtitor::addPlot()
 
 void KFileEdtitor::funDemo()
 {
-    translator =  new Translator("E:/kTranslation.json");
-
+    //translator =  new Translator("E:/kTranslation.json");
+    if (translator->json != nullptr)
+    {
+        QString jLable = translator->json->value("dfric").toString();
+        qDebug() << jLable;
+    }
+    
 }
 
 void KFileEdtitor::getData()
@@ -98,7 +104,17 @@ void KFileEdtitor::treeViewDoubleClick()
     for each (auto k in *attOrder)
     {
         QLabel* label = new QLabel(itemDialog);
-        label->setText(k);
+        if (translator != nullptr) 
+        {
+            //QString jLable = (*(translator->json))[k].toString();
+            //QString jLable = translator->json->value(k).toString();
+            //label->setText(jLable);
+            label->setText(k);
+        }
+        else 
+        {
+            label->setText(k);
+        }        
         if (k.mid(0, 6) == "unused")
         {
             label->setGeometry((w + px) * (7 % 8) + 45, (h + py) * (labelCount / 8), w, h);
