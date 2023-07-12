@@ -8,13 +8,6 @@ Translator::Translator(QString path = "")
 	json = readJson();
 
 	// 读取对象中的数据
-	if (json != nullptr)
-	{
-		//QString name = (*json)["slsfac"].toString();
-		//qDebug() << (*json)["slsfac"].toString();
-		qDebug() << "***************************";
-	}
-	
 	//QString name = (*json)["rwnpal"].toString();
 	//qDebug() << name2;
 	
@@ -61,7 +54,11 @@ QJsonObject* Translator::readJson()
 	// 读取对象中的数据
 
 	QString name2 = json->value("rwnpal").toString();
-	
-	// 打印读取的数据
+	qDebug() << name2;
+}
+
+void Translator::TestJson()
+{
+	QString name2 = json->value("rwnpal").toString();
 	qDebug() << name2;
 }

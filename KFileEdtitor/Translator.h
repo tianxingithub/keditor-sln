@@ -7,8 +7,9 @@
 #include "QIODevice"
 #include "QDebug"
 //! 文本翻译
-class Translator
+class Translator //: public QObject
 {
+	//Q_OBJECT
 public:
 	//! 存储翻译数据
 	QJsonObject* json;
@@ -17,6 +18,7 @@ public:
 
 public:
 	Translator(QString filepath);
+	Translator();
 	~Translator();
 
 private:
