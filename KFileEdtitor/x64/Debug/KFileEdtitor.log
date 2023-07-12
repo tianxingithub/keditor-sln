@@ -1,4 +1,6 @@
-﻿  KFileEdtitor.cpp
-  ReadWrite.cpp
+﻿  Translator.cpp
+  KFileEdtitor.cpp
+  main.cpp
+  moc_KFileEdtitor.cpp
   KFileEdtitor.vcxproj -> E:\Repository\KFileEdtitor\x64\Debug\KFileEdtitor.exe
   KFileEdtitor.vcxproj -> E:\Repository\KFileEdtitor\x64\Debug\KFileEdtitor.pdb (Full PDB)

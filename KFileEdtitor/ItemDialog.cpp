@@ -2,6 +2,7 @@
 #include "qlayout.h"
 #include "QLabel"
 #include "QTextEdit"
+#include "QDebug"
 
 ItemDialog::ItemDialog(QWidget*parent)
 	: QDialog(parent)
@@ -35,6 +36,7 @@ void ItemDialog::saveItem()
 	//! 把键值信息写入到QMap中
 	for (int i = 0; i < labelList.size(); i++) 
 	{
+		//qDebug() << labelList.at(i)->text();
 		kv->insert(labelList.at(i)->text(), textEditList.at(i)->toPlainText());
 	}
 	//! 把QMap传出去, 解析|判断是否合理

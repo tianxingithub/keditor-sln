@@ -6,6 +6,8 @@
 #include "DisplayWidget.h"
 #include "ReadWrite.h"
 #include "ItemDialog.h"
+#include "QJsonObject"
+#include "Translator.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class KFileEdtitorClass; };
@@ -30,6 +32,8 @@ private:
     void treeViewDoubleClick();
     //! 在TableWidget里面显示属性
     void treeViewClick();
+    
+
     // 【测试用】
     void funDemo();
 
@@ -38,11 +42,18 @@ private:
 
 
 public:
+	//! 翻译json对象
+    Translator* translator;
 
 private:
+    //! 文件节点树
     TreeWidget* treeWidget;
+    //! 文本内容
     DisplayWidget* displayWidget;
+    //! 弹出的对话框
     ItemDialog* itemDialog;
+    //! 读写文件
     ReadWrite* fileRW;
+    //! 读取的数据
     Data* data;
 };

@@ -93,6 +93,7 @@
     <ClCompile Include="DisplayWidget.cpp" />
     <ClCompile Include="ItemDialog.cpp" />
     <ClCompile Include="ReadWrite.cpp" />
+    <ClCompile Include="Translator.cpp" />
     <ClCompile Include="TreeWidget.cpp" />
     <ClCompile Include="Viewer.cpp" />
     <QtRcc Include="KFileEdtitor.qrc" />
@@ -114,6 +115,7 @@
     <ClInclude Include="Data.h" />
     <QtMoc Include="ItemDialog.h" />
     <ClInclude Include="ReadWrite.h" />
+    <ClInclude Include="Translator.h" />
     <ClInclude Include="Viewer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
