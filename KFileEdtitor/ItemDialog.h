@@ -21,10 +21,11 @@ public:
 public:
 	QPushButton* save;
 	QPushButton* cacel;
-
+	//! 对话框里面控件的QMap
+	QMap<QString, QString >* dialogData;
 public:
 	//! 得到对话框里面控件的信息
-	QMap<QString, QString >* getDialogData();
+	void getDialogData();
 
 
 private:

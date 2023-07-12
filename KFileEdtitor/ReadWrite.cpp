@@ -42,6 +42,7 @@ Data* ReadWrite::readData(QString filepath, QTextBrowser* display)
 			if (str == "*NODE" || str == "*ELEMENT_SOLID" || str == "*KEYWORD" || str == "*PARAMETER_DUPLICATION" || str == "*END")
 				continue;
 			display->append(str);
+			//! Ìí¼ÓÊ÷½ÚµãË³Ğò
 			re->rootOrder->append(str);
 			str = str.simplified();
 			kItem = str;

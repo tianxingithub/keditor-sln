@@ -12,12 +12,12 @@ ItemDialog::ItemDialog(QWidget*parent)
 	cacel = new QPushButton(u8"取消", this);
 	save->setVisible(false);
 	cacel->setVisible(false);
-	/*save->move(200, 200);
-	cacel->move(300, 200);*/
+	
+	dialogData = nullptr;
 
 	ui->setupUi(this);
-	//connect(this->save, &QPushButton::clicked, this, &ItemDialog::getDialogData);
-	//connect(this->save, &QPushButton::clicked, new KFileEdtitor, &KFileEdtitor::freshData);
+	connect(this->save, &QPushButton::clicked, this, &ItemDialog::getDialogData);
+	//connect(this->save, &QPushButton::clicked, new KFileEdtitor(), &KFileEdtitor::freshData);
 	connect(this->cacel, &QPushButton::clicked, this, &QWidget::close);
 }
 
@@ -26,7 +26,7 @@ ItemDialog::~ItemDialog()
 	delete ui;
 }
 
-QMap<QString, QString >* ItemDialog::getDialogData()
+void ItemDialog::getDialogData()
 {
 	//! 储存对话框里面的键值信息
 	QMap<QString, QString >* kv = new QMap<QString, QString>;
@@ -48,6 +48,6 @@ QMap<QString, QString >* ItemDialog::getDialogData()
 	//! 关闭当前窗体
 	this->close();
 
-	return kv;
+	dialogData = kv;
 }
 

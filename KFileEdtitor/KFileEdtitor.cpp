@@ -38,8 +38,10 @@ void KFileEdtitor::addPlot()
     connect(ui->actionOpen, &QAction::triggered, this, &KFileEdtitor::getData);
     connect(treeWidget->treeItem, &QTreeWidget::doubleClicked, this, &KFileEdtitor::treeViewDoubleClick);
     connect(treeWidget->treeItem, &QTreeWidget::clicked, this, &KFileEdtitor::treeViewClick);
-    connect(ui->menuDemo, &QAction::triggered, this, &KFileEdtitor::funDemo);
+    connect(ui->menuDemo, &QAction::triggered, this, &KFileEdtitor::freshData);
     //connect(ui->menuDemo, &QAction::triggered, new Translator(), &Translator::TestJson);
+
+
 }
 
 void KFileEdtitor::funDemo()
@@ -167,22 +169,43 @@ void KFileEdtitor::treeViewDoubleClick()
     itemDialog->cacel->setVisible(true);
 
     itemDialog->show();
-
-    //displayWidget->textDisplay->append("treeViewDoubleClick");
+    //freshData();
+    //displayWidget->textDisplay->append("freshData()");
 }
 
 void KFileEdtitor::freshData()
 {
+    
+    //displayWidget->textDisplay->append("freshData()");
+    
+    if (itemDialog == nullptr)
+    {
+        displayWidget->textDisplay->append("itemDialog = nullptr");
+        return;
+    }
     //! 对话框里面的数据
-    auto dialogData = itemDialog->getDialogData();
+    auto diaData = itemDialog->dialogData;   
+    if (diaData == nullptr)
+    {
+        displayWidget->textDisplay->append("diaData = nullptr");
+        return;
+    }
     //! 对话框标题：Data的节点
     QString k = itemDialog->windowTitle();
     //! 得到原来的节点坡地
     auto oldK = data->rootMap->value(k);
     //! 更新地址
-    data->rootMap->insert(k, dialogData); 
+    data->rootMap->insert(k, diaData); 
     //! 释放原地址
     //delete oldK;
+
+    //! 遍历diaData的kv
+    //auto it = diaData->begin();
+    auto it = data->rootMap->value(k)->begin();
+    while (it != diaData->end()) {
+        displayWidget->textDisplay->append(it.key() + " " + it.value());
+        it++;
+    }
 
     //! 更新修改后的属性
     treeViewClick();
@@ -190,12 +213,14 @@ void KFileEdtitor::freshData()
 
 void KFileEdtitor::treeViewClick()
 {
+    //displayWidget->textDisplay->append("treeViewClick()");
     if (this->data == nullptr)
         return;
 
-    //treeWidget->itemAttr->clearContents(); // 清除所有单元格的内容
     //! 得到当前点击的键
     QTreeWidgetItem* item = treeWidget->treeItem->currentItem();
+    if (item->text(0) == u8"激活能量数值")
+        return;
 
     /* 创建数据模型 */
     QStandardItemModel* model = new QStandardItemModel();
@@ -213,7 +238,9 @@ void KFileEdtitor::treeViewClick()
     QMap<QString, QString >* itemValue = nullptr;
     QList<QString >* valueOrder = nullptr;
 
-    itemValue = data->rootMap->value('*'+item->text(0));  // nullptr
+    auto a = item->text(0);
+    auto b = data->rootMap;
+    itemValue = data->rootMap->value('*' + item->text(0));  // nullptr
     valueOrder = data->order->value('*' + item->text(0));
 
     if (itemValue == nullptr || valueOrder == nullptr)
