@@ -1,7 +1,8 @@
-#include "ReadWrite.h"
+ï»¿#include "ReadWrite.h"
 #include "QFile"
 #include "qtextstream.h"
 #include "qtextbrowser.h"
+#include "QDebug"
 
 ReadWrite::ReadWrite()
 {
@@ -22,39 +23,39 @@ Data* ReadWrite::readData(QString filepath, QTextBrowser* display)
 		return nullptr;
 
 	QTextStream in(&file);
-	QString kItem; //! ÉÏÒ»¸öÑ¡Ïî¿¨Ãû×Ö
-	QMap<QString, QString>* itemMap; //! ½ÚµãµÄÊôĞÔĞÅÏ¢
-	QList<QString>* itemOrder; //! ½ÚµãÊôĞÔµÄË³Ğò
+	QString kItem; //! ä¸Šä¸€ä¸ªé€‰é¡¹å¡åå­—
+	QMap<QString, QString>* itemMap; //! èŠ‚ç‚¹çš„å±æ€§ä¿¡æ¯
+	QList<QString>* itemOrder; //! èŠ‚ç‚¹å±æ€§çš„é¡ºåº
 
-	//! °´ĞĞ¶ÁÈ¡ÎÄ¼ş
+	//! æŒ‰è¡Œè¯»å–æ–‡ä»¶
 	while (!in.atEnd()) 
 	{
 		QByteArray line = file.readLine();		
 		QString str(line);		
 		str.remove("\n");
 		//display->append(str);
-		//! ½«ÄÚÈİÏÔÊ¾µ½QTextÉÏÃæ
-		//! ÏÔÊ¾ËùÓĞÄÚÈİ»¹ÊÇ¿ÉÖ»ÏÔÊ¾Ñ¡Ïî¿¨ÄÚÈİ
+		//! å°†å†…å®¹æ˜¾ç¤ºåˆ°QTextä¸Šé¢
+		//! æ˜¾ç¤ºæ‰€æœ‰å†…å®¹è¿˜æ˜¯å¯åªæ˜¾ç¤ºé€‰é¡¹å¡å†…å®¹
 		
-		//! ÅĞ¶ÏÑ¡Ïî¿¨
+		//! åˆ¤æ–­é€‰é¡¹å¡
 		if (str.at(0) == '*') 
 		{
 			if (str == "*NODE" || str == "*ELEMENT_SOLID" || str == "*KEYWORD" || str == "*PARAMETER_DUPLICATION" || str == "*END")
 				continue;
 			display->append(str);
-			//! Ìí¼ÓÊ÷½ÚµãË³Ğò
-			re->rootOrder->append(str);
+			//! æ·»åŠ æ ‘èŠ‚ç‚¹é¡ºåº
+			re->rootOrder->append(str.mid(1));
 			str = str.simplified();
 			kItem = str.mid(1);
 			itemMap = new QMap<QString, QString>();
 			itemOrder = new QList<QString>();
 		}
-		//! Ìí¼ÓÑ¡Ïî¿¨ÊôĞÔÖµ
+		//! æ·»åŠ é€‰é¡¹å¡å±æ€§å€¼
 		else if (str.at(0) == '$' && str.at(1) != '#') 
 		{
 			display->append(str);
 			str = str.simplified();
-			QStringList key = str.split(" "); // ÏÂ±ê1¿ªÊ¼£¬×îºóÒ»¸öÎªunusedÒª¶ªÆú
+			QStringList key = str.split(" "); // ä¸‹æ ‡1å¼€å§‹ï¼Œæœ€åä¸€ä¸ªä¸ºunusedè¦ä¸¢å¼ƒ
 			
 			int len = key.length();
 			/*if (key[len - 1].mid(0, 6) == "unused")
@@ -62,14 +63,14 @@ Data* ReadWrite::readData(QString filepath, QTextBrowser* display)
 				--len;
 			}*/
 			
-			line = file.readLine(); // ÊôĞÔµÄÖµ ÏÂ±ê0¿ªÊ¼
+			line = file.readLine(); // å±æ€§çš„å€¼ ä¸‹æ ‡0å¼€å§‹
 			
 			QString strvalue(line);			
 			strvalue.remove("\n");
 			display->append(strvalue);
 			strvalue = strvalue.simplified();
 			
-			QStringList value = strvalue.split(" "); // ÏÂ±ê0¿ªÊ¼
+			QStringList value = strvalue.split(" "); // ä¸‹æ ‡0å¼€å§‹
 
 			for (int i = 0; i < len - 1; i++)
 			{
@@ -77,7 +78,7 @@ Data* ReadWrite::readData(QString filepath, QTextBrowser* display)
 				{
 					itemOrder->append(key[i + 1]);
 					if(key[i + 1].mid(0,6)=="unused")
-						itemMap->insert(key[i + 1], "NULL");
+						itemMap->insert(key[i + 1], "");
 					else
 						itemMap->insert(key[i + 1], value[i]);														
 				}
@@ -96,7 +97,81 @@ Data* ReadWrite::readData(QString filepath, QTextBrowser* display)
 	return re;
 }
 
-void ReadWrite::writeData(QString filepath)
+void ReadWrite::writeData(QString filepath, Data* data)
 {
+	QFile f(filepath);
+	if (!f.open(QIODevice::WriteOnly | QIODevice::Text))
+	{
+		qDebug() << u8"æ‰“å¼€æ–‡ä»¶å¤±è´¥";
+		return;
+	}
+	QTextStream txtOutput(&f);
 
+	//! æ ‘èŠ‚ç‚¹é¡ºåº
+	auto node1 = data->rootOrder;
+	
+	//! å¼€å§‹éå†æ ‘èŠ‚ç‚¹
+	for (auto n1 : *node1)
+	{
+		txtOutput << "*"+n1 << endl;
+
+		//! å¾—åˆ°æ ‘èŠ‚ç‚¹mapçš„é¡ºåº
+		auto node2 = data->order->value(n1);
+		//! å¾—åˆ°æ ‘èŠ‚ç‚¹çš„map
+		auto node2Map = data->rootMap->value(n1);
+		
+		//! æ ¼å¼åŒ–è¾“å‡ºèŠ‚ç‚¹å±æ€§
+		int kindex = 1; // å‡†å¤‡å†™å…¥ç¬¬å‡ ä¸ªå±æ€§
+		QList<QString>write; // æ¯ä¸€æ’å·²ç»å†™å…¥çš„æ•°æ®
+		for (auto n2 : *node2) // éå†å±æ€§çš„é”®
+		{		
+			
+			if (kindex%8 == 1) // å±æ€§çš„ç¬¬ä¸€ä¸ªå‰é¢æœ‰$
+			{
+				txtOutput << "$"<<n2.rightJustified(9, ' '); //arg("",9, QLatin1Char(' ')); ///rightJustified(9, ' ');
+				write.append(n2);
+				kindex++;
+			}
+			else if(n2.mid(0,6)=="unused") // ä¸€æ’å±æ€§æ²¡æœ‰8ä¸ªç”¨unusedå¡«å……
+			{
+				auto les = 8 - (kindex % 8) + 1;
+				txtOutput << n2.rightJustified(les * 10, ' '); //arg("", (les +1)*10, QLatin1Char(' '));
+				kindex = 9;				
+			}
+			else
+			{
+				txtOutput <<  n2.rightJustified(10,  ' '); //arg("", (kindex%8)*10, QLatin1Char(' '));
+				write.append(n2);
+				kindex++;
+			}
+			if (kindex % 9 == 0)
+			{	
+				txtOutput << endl;
+				int vindex = 1;
+				for (auto w : write)
+				{
+					if (w.mid(0, 6) == "unused")
+					{
+						auto les = 8 - (vindex % 8) + 1;
+						txtOutput << QString("â£â£â£â£ã€€").rightJustified(les * 10, ' '); //arg("", (les + 1) * 10, QLatin1Char(' '));
+						vindex++;
+					}
+					else
+					{
+						txtOutput << node2Map->value(w).rightJustified(10, ' '); //arg("", (vindex%8)*10, QLatin1Char(' '));
+						vindex++;
+					}
+				}
+				txtOutput << endl;
+				write.clear();
+			}
+		}
+	}
+		
+		
+
+
+
+
+	f.close();
 }

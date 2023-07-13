@@ -36,9 +36,11 @@ KFileEdtitor::~KFileEdtitor()
 void KFileEdtitor::addPlot()
 {
     connect(ui->actionOpen, &QAction::triggered, this, &KFileEdtitor::getData);
+    connect(ui->actionSave, &QAction::triggered, this, &KFileEdtitor::exportData);
     connect(treeWidget->treeItem, &QTreeWidget::doubleClicked, this, &KFileEdtitor::treeViewDoubleClick);
     connect(treeWidget->treeItem, &QTreeWidget::clicked, this, &KFileEdtitor::treeViewClick);
-    connect(ui->menuDemo, &QAction::triggered, this, &KFileEdtitor::freshData);
+    connect(ui->menuDemo, &QAction::triggered, this, &KFileEdtitor::funDemo);
+    //connect(ui->menuDemo, &QAction::triggered, new ReadWrite(), &ReadWrite::fileTest);
     //connect(ui->menuDemo, &QAction::triggered, new Translator(), &Translator::TestJson);
 
 
@@ -46,23 +48,17 @@ void KFileEdtitor::addPlot()
 
 void KFileEdtitor::funDemo()
 {
-    //translator =  new Translator("E:/kTranslation.json");
-    if (translator->json != nullptr)
-    {
-        auto a=translator->json;
-        auto b= a->value("slsfac");
-        //qDebug() << b;
-        auto c = b.toString();
-        QString jLable = translator->json->value("slsfac").toString();
-        //qDebug() << jLable;
-    }
+    QString str = "Hello";
+    QString alignedStr = str.rightJustified(10, ' ');
+
+    displayWidget->textDisplay->append("@"+ str.rightJustified(10, ' ')); // 输出结果为 "     Hello"
     
 }
 
 void KFileEdtitor::getData()
 {
     QString filepath = QFileDialog::getOpenFileName(// 正常加载
-        this, "open k file",
+        this, u8"打开K文件",
         ".",
         "k files (*.k);;All files (*.*)");
     if (filepath == nullptr)
@@ -74,6 +70,17 @@ void KFileEdtitor::getData()
     displayItem();
 }
 
+void KFileEdtitor::exportData()
+{
+    if (data == nullptr)
+        return;
+    QString filepath = QFileDialog::getSaveFileName(this, u8"保存K文件",
+        ".",
+        "k files (*.k);;all files(*.*)");
+    fileRW->writeData(filepath,data);
+
+}
+
 void KFileEdtitor::displayItem()
 {
     treeWidget->treeItem->setRootIsDecorated(false);
@@ -81,7 +88,7 @@ void KFileEdtitor::displayItem()
     {
         QTreeWidgetItem* childItem1 = new QTreeWidgetItem(treeWidget->root);
         childItem1->setIcon(0, QIcon("E:/Logo/sec.png"));
-        childItem1->setText(0, s.mid(1));
+        childItem1->setText(0, s);
     }
     treeWidget->treeItem->expandAll();  // 展开所有节点
 }
@@ -89,7 +96,7 @@ void KFileEdtitor::displayItem()
 void KFileEdtitor::treeViewDoubleClick()
 {
     showDialog();
-    freshData();
+    //freshData();
 }
 
 void KFileEdtitor::showDialog()
@@ -239,7 +246,7 @@ void KFileEdtitor::treeViewClick()
     QTreeWidgetItem* item = treeWidget->treeItem->currentItem();
     if (item->text(0) == u8"激活能量数值")
         return;
-    freshData();
+    //freshData();
 
     /* 创建数据模型 */
     QStandardItemModel* model = new QStandardItemModel();

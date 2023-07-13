@@ -36,7 +36,7 @@ void TreeWidget::initTable()
 
 void TreeWidget::initTree()
 {
-		treeItem->setRootIsDecorated(false);
+	treeItem->setRootIsDecorated(false);
 	treeItem->setColumnCount(1);
 	treeItem->header()->setVisible(false);
 	// 创建根节点

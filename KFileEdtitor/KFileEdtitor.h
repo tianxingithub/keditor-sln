@@ -48,6 +48,8 @@ public:
 	void freshData();
     //! 弹出数据
     void showDialog();
+    //! 导出数据
+    void exportData();
 
 private:
     //! 文件节点树
