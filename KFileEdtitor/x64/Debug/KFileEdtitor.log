@@ -1,4 +1,2 @@
-﻿  ReadWrite.cpp
-ReadWrite.cpp(156): warning C4566: 由通用字符名称“\u2063”表示的字符不能在当前代码页(936)中表示出来
-  KFileEdtitor.vcxproj -> E:\Repository\KFileEdtitor\x64\Debug\KFileEdtitor.exe
+﻿  KFileEdtitor.vcxproj -> E:\Repository\KFileEdtitor\x64\Debug\KFileEdtitor.exe
   KFileEdtitor.vcxproj -> E:\Repository\KFileEdtitor\x64\Debug\KFileEdtitor.pdb (Full PDB)

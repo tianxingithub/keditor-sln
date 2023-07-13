@@ -134,8 +134,8 @@ void ReadWrite::writeData(QString filepath, Data* data)
 			}
 			else if(n2.mid(0,6)=="unused") // 一排属性没有8个用unused填充
 			{
-				auto les = 8 - (kindex % 8) + 1;
-				txtOutput << n2.rightJustified(les * 10, ' '); //arg("", (les +1)*10, QLatin1Char(' '));
+				auto les = (8 - (kindex % 8) + 1);
+				txtOutput << n2.rightJustified(les % 8 * 10, ' '); //arg("", (les +1)*10, QLatin1Char(' '));
 				kindex = 9;				
 			}
 			else
@@ -164,6 +164,7 @@ void ReadWrite::writeData(QString filepath, Data* data)
 				}
 				txtOutput << endl;
 				write.clear();
+				kindex = 1;
 			}
 		}
 	}
