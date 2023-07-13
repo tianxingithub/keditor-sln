@@ -6,6 +6,7 @@ ReadThread::ReadThread(QString f, QTextBrowser* d)
 	filepath = f;
 	display = d;
 	data = nullptr;
+	ready = false;
 }
 
 void ReadThread::run()
@@ -87,6 +88,7 @@ void ReadThread::run()
 			re->order->insert(kItem, itemOrder);
 		}
 	}
+	ready = true;
 	this->data = re;
 
 	file.close();

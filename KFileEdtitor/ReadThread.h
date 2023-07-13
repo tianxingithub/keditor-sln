@@ -12,6 +12,7 @@ public:
     Data* data;
     QString filepath;
     QTextBrowser* display;
+    bool ready;
     ReadThread(QString filepath, QTextBrowser* display);
 public:
     void run() override;

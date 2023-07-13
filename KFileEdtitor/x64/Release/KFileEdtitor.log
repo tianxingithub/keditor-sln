@@ -1,0 +1,40 @@
+﻿  moc KFileEdtitor.h
+  moc TreeWidget.h
+  moc DisplayWidget.h
+  moc ItemDialog.h
+cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
+cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
+  Data.cpp
+cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
+  DisplayWidget.cpp
+cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
+  ItemDialog.cpp
+cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
+cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
+  ReadThread.cpp
+cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
+cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
+cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
+cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
+  ReadWrite.cpp
+  Translator.cpp
+  TreeWidget.cpp
+  Viewer.cpp
+  KFileEdtitor.cpp
+cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
+  main.cpp
+ReadWrite.cpp(87): warning C4566: 由通用字符名称“\u2063”表示的字符不能在当前代码页(936)中表示出来
+cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
+cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
+  qrc_KFileEdtitor.cpp
+cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
+  moc_ReadThread.cpp
+cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
+cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
+cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
+  moc_KFileEdtitor.cpp
+  moc_TreeWidget.cpp
+  moc_DisplayWidget.cpp
+cl : 命令行 warning D9002: 忽略未知选项“-Zc:__cplusplus”
+  moc_ItemDialog.cpp
+  KFileEdtitor.vcxproj -> E:\Repository\KFileEdtitor\x64\Release\KFileEdtitor.exe
