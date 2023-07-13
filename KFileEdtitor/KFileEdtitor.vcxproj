@@ -92,6 +92,7 @@
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="DisplayWidget.cpp" />
     <ClCompile Include="ItemDialog.cpp" />
+    <ClCompile Include="ReadThread.cpp" />
     <ClCompile Include="ReadWrite.cpp" />
     <ClCompile Include="Translator.cpp" />
     <ClCompile Include="TreeWidget.cpp" />
@@ -114,6 +115,7 @@
   <ItemGroup>
     <ClInclude Include="Data.h" />
     <QtMoc Include="ItemDialog.h" />
+    <QtMoc Include="ReadThread.h" />
     <ClInclude Include="ReadWrite.h" />
     <ClInclude Include="Translator.h" />
     <ClInclude Include="Viewer.h" />
