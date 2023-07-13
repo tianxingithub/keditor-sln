@@ -28,7 +28,7 @@ Data* ReadWrite::readData(QString filepath, QTextBrowser* display)
 	return re;
 }
 
-void ReadWrite::writeData(QString filepath, Data* data)
+void ReadWrite::writeDataRoot(QString filepath, Data* data)
 {
 	QFile f(filepath);
 	if (!f.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -99,11 +99,49 @@ void ReadWrite::writeData(QString filepath, Data* data)
 			}
 		}
 	}
-		
-		
-
-
-
-
 	f.close();
+}
+
+void ReadWrite::writeData(QString filepath, Data* data)
+{
+	QFile ofile(filepath);
+	if (!ofile.open(QIODevice::WriteOnly | QIODevice::Text))
+	{
+		qDebug() << u8"创建文件失败";
+		return;
+	}
+	QFile ifile(filepath);
+	if (!ifile.open(QIODevice::ReadOnly | QIODevice::Text))
+	{
+		qDebug() << u8"导出时读取原始文件失败";
+		return;
+		//return nullptr;
+	}
+
+	QTextStream in(&ifile);
+	while (!in.atEnd()) //! 按行读取文件
+	{
+		QByteArray line = ifile.readLine();
+		QString str(line);
+		if (str.at(0) == '*')
+		{
+			if (str == "*NODE" || str == "*ELEMENT_SOLID" || str == "*KEYWORD" || str == "*PARAMETER_DUPLICATION" || str == "*END")
+			{
+				// 把读取的写进输出文件
+
+			}
+			
+		}
+	}
+
+
+
+
+
+
+
+
+
+	ofile.close();
+	ifile.close();
 }

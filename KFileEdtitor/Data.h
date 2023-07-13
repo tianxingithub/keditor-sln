@@ -18,6 +18,9 @@ public:
 	//! 树节点属性的顺序
 	QMap<QString , QList<QString >*>* order;
 
+	//! 打开的文件名称
+	QString filename;
+
 public:
 	//<QString, QMap<QString, QString >*>* getRootMap
 };

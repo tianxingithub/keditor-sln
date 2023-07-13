@@ -64,8 +64,9 @@ void KFileEdtitor::getData()
     if (filepath == nullptr)
         return;
     
-    this->data = fileRW->readData(filepath, displayWidget->textDisplay);
     
+    this->data = fileRW->readData(filepath, displayWidget->textDisplay);
+    this->data->filename = filepath;
     //displayWidget->textDisplay->append(filepath);
     displayItem();
 }
@@ -77,7 +78,7 @@ void KFileEdtitor::exportData()
     QString filepath = QFileDialog::getSaveFileName(this, u8"保存K文件",
         ".",
         "k files (*.k);;all files(*.*)");
-    fileRW->writeData(filepath,data);
+    fileRW->writeDataRoot(filepath,data);
 
 }
 
@@ -194,14 +195,14 @@ void KFileEdtitor::freshData()
 
     if (itemDialog == nullptr)
     {
-        displayWidget->textDisplay->append("itemDialog = nullptr");
+        //displayWidget->textDisplay->append("itemDialog = nullptr");
         return;
     }
     //! 对话框里面的数据
     auto diaData = itemDialog->dialogData;
     if (diaData == nullptr)
     {
-        displayWidget->textDisplay->append("diaData = nullptr");
+        //displayWidget->textDisplay->append("diaData = nullptr");
         return;
     }
     //! 对话框标题：Data的节点
@@ -246,7 +247,7 @@ void KFileEdtitor::treeViewClick()
     QTreeWidgetItem* item = treeWidget->treeItem->currentItem();
     if (item->text(0) == u8"激活能量数值")
         return;
-    //freshData();
+    freshData();
 
     /* 创建数据模型 */
     QStandardItemModel* model = new QStandardItemModel();

@@ -30,7 +30,7 @@ void ReadThread::run()
 		QByteArray line = file.readLine();
 		QString str(line);
 		str.remove("\n");
-		//display->append(str);
+		//display->append(str); // 与42互斥
 		//! 将内容显示到QText上面
 		//! 显示所有内容还是可只显示选项卡内容
 
@@ -74,19 +74,27 @@ void ReadThread::run()
 				QT_TRY
 				{
 					itemOrder->append(key[i + 1]);
-					if (key[i + 1].mid(0,6) == "unused")
+					if (key[i + 1].mid(0, 6) == "unused")
+					{
 						itemMap->insert(key[i + 1], "");
+						// 抛出异常
+						throw "Exception occurred";
+					}						
 					else
+					{
 						itemMap->insert(key[i + 1], value[i]);
+					}						
 				}
-					QT_CATCH(...)
+				QT_CATCH(const char* ex)
 				{
-
+					// 捕获并处理异常
+					qDebug() << "Exception caught:" << ex;
 				}
 			}
 			re->rootMap->insert(kItem, itemMap);
 			re->order->insert(kItem, itemOrder);
 		}
+		
 	}
 	ready = true;
 	this->data = re;
