@@ -5,12 +5,7 @@ Translator::Translator(QString path)
 {
 	filepath = path;
 	json = nullptr;
-	json = readJson();
-
-	// 读取对象中的数据
-	//QString name = (*json)["rwnpal"].toString();
-	//qDebug() << name2;
-	
+	json = readJson();	
 }
 
 QJsonObject* Translator::readJson()
@@ -58,8 +53,7 @@ QJsonObject* Translator::readJson()
 	return re;
 }
 
-void Translator::TestJson()
+void Translator::testSlots()
 {
-	QString name2 = json->value("rwnpal").toString();
-	qDebug() << name2;
+	qDebug() << "******************************testSlots********************************";
 }

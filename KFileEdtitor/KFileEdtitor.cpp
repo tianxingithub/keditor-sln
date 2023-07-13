@@ -39,9 +39,10 @@ void KFileEdtitor::addPlot()
     connect(ui->actionSave, &QAction::triggered, this, &KFileEdtitor::exportData);
     connect(treeWidget->treeItem, &QTreeWidget::doubleClicked, this, &KFileEdtitor::treeViewDoubleClick);
     connect(treeWidget->treeItem, &QTreeWidget::clicked, this, &KFileEdtitor::treeViewClick);
-    connect(ui->menuDemo, &QAction::triggered, this, &KFileEdtitor::funDemo);
-    //connect(ui->menuDemo, &QAction::triggered, new ReadWrite(), &ReadWrite::fileTest);
-    //connect(ui->menuDemo, &QAction::triggered, new Translator(), &Translator::TestJson);
+
+    //connect(ui->menuDemo, &QAction::triggered, this, &KFileEdtitor::funDemo);
+    //connect(ui->menuDemo, &QAction::triggered, new Translator(), &Translator::testSlots); // ÕýÈ·
+    connect(ui->menuDemo, &QAction::triggered, new ReadWrite(), &ReadWrite::testSlots);
 
 
 }
@@ -66,9 +67,9 @@ void KFileEdtitor::getData()
     
     
     this->data = fileRW->readData(filepath, displayWidget->textDisplay);
-    this->data->filename = filepath;
+    //this->data->filename = filepath;
     //displayWidget->textDisplay->append(filepath);
-    displayItem();
+    //displayItem();
 }
 
 void KFileEdtitor::exportData()

@@ -96,6 +96,7 @@ void ReadThread::run()
 		}
 		
 	}
+
 	ready = true;
 	this->data = re;
 

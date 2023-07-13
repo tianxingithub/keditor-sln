@@ -7,7 +7,7 @@
 #include "QIODevice"
 #include "QDebug"
 //! 文本翻译
-class Translator //: public QObject
+class Translator : public QObject
 {
 	//Q_OBJECT
 public:
@@ -23,8 +23,8 @@ private:
 	//! 读取翻译文件
 	QJsonObject* readJson();
 
-public slots:
-	void TestJson();
+public slots: //slots可要可不要
+	void testSlots();
 	
 };
 

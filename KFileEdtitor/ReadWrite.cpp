@@ -18,13 +18,11 @@ ReadWrite::~ReadWrite()
 Data* ReadWrite::readData(QString filepath, QTextBrowser* display)
 {
 	ReadThread* readthread = new ReadThread(filepath, display);
-	readthread->run();
-	Data* re = nullptr;
-	if (readthread->ready)
-	{
-		re = readthread->data;
-	}	
+	readthread->start();
+	connect(readthread, &QThread::finished, this, &ReadWrite::testSlots);
 
+
+	Data* re = nullptr;
 	return re;
 }
 
@@ -144,4 +142,16 @@ void ReadWrite::writeData(QString filepath, Data* data)
 
 	ofile.close();
 	ifile.close();
+}
+
+void ReadWrite::testSlots()
+{
+	auto obj = dynamic_cast<ReadThread*>(sender());
+	if (obj)
+	{
+		auto re = obj->data;
+	}
+	
+	
+	qDebug() << "*****************ReadWrite::testSlots*************";
 }

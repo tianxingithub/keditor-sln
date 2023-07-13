@@ -4,7 +4,7 @@
 
 
 //! 读写解析文件类
-class ReadWrite
+class ReadWrite : public QObject
 {
 	//Q_OBJECT
 public:
@@ -22,9 +22,6 @@ public slots:
 	void writeData(QString filepath, Data* data);
 
 	//! 测试
-	void fileTest() {
-		int i = 1;
-
-	}
+	void testSlots();
 };
 
