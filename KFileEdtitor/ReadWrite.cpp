@@ -4,6 +4,7 @@
 #include "qtextbrowser.h"
 #include "QDebug"
 #include "ReadThread.h"
+#include "KFileEdtitor.h"
 
 ReadWrite::ReadWrite()
 {
@@ -20,7 +21,7 @@ Data* ReadWrite::readData(QString filepath, QTextBrowser* display)
 	ReadThread* readthread = new ReadThread(filepath, display);
 	readthread->run();
 	//readthread->start();
-	//connect(readthread, &QThread::finished, this, &ReadWrite::testSlots);
+	connect(readthread, &QThread::finished, new KFileEdtitor(), &KFileEdtitor::displayItem);
 
 
 	//Data* re = nullptr;
@@ -50,32 +51,35 @@ void ReadWrite::writeDataRoot(QString filepath, Data* data)
 		auto node2 = data->order->value(n1);
 		//! 得到树节点的map
 		auto node2Map = data->rootMap->value(n1);
+		if(node2==nullptr|| node2Map==nullptr)
+			continue;
 		
 		//! 格式化输出节点属性
 		int kindex = 1; // 准备写入第几个属性
 		QList<QString>write; // 每一排已经写入的数据
+		int space = 10; // 一个属性占多少位
+		int endcount = 8; // 满多少个换行
 		for (auto n2 : *node2) // 遍历属性的键
-		{		
-			
+		{					
 			if (kindex%8 == 1) // 属性的第一个前面有$
 			{
-				txtOutput << "$"<<n2.rightJustified(9, ' '); //arg("",9, QLatin1Char(' ')); ///rightJustified(9, ' ');
+				txtOutput << "$"<<n2.rightJustified(space-1, ' '); //arg("",9, QLatin1Char(' ')); ///rightJustified(9, ' ');
 				write.append(n2);
 				kindex++;
 			}
 			else if(n2.mid(0,6)=="unused") // 一排属性没有8个用unused填充
 			{
-				auto les = (8 - (kindex % 8) + 1);
-				txtOutput << n2.rightJustified(les % 8 * 10, ' '); //arg("", (les +1)*10, QLatin1Char(' '));
-				kindex = 9;				
+				auto les = (endcount - (kindex % endcount) + 1);
+				txtOutput << n2.rightJustified(les % endcount * space, ' '); //arg("", (les +1)*10, QLatin1Char(' '));
+				kindex = endcount+1;
 			}
 			else
 			{
-				txtOutput <<  n2.rightJustified(10,  ' '); //arg("", (kindex%8)*10, QLatin1Char(' '));
+				txtOutput <<  n2.rightJustified(space,  ' '); //arg("", (kindex%8)*10, QLatin1Char(' '));
 				write.append(n2);
 				kindex++;
 			}
-			if (kindex % 9 == 0)
+			if (kindex % (endcount+1) == 0)
 			{	
 				txtOutput << endl;
 				int vindex = 1;
@@ -83,13 +87,13 @@ void ReadWrite::writeDataRoot(QString filepath, Data* data)
 				{
 					if (w.mid(0, 6) == "unused")
 					{
-						auto les = 8 - (vindex % 8) + 1;
-						txtOutput << QString("⁣⁣⁣⁣　").rightJustified(les * 10, ' '); //arg("", (les + 1) * 10, QLatin1Char(' '));
+						auto les = endcount - (vindex % endcount) + 1;
+						txtOutput << QString("⁣⁣⁣⁣　").rightJustified(les * space, ' '); //arg("", (les + 1) * 10, QLatin1Char(' '));
 						vindex++;
 					}
 					else
 					{
-						txtOutput << node2Map->value(w).rightJustified(10, ' '); //arg("", (vindex%8)*10, QLatin1Char(' '));
+						txtOutput << node2Map->value(w).rightJustified(space, ' '); //arg("", (vindex%8)*10, QLatin1Char(' '));
 						vindex++;
 					}
 				}

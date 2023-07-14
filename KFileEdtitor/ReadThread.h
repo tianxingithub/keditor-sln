@@ -4,6 +4,7 @@
 #include <QDebug>
 #include "Data.h"
 #include "qtextbrowser.h"
+#include "KFileEdtitor.h"
 
 
 class ReadThread : public QThread {

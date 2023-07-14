@@ -3,6 +3,7 @@
 #include <QHeaderView>
 #include "qlabel.h"
 #include "QTextEdit"
+#include "ReadThread.h"
 
 KFileEdtitor::KFileEdtitor(QWidget *parent)
     : QMainWindow(parent)
@@ -40,20 +41,20 @@ void KFileEdtitor::addPlot()
     connect(treeWidget->treeItem, &QTreeWidget::doubleClicked, this, &KFileEdtitor::treeViewDoubleClick);
     connect(treeWidget->treeItem, &QTreeWidget::clicked, this, &KFileEdtitor::treeViewClick);
 
-    //connect(ui->menuDemo, &QAction::triggered, this, &KFileEdtitor::funDemo);
+    connect(ui->menuDemo, &QAction::triggered, this, &KFileEdtitor::funDemo);
     //connect(ui->menuDemo, &QAction::triggered, new Translator(), &Translator::testSlots); // 正确
-    connect(ui->menuDemo, &QAction::triggered, new ReadWrite(), &ReadWrite::testSlots);
+    //connect(ui->menuDemo, &QAction::triggered, new ReadWrite(), &ReadWrite::testSlots);
 
 
 }
 
 void KFileEdtitor::funDemo()
 {
-    QString str = "Hello";
-    QString alignedStr = str.rightJustified(10, ' ');
+    QMap<QString, QMap<QString, QString>>m;
+    m.insert(QString("a"), QMap<QString, QString>());
+    auto mm = m["b"];
 
-    displayWidget->textDisplay->append("@"+ str.rightJustified(10, ' ')); // 输出结果为 "     Hello"
-    
+
 }
 
 void KFileEdtitor::getData()
@@ -76,7 +77,11 @@ void KFileEdtitor::getData()
 
 void KFileEdtitor::exportData()
 {
-
+	auto obj = dynamic_cast<ReadThread*>(sender());
+	if (obj)
+	{
+		this->data = obj->data;
+	}
     if (data == nullptr)
         return;
     QString filepath = QFileDialog::getSaveFileName(this, u8"保存K文件",
@@ -93,6 +98,9 @@ void KFileEdtitor::displayItem()
     treeWidget->treeItem->setRootIsDecorated(false);
     for each (auto s in *(data->rootOrder))
     {
+        auto a = data->rootMap->value(s);
+        if (a==nullptr)
+            continue;
         QTreeWidgetItem* childItem1 = new QTreeWidgetItem(treeWidget->root);
         childItem1->setIcon(0, QIcon("E:/Logo/sec.png"));
         childItem1->setText(0, s);
@@ -279,7 +287,7 @@ void KFileEdtitor::treeViewClick()
     if (itemValue == nullptr || valueOrder == nullptr)
         return;
 
-    int lineCount = 0;
+    int lineCount = 1;
     for each (auto k in *valueOrder)
     {
         if (k.mid(0, 6) == "unused") 
