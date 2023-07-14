@@ -58,14 +58,14 @@ void KFileEdtitor::funDemo()
 
 void KFileEdtitor::getData()
 {
-    //QString filepath = QFileDialog::getOpenFileName(// 正常加载
-    //    this, u8"打开K文件",
-    //    ".",
-    //    "k files (*.k);;All files (*.*)");
-    //if (filepath == nullptr)
-    //    return;
+    QString filepath = QFileDialog::getOpenFileName(// 正常加载
+        this, u8"打开K文件",
+        ".",
+        "k files (*.k);;All files (*.*)");
+    if (filepath == nullptr)
+        return;
     //QString filepath = "C:/Users/HanShan/Downloads/Demo_86.k";
-    QString filepath = "C:/Users/HanShan/Downloads/Demo_86_1219.k";
+    //QString filepath = "C:/Users/HanShan/Downloads/Demo_86_1219.k";
     //QString filepath = "C:/Users/HanShan/Downloads/3layer_shot_root.k";
     
     this->data = fileRW->readData(filepath, displayWidget->textDisplay);
@@ -76,6 +76,7 @@ void KFileEdtitor::getData()
 
 void KFileEdtitor::exportData()
 {
+
     if (data == nullptr)
         return;
     QString filepath = QFileDialog::getSaveFileName(this, u8"保存K文件",
