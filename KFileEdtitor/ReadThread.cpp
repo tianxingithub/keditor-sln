@@ -48,7 +48,7 @@ void ReadThread::run()
 			itemOrder = new QList<QString>();
 		}
 		//! 添加选项卡属性值
-		else if (str.at(0) == '$' && str.at(1) != '#')
+		else if (str.at(0) == '$' && str.at(1) == " ")
 		{
 			display->append(str);
 			str = str.simplified();
@@ -76,14 +76,21 @@ void ReadThread::run()
 					itemOrder->append(key[i + 1]);
 					if (key[i + 1].mid(0, 6) == "unused")
 					{
-						itemMap->insert(key[i + 1], "");
-						// 抛出异常
-						throw "Exception occurred";
+						itemMap->insert(key[i + 1], "");						
 					}						
 					else
 					{
-						itemMap->insert(key[i + 1], value[i]);
-					}						
+						if (i >= value.size())
+						{
+							itemMap->insert(key[i + 1], "");
+						}
+						else
+						{
+							itemMap->insert(key[i + 1], value[i]);
+						}
+						
+					}	
+
 				}
 				QT_CATCH(const char* ex)
 				{
@@ -91,10 +98,17 @@ void ReadThread::run()
 					qDebug() << "Exception caught:" << ex;
 				}
 			}
-			re->rootMap->insert(kItem, itemMap);
-			re->order->insert(kItem, itemOrder);
-		}
-		
+			if (itemMap->size() == 0)
+			{
+				// 删除*上面节点
+				re->rootOrder->removeLast();
+			}
+			else
+			{
+				re->rootMap->insert(kItem, itemMap);
+				re->order->insert(kItem, itemOrder);
+			}			
+		}		
 	}
 
 	ready = true;
