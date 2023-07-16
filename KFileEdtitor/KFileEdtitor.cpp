@@ -132,7 +132,7 @@ void KFileEdtitor::showDialog()
     QList<QString>* attOrder = nullptr;
 
     kv = data->rootMapOut->value(key);
-    attOrder = data->order->value(key);
+    attOrder = data->orderOut->value(key);
 
     if (kv == nullptr || attOrder == nullptr)
         return;
@@ -225,7 +225,7 @@ void KFileEdtitor::freshData()
     //auto oldK = data->rootMap->value(k);
 
     //! 修改后的节点信息
-    QList<QString> kk = *(data->order->value(k));
+    QList<QString> kk = *(data->orderOut->value(k));
     QList<QString>v;
     auto node = itemDialog->onlyValue;
     for (auto n : node)
@@ -282,20 +282,49 @@ void KFileEdtitor::treeViewClick()
     auto a = item->text(0);
     auto b = data->rootMapOut;
     itemValue = data->rootMapOut->value(item->text(0));  // nullptr
-    valueOrder = data->order->value(item->text(0));
+    valueOrder = data->orderOut->value(item->text(0));
+
+    auto itemPair = data->rootMap->value(a);
+    auto itemK = itemPair->first;
+    auto itemv = itemPair->second;
+
+    QList<QString> showK;
+    for (auto row : itemK) {
+        for (auto i : row) {
+            showK.append(i);
+        }
+    }
+	QList<QString> showV;
+	for (auto row : itemv) {
+		for (auto i : row) {
+			showV.append(i);
+		}
+	}
+    
 
     if (itemValue == nullptr || valueOrder == nullptr)
         return;
 
     int lineCount = 1;
-    for each (auto k in *valueOrder)
+    //for each (auto k in *valueOrder)
+    //{
+    //    if (k.mid(0, 6) == "unused") 
+    //    {
+    //        continue;
+    //    }
+    //    model->setItem(lineCount, 0, new QStandardItem(k));
+    //    model->setItem(lineCount, 1, new QStandardItem(itemValue->value(k)));
+    //    lineCount++;
+    //}
+    for (int i = 0; i < showK.size(); i++)
     {
-        if (k.mid(0, 6) == "unused") 
+        if (showK[i].mid(0, 6) == "unused")
         {
+            //i--;
             continue;
         }
-        model->setItem(lineCount, 0, new QStandardItem(k));
-        model->setItem(lineCount, 1, new QStandardItem(itemValue->value(k)));
+        model->setItem(lineCount, 0, new QStandardItem(showK[i]));
+        model->setItem(lineCount, 1, new QStandardItem(showV[i]));
         lineCount++;
     }
 

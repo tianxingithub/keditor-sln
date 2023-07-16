@@ -20,9 +20,22 @@ void ReadThread::run()
 	Data*re = new Data();
 
 	QTextStream in(&file);
-	QString kItem; //! 上一个选项卡名字
-	QMap<QString, QString>* itemMap; //! 节点的属性信息
-	QList<QString>* itemOrder; //! 节点属性的顺序
+	QString kItem=""; //! 上一个选项卡名字
+	//! 节点的属性信息
+	//! <每行属性，每行属性值>
+	QPair<QList<QList<QString>>, QList<QList<QString>>>* itemPair = new QPair<QList<QList<QString>>, QList<QList<QString>>>;
+	
+
+	QList<QList<QString>>*k = nullptr;
+	QList<QList<QString>>*v = nullptr;
+
+	//! 已丢弃
+	//节点的属性信息
+	QMap<QString, QString>* itemMapOut; 
+	
+	//! 已丢弃
+	//节点属性的顺序
+	QList<QString>* itemOrderOut;
 
 	//! 按行读取文件
 	while (!in.atEnd())
@@ -37,19 +50,35 @@ void ReadThread::run()
 		//! 判断选项卡
 		if (str.at(0) == '*')
 		{
-			if (str == "*NODE" || str == "*ELEMENT_SOLID" || str == "*KEYWORD" || str == "*PARAMETER_DUPLICATION" || str == "*END")
+			if (str == "*NODE" || str == "*ELEMENT_SOLID" || str == "*KEYWORD" || str == "*PARAMETER_DUPLICATION" )//|| str == "*END"
+				continue;
+			if (kItem != "")
+			{
+				itemPair->first = *k;
+				itemPair->second = *v;
+				re->rootMap->insert(kItem, itemPair);
+			}
+			if(str == "*END")
 				continue;
 			display->append(str);
+
+			itemPair = new QPair<QList<QList<QString>>, QList<QList<QString>>>;
+			k = new QList<QList<QString>>;
+			v = new QList<QList<QString>>;
+
 			//! 添加树节点顺序
 			re->rootOrder->append(str.mid(1));
 			str = str.simplified();
-			kItem = str.mid(1);
-			itemMap = new QMap<QString, QString>();
-			itemOrder = new QList<QString>();
+			kItem = str.mid(1);			
+
+			itemMapOut = new QMap<QString, QString>();
+			itemOrderOut = new QList<QString>();
 		}//if
 		//! 添加选项卡属性值
 		else if (str.at(0) == '$' && str.at(1) == " ")
 		{
+			QList<QString>kk;
+			QList<QString>vv;
 			display->append(str);
 			str = str.simplified();
 			QStringList key = str.split(" "); // 下标1开始，最后一个为unused要丢弃
@@ -73,20 +102,30 @@ void ReadThread::run()
 			{
 				QT_TRY
 				{
-					itemOrder->append(key[i + 1]);
+					itemOrderOut->append(key[i + 1]);
 					if (key[i + 1].mid(0, 6) == "unused")
 					{
-						itemMap->insert(key[i + 1], " ");						
+						kk.append(key[i + 1]);
+						vv.append(" ");
+
+						itemMapOut->insert(key[i + 1], " ");						
 					}						
 					else
 					{
 						if (i >= value.size())
 						{
-							itemMap->insert(key[i + 1], " ");
+							kk.append(key[i + 1]);
+							vv.append(" ");
+
+
+							itemMapOut->insert(key[i + 1], " ");
 						}
 						else
 						{
-							itemMap->insert(key[i + 1], value[i]);
+							kk.append(key[i + 1]);
+							vv.append(value[i]);
+
+							itemMapOut->insert(key[i + 1], value[i]);
 						}
 						
 					}	
@@ -99,13 +138,21 @@ void ReadThread::run()
 				}
 			}// for
 
-			re->rootMapOut->insert(kItem, itemMap);
-			re->order->insert(kItem, itemOrder);		
+
+			k->append(kk);
+			v->append(vv);
+
+			re->rootMapOut->insert(kItem, itemMapOut);
+			re->orderOut->insert(kItem, itemOrderOut);		
 			
 		}//else if 	
-
+		
 	}
 
+	// 测试数据
+	auto tk = re->rootOrder;
+	auto kv1 = re->rootMap->value((*tk)[2]);
+	
 	ready = true;
 	this->data = re;
 

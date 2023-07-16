@@ -48,7 +48,7 @@ void ReadWrite::writeDataRoot(QString filepath, Data* data)
 		txtOutput << "*"+n1 << endl;
 
 		//! 得到树节点map的顺序
-		auto node2 = data->order->value(n1);
+		auto node2 = data->orderOut->value(n1);
 		//! 得到树节点的map
 		auto node2Map = data->rootMapOut->value(n1);
 		if(node2==nullptr|| node2Map==nullptr)
