@@ -50,18 +50,30 @@ void ReadWrite::writeDataRoot(QString filepath, Data* data)
 		//! 得到树节点map的顺序
 		auto node2 = data->order->value(n1);
 		//! 得到树节点的map
-		auto node2Map = data->rootMap->value(n1);
+		auto node2Map = data->rootMapOut->value(n1);
 		if(node2==nullptr|| node2Map==nullptr)
 			continue;
 		
 		//! 格式化输出节点属性
 		int kindex = 1; // 准备写入第几个属性
 		QList<QString>write; // 每一排已经写入的数据
+
 		int space = 10; // 一个属性占多少位
 		int endcount = 8; // 满多少个换行
+		if (node2->last().mid(0,6) != "unused")
+		{
+			if ((node2->size()) % endcount != 0)
+			{
+				space = 80 / (node2->size());
+				endcount = node2->size();
+				qDebug() << n1<<node2->size();
+			}
+		}
+
+
 		for (auto n2 : *node2) // 遍历属性的键
 		{					
-			if (kindex%8 == 1) // 属性的第一个前面有$
+			if (kindex% endcount == 1) // 属性的第一个前面有$
 			{
 				txtOutput << "$"<<n2.rightJustified(space-1, ' '); //arg("",9, QLatin1Char(' ')); ///rightJustified(9, ' ');
 				write.append(n2);

@@ -98,7 +98,7 @@ void KFileEdtitor::displayItem()
     treeWidget->treeItem->setRootIsDecorated(false);
     for each (auto s in *(data->rootOrder))
     {
-        auto a = data->rootMap->value(s);
+        auto a = data->rootMapOut->value(s);
         if (a==nullptr)
             continue;
         QTreeWidgetItem* childItem1 = new QTreeWidgetItem(treeWidget->root);
@@ -131,7 +131,7 @@ void KFileEdtitor::showDialog()
     QMap<QString, QString>* kv = nullptr;
     QList<QString>* attOrder = nullptr;
 
-    kv = data->rootMap->value(key);
+    kv = data->rootMapOut->value(key);
     attOrder = data->order->value(key);
 
     if (kv == nullptr || attOrder == nullptr)
@@ -239,7 +239,7 @@ void KFileEdtitor::freshData()
     }
 
     //! 更新地址
-    data->rootMap->insert(k, newData);
+    data->rootMapOut->insert(k, newData);
     //! 释放原地址
     //delete oldK;
 
@@ -280,8 +280,8 @@ void KFileEdtitor::treeViewClick()
     QList<QString >* valueOrder = nullptr;
 
     auto a = item->text(0);
-    auto b = data->rootMap;
-    itemValue = data->rootMap->value(item->text(0));  // nullptr
+    auto b = data->rootMapOut;
+    itemValue = data->rootMapOut->value(item->text(0));  // nullptr
     valueOrder = data->order->value(item->text(0));
 
     if (itemValue == nullptr || valueOrder == nullptr)

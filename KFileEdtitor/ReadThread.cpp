@@ -99,7 +99,7 @@ void ReadThread::run()
 				}
 			}// for
 
-			re->rootMap->insert(kItem, itemMap);
+			re->rootMapOut->insert(kItem, itemMap);
 			re->order->insert(kItem, itemOrder);		
 			
 		}//else if 	

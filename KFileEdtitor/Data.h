@@ -9,8 +9,11 @@ public:
 	Data();
 	~Data();
 public:
+	//! 已丢弃
+	QMap<QString , QMap<QString , QString >*>* rootMapOut;
+
 	//! 树节点的键值
-	QMap<QString , QMap<QString , QString >*>* rootMap;
+	QMap<QString, QPair<QList<QString >, QList<QString >>*>* rootMap;
 
 	//! 树节点的顺序
 	QList<QString>* rootOrder;

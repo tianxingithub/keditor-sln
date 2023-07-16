@@ -12,7 +12,7 @@ public:
 */
 Data::Data()
 {
-	rootMap = new QMap<QString, QMap<QString, QString >*>();
+	rootMapOut = new QMap<QString, QMap<QString, QString >*>();
 	rootOrder = new QList<QString>;
 	order = new QMap<QString, QList<QString >*>();
 	filename = "";
