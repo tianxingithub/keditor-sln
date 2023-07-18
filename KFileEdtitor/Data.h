@@ -15,7 +15,9 @@ public:
 
 	//! 树节点的键值
 	QMap<QString, QPair<QList<QList<QString>>, QList<QList<QString>>>*>* rootMap;
-	//QList<QList<QString>>
+	
+	//! 树节点的属性值
+	QList< QPair<QList<QList<QString>>, QList<QList<QString>>>*>* rootList;
 
 	//! 树节点的顺序
 	QList<QString>* rootOrder;

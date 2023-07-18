@@ -37,6 +37,9 @@ void ReadThread::run()
 	//节点属性的顺序
 	QList<QString>* itemOrderOut;
 
+	//! 每个节点的前缀起始
+	int nodeStart = 1000;
+
 	//! 按行读取文件
 	while (!in.atEnd())
 	{
@@ -54,9 +57,12 @@ void ReadThread::run()
 				continue;
 			if (kItem != "")
 			{
+				//kItem = QString::number(nodeStart) + kItem; // 序号+节点 1000NT_SOLID
 				itemPair->first = *k;
 				itemPair->second = *v;
+				re->rootList->append(itemPair);
 				re->rootMap->insert(kItem, itemPair);
+				nodeStart++;
 			}
 			if(str == "*END")
 				continue;

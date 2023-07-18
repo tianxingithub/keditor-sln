@@ -16,6 +16,7 @@ Data::Data()
 	rootMapOut = new QMap<QString, QMap<QString, QString >*>();
 	rootOrder = new QList<QString>;
 	orderOut = new QMap<QString, QList<QString >*>();
+	rootList = new QList<QPair<QList<QList<QString>>, QList<QList<QString>>>*>;
 	filename = "";
 }
 

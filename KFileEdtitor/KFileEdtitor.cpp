@@ -4,6 +4,8 @@
 #include "qlabel.h"
 #include "QTextEdit"
 #include "ReadThread.h"
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
 
 KFileEdtitor::KFileEdtitor(QWidget *parent)
     : QMainWindow(parent)
@@ -104,6 +106,7 @@ void KFileEdtitor::displayItem()
         QTreeWidgetItem* childItem1 = new QTreeWidgetItem(treeWidget->root);
         childItem1->setIcon(0, QIcon("E:/Logo/sec.png"));
         childItem1->setText(0, s);
+        childItem1->setFlags(childItem1->flags() | Qt::ItemIsSelectable);
     }
     treeWidget->treeItem->expandAll();  // 展开所有节点
 }
@@ -261,7 +264,13 @@ void KFileEdtitor::treeViewClick()
     QTreeWidgetItem* item = treeWidget->treeItem->currentItem();
     if (item->text(0) == u8"激活能量数值")
         return;
+    
+    int nodeIndex = item->text(0).mid(0, 4).toInt();
+    
+    
     freshData();
+
+	
 
     /* 创建数据模型 */
     QStandardItemModel* model = new QStandardItemModel();
@@ -284,7 +293,9 @@ void KFileEdtitor::treeViewClick()
     itemValue = data->rootMapOut->value(item->text(0));  // nullptr
     valueOrder = data->orderOut->value(item->text(0));
 
-    auto itemPair = data->rootMap->value(a);
+    auto itemPairOut = data->rootMap->value(a);
+    int index = data->rootOrder->indexOf(a);
+    auto itemPair = data->rootList->at(index);
     auto itemK = itemPair->first;
     auto itemv = itemPair->second;
 
@@ -320,7 +331,6 @@ void KFileEdtitor::treeViewClick()
     {
         if (showK[i].mid(0, 6) == "unused")
         {
-            //i--;
             continue;
         }
         model->setItem(lineCount, 0, new QStandardItem(showK[i]));
