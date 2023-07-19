@@ -178,17 +178,19 @@ void KFileEdtitor::showPairDialog()
 				label->setGeometry((w + px) * i + 45, (h + py) * rowCount, w, h);
 			}
 
-			QTextBrowser* value = new QTextBrowser(itemDialog);
-			value->setText(vRow[rowCount][i]);
+			
 			//! 把unused属性的值设置为不可修改的textBrowser
             if (k.mid(0, 6) == "unused")
             {
-                
+				QTextBrowser* value = new QTextBrowser(itemDialog);
+				value->setText(vRow[rowCount][i]);
                 value->setAlignment(Qt::AlignCenter);
                 value->setGeometry((w + px) * (kcount-1) + 45, (h + py) * rowCount + 35, w, h);
             }
             else
             {
+				QTextEdit* value = new QTextEdit(itemDialog);
+				value->setText(vRow[rowCount][i]);
                 value->setGeometry((w + px) * i + 45, (h + py) * rowCount + 35, w, h);
             }
 
@@ -306,8 +308,10 @@ void KFileEdtitor::freshData()
         return;
     }
     //! 对话框里面的数据
-    auto diaData = itemDialog->dialogData;
-    if (diaData == nullptr)
+    auto diaData = itemDialog->dialogMapData;
+    auto krows = itemDialog->krows;
+    auto vrows = itemDialog->vrows;
+    if (krows == nullptr)
     {
         //displayWidget->textDisplay->append("diaData = nullptr");
         return;
@@ -315,24 +319,52 @@ void KFileEdtitor::freshData()
     //! 对话框标题：Data的节点
     QString k = itemDialog->windowTitle();
     //! 得到原来的节点
-    //auto oldK = data->rootMap->value(k);
-
-    //! 修改后的节点信息
-    QList<QString> kk = *(data->orderOut->value(k));
-    QList<QString>v;
-    auto node = itemDialog->onlyValue;
-    for (auto n : node)
+    auto oldPair = data->rootMap->value(k);
+    auto oldKrows = oldPair->first;
+    auto oldVrows = oldPair->second;
+    QList<QList<QString>> newKrows;
+    QList<QList<QString>> newVrows;
+    int index = 0;
+    for (auto r : oldKrows)
     {
-        v.append(n->toPlainText());
+        QList<QString>* rk = new QList<QString>;
+        QList<QString>* rv = new QList<QString>;
+        for (auto k : r) // k为英文
+        {
+            //rk->append(krows->at(index));// 翻译后的中文
+            rk->append(k);// 翻译前的英文
+            rv->append(vrows->at(index));
+            index++;
+        }
+        newKrows.append(*rk);
+        newVrows.append(*rv);
+        rk = new QList<QString>;
+        rv = new QList<QString>;
     }
-    QMap<QString, QString>* newData = new QMap<QString, QString>;
-    for (int i = 0; i < v.size(); i++)
-    {
-        newData->insert(kk[i], v[i]);
-    }
+    auto a = newKrows.size(); // 翻译后的中文
+    auto b = oldKrows.size(); // 翻译前的英文
 
-    //! 更新地址
-    data->rootMapOut->insert(k, newData);
+    QPair< QList<QList<QString>>, QList<QList<QString>>>* newPair = new QPair< QList<QList<QString>>, QList<QList<QString>>>;
+    newPair->first = newKrows;
+    newPair->second = newVrows;
+    data->rootMap->insert(k, newPair);
+
+    ////! 修改后的节点信息
+    //QList<QString> kk = *(data->orderOut->value(k));
+    //QList<QString>v;
+    //auto node = itemDialog->onlyValue;
+    //for (auto n : node)
+    //{
+    //    v.append(n->toPlainText());
+    //}
+    //QMap<QString, QString>* newData = new QMap<QString, QString>;
+    //for (int i = 0; i < v.size(); i++)
+    //{
+    //    newData->insert(kk[i], v[i]);
+    //}
+
+    ////! 更新地址
+    //data->rootMapOut->insert(k, newData);
     //! 释放原地址
     //delete oldK;
 
@@ -354,7 +386,7 @@ void KFileEdtitor::treeViewClick()
     QTreeWidgetItem* item = treeWidget->treeItem->currentItem();
     if (item->text(0) == u8"激活能量数值")
         return;
-   
+    //auto aa = item->indexOfChild(treeWidget->root);
     
     
     freshData();
@@ -384,7 +416,7 @@ void KFileEdtitor::treeViewClick()
 
     auto itemPairOut = data->rootMap->value(a);
     int index = data->rootOrder->indexOf(a);
-    auto itemPair = data->rootList->at(index);
+    auto itemPair = data->rootMap->value(a);
     auto itemK = itemPair->first;
     auto itemv = itemPair->second;
 
