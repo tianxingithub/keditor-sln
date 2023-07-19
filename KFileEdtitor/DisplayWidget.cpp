@@ -11,7 +11,6 @@ DisplayWidget::DisplayWidget(QWidget *parent)
 	
 	textDisplay = new QTextBrowser();
 
-	//this->setLayout(new QVBoxLayout);
 	this->layout()->setContentsMargins(0, 0, 0, 0);
 	this->layout()->addWidget(textDisplay);
 	

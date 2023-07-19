@@ -101,7 +101,6 @@
     <ClCompile Include="ReadWrite.cpp" />
     <ClCompile Include="Translator.cpp" />
     <ClCompile Include="TreeWidget.cpp" />
-    <ClCompile Include="Viewer.cpp" />
     <QtRcc Include="KFileEdtitor.qrc" />
     <QtUic Include="DisplayWidget.ui" />
     <QtUic Include="ItemDialog.ui" />
@@ -123,7 +122,6 @@
     <QtMoc Include="ReadThread.h" />
     <ClInclude Include="ReadWrite.h" />
     <ClInclude Include="Translator.h" />
-    <ClInclude Include="Viewer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

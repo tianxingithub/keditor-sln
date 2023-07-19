@@ -46,9 +46,6 @@ void ReadThread::run()
 		QByteArray line = file.readLine();
 		QString str(line);
 		str.remove("\n");
-		//display->append(str); // 与42互斥
-		//! 将内容显示到QText上面
-		//! 显示所有内容还是可只显示选项卡内容
 
 		//! 判断选项卡
 		if (str.at(0) == '*')
@@ -90,11 +87,6 @@ void ReadThread::run()
 			QStringList key = str.split(" "); // 下标1开始，最后一个为unused要丢弃
 
 			int len = key.length();
-			/*if (key[len - 1].mid(0, 6) == "unused")
-			{
-				--len;
-			}*/
-
 			line = file.readLine(); // 属性的值 下标0开始
 
 			QString strvalue(line);

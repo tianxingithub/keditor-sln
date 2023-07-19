@@ -93,6 +93,8 @@ void KFileEdtitor::exportData()
 
 void KFileEdtitor::displayItem()
 {
+
+
     if (data == nullptr)
         return;
     treeWidget->treeItem->setRootIsDecorated(false);
