@@ -72,8 +72,6 @@ void KFileEdtitor::getData()
     //QString filepath = "C:/Users/HanShan/Downloads/3layer_shot_root.k";
     
     this->data = fileRW->readData(filepath, displayWidget->textDisplay);
-    //this->data->filename = filepath;
-    //displayWidget->textDisplay->append(filepath);
     displayItem();
 }
 
@@ -106,7 +104,6 @@ void KFileEdtitor::displayItem()
         QTreeWidgetItem* childItem1 = new QTreeWidgetItem(treeWidget->root);
         childItem1->setIcon(0, QIcon("E:/Logo/sec.png"));
         childItem1->setText(0, s);
-        //childItem1->setFlags(childItem1->flags() | Qt::ItemIsSelectable);
     }
     treeWidget->treeItem->expandAll();  // 展开所有节点
 }
@@ -291,20 +288,13 @@ void KFileEdtitor::showMapDialog()
     itemDialog->cacel->move(xx - 140, yy - 50);
     itemDialog->cacel->setVisible(true);
 
-    itemDialog->show();
-    //freshData();
-    //displayWidget->textDisplay->append("freshData()");
-    
+    itemDialog->show();    
 }
 
 void KFileEdtitor::freshData()
 {
-
-    //displayWidget->textDisplay->append("freshData()");
-
     if (itemDialog == nullptr)
     {
-        //displayWidget->textDisplay->append("itemDialog = nullptr");
         return;
     }
     //! 对话框里面的数据
@@ -313,7 +303,6 @@ void KFileEdtitor::freshData()
     auto vrows = itemDialog->vrows;
     if (krows == nullptr)
     {
-        //displayWidget->textDisplay->append("diaData = nullptr");
         return;
     }
     //! 对话框标题：Data的节点
@@ -348,29 +337,6 @@ void KFileEdtitor::freshData()
     newPair->first = newKrows;
     newPair->second = newVrows;
     data->rootMap->insert(k, newPair);
-
-    ////! 修改后的节点信息
-    //QList<QString> kk = *(data->orderOut->value(k));
-    //QList<QString>v;
-    //auto node = itemDialog->onlyValue;
-    //for (auto n : node)
-    //{
-    //    v.append(n->toPlainText());
-    //}
-    //QMap<QString, QString>* newData = new QMap<QString, QString>;
-    //for (int i = 0; i < v.size(); i++)
-    //{
-    //    newData->insert(kk[i], v[i]);
-    //}
-
-    ////! 更新地址
-    //data->rootMapOut->insert(k, newData);
-    //! 释放原地址
-    //delete oldK;
-
-
-    //! 更新修改后的属性
-    //treeViewClick();
 }
 
 
@@ -378,7 +344,6 @@ void KFileEdtitor::freshData()
 void KFileEdtitor::treeViewClick()
 {
     
-    //displayWidget->textDisplay->append("treeViewClick()");
     if (this->data == nullptr)
         return;
 
@@ -386,12 +351,7 @@ void KFileEdtitor::treeViewClick()
     QTreeWidgetItem* item = treeWidget->treeItem->currentItem();
     if (item->text(0) == u8"激活能量数值")
         return;
-    //auto aa = item->indexOfChild(treeWidget->root);
-    
-    
     freshData();
-
-	
 
     /* 创建数据模型 */
     QStandardItemModel* model = new QStandardItemModel();
@@ -404,11 +364,6 @@ void KFileEdtitor::treeViewClick()
     treeWidget->itemAttr->setModel(model);
     treeWidget->itemAttr->verticalHeader()->hide();//不显示序号  
     
-
-    //! 加载键的属性值并显示
-    //QMap<QString, QString >* itemValue = nullptr;
-    //QList<QString >* valueOrder = nullptr;
-
     auto a = item->text(0);
     auto b = data->rootMapOut;
     auto itemValue = data->rootMap->value(item->text(0));  // nullptr
@@ -438,16 +393,6 @@ void KFileEdtitor::treeViewClick()
         return;
 
     int lineCount = 1;
-    //for each (auto k in *valueOrder)
-    //{
-    //    if (k.mid(0, 6) == "unused") 
-    //    {
-    //        continue;
-    //    }
-    //    model->setItem(lineCount, 0, new QStandardItem(k));
-    //    model->setItem(lineCount, 1, new QStandardItem(itemValue->value(k)));
-    //    lineCount++;
-    //}
     for (int i = 0; i < showK.size(); i++)
     {
         if (showK[i].mid(0, 6) == "unused")
