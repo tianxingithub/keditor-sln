@@ -57,7 +57,7 @@ void ReadThread::run()
 				continue;
 			if (kItem != "")
 			{
-				//kItem = QString::number(nodeStart) + kItem; // 序号+节点 1000NT_SOLID
+				kItem = QString::number(nodeStart) + kItem; // 序号+节点 1000NT_SOLID
 				itemPair->first = *k;
 				itemPair->second = *v;
 				re->rootList->append(itemPair);
@@ -73,7 +73,7 @@ void ReadThread::run()
 			v = new QList<QList<QString>>;
 
 			//! 添加树节点顺序
-			re->rootOrder->append(str.mid(1));
+			re->rootOrder->append(QString::number(nodeStart) + str.mid(1));
 			str = str.simplified();
 			kItem = str.mid(1);			
 

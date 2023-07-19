@@ -46,7 +46,8 @@ public:
 	//! 获取对话框数据并更新
 	void freshData();
     //! 弹出数据
-    void showDialog();
+    void showMapDialog();
+    void showPairDialog();
     //! 导出数据
     void exportData();
 	//! 显示文件的树节点信息

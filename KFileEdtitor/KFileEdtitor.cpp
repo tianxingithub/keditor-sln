@@ -22,7 +22,7 @@ KFileEdtitor::KFileEdtitor(QWidget *parent)
 	ui->horizontalLayout->addWidget(displayWidget);
 
     translator = nullptr;
-    translator = new Translator("E:/kTranslation.json");
+    translator = new Translator("E:/DataBase/kTranslation.json");
 
     fileRW = new ReadWrite();
     data = nullptr;
@@ -100,24 +100,114 @@ void KFileEdtitor::displayItem()
     treeWidget->treeItem->setRootIsDecorated(false);
     for each (auto s in *(data->rootOrder))
     {
-        auto a = data->rootMapOut->value(s);
+        auto a = data->rootMap->value(s);
         if (a==nullptr)
             continue;
         QTreeWidgetItem* childItem1 = new QTreeWidgetItem(treeWidget->root);
         childItem1->setIcon(0, QIcon("E:/Logo/sec.png"));
         childItem1->setText(0, s);
-        childItem1->setFlags(childItem1->flags() | Qt::ItemIsSelectable);
+        //childItem1->setFlags(childItem1->flags() | Qt::ItemIsSelectable);
     }
     treeWidget->treeItem->expandAll();  // 展开所有节点
 }
 
 void KFileEdtitor::treeViewDoubleClick()
 {
-    showDialog();
+    //showMapDialog();
+    showPairDialog();
     //freshData();
 }
 
-void KFileEdtitor::showDialog()
+void KFileEdtitor::showPairDialog()
+{
+	if (this->data == nullptr)
+		return;
+	QTreeWidgetItem* item = treeWidget->treeItem->currentItem();
+	QString key = item->text(0);
+	if (key == u8"激活能量数值")return;
+
+	itemDialog = new ItemDialog(this);
+	itemDialog->setWindowTitle(key);
+
+    auto kvPair = data->rootMap->value(key);
+
+    auto kRow = kvPair->first;
+    auto vRow = kvPair->second;
+
+    if (kRow.size() == 0)
+    {
+        qDebug() << "数据出错，k.size()=0,属性无值";
+        return;
+    }
+    int w = 90, h = 30, px = 10, py = 40;
+    int numCount = 0;
+    int rowCount = 0;
+    for (auto row : kRow)//遍历第一行的属性
+    {
+        for (int i=0;i<row.size();i++)
+        {
+            auto k = row[i];
+            int kcount = kRow.last().size() <= 8 ? 8 : kRow.last().size();
+
+            QLabel* label = new QLabel(itemDialog);
+			//! 配置中文
+			if (translator != nullptr)
+			{
+				QString jLable = translator->json->value(k).toString();
+				if (jLable != "")
+				{
+					label->setText(jLable);
+				}
+				else
+				{
+					label->setText(k);
+				}
+			}
+			else
+			{
+				label->setText(k);
+			}
+
+            // 如果Lable是unused直接放在最后面
+			if (k.mid(0, 6) == "unused")
+			{
+				label->setGeometry((w + px) * (kcount-1) + 45, (h + py) * rowCount, w, h);
+			}
+			else
+			{
+				label->setGeometry((w + px) * i + 45, (h + py) * rowCount, w, h);
+			}
+
+			QTextBrowser* value = new QTextBrowser(itemDialog);
+			value->setText(vRow[rowCount][i]);
+			//! 把unused属性的值设置为不可修改的textBrowser
+            if (k.mid(0, 6) == "unused")
+            {
+                
+                value->setAlignment(Qt::AlignCenter);
+                value->setGeometry((w + px) * (kcount-1) + 45, (h + py) * rowCount + 35, w, h);
+            }
+            else
+            {
+                value->setGeometry((w + px) * i + 45, (h + py) * rowCount + 35, w, h);
+            }
+
+        }
+        rowCount++;
+    }
+
+    int xcount = kRow.last().size() <= 8 ? 8 : kRow.last().size();
+    
+    int xx = (w + px) * (xcount+1), yy = (h + py) * (kRow.size() + 1) + 50;
+    itemDialog->resize(xx, yy);
+	itemDialog->save->move(xx - 240, yy - 50);
+	itemDialog->save->setVisible(true);
+	itemDialog->cacel->move(xx - 140, yy - 50);
+	itemDialog->cacel->setVisible(true);
+    itemDialog->show();
+}
+
+void KFileEdtitor::showMapDialog()
 {
     if (this->data == nullptr)
         return;
@@ -264,8 +354,7 @@ void KFileEdtitor::treeViewClick()
     QTreeWidgetItem* item = treeWidget->treeItem->currentItem();
     if (item->text(0) == u8"激活能量数值")
         return;
-    
-    int nodeIndex = item->text(0).mid(0, 4).toInt();
+   
     
     
     freshData();
@@ -285,13 +374,13 @@ void KFileEdtitor::treeViewClick()
     
 
     //! 加载键的属性值并显示
-    QMap<QString, QString >* itemValue = nullptr;
-    QList<QString >* valueOrder = nullptr;
+    //QMap<QString, QString >* itemValue = nullptr;
+    //QList<QString >* valueOrder = nullptr;
 
     auto a = item->text(0);
     auto b = data->rootMapOut;
-    itemValue = data->rootMapOut->value(item->text(0));  // nullptr
-    valueOrder = data->orderOut->value(item->text(0));
+    auto itemValue = data->rootMap->value(item->text(0));  // nullptr
+    //auto valueOrder = data->rootOrder->value(item->text(0));
 
     auto itemPairOut = data->rootMap->value(a);
     int index = data->rootOrder->indexOf(a);
@@ -313,7 +402,7 @@ void KFileEdtitor::treeViewClick()
 	}
     
 
-    if (itemValue == nullptr || valueOrder == nullptr)
+    if (itemValue == nullptr )//|| valueOrder == nullptr
         return;
 
     int lineCount = 1;
