@@ -45,75 +45,130 @@ void ReadWrite::writeDataRoot(QString filepath, Data* data)
 	//! 开始遍历树节点
 	for (auto n1 : *node1)
 	{
-		txtOutput << "*"+n1 << endl;
+		txtOutput << "*"+n1.mid(4) << endl;
 
-		//! 得到树节点map的顺序
-		auto node2 = data->orderOut->value(n1);
-		//! 得到树节点的map
-		auto node2Map = data->rootMapOut->value(n1);
-		if(node2==nullptr|| node2Map==nullptr)
-			continue;
+		////! 得到树节点map的顺序
+		//auto node2 = data->orderOut->value(n1);
+		////! 得到树节点的map
+		//auto node2Map = data->rootMapOut->value(n1);
+		//if(node2==nullptr|| node2Map==nullptr)
+		//	continue;
 		
-		//! 格式化输出节点属性
-		int kindex = 1; // 准备写入第几个属性
-		QList<QString>write; // 每一排已经写入的数据
-
-		int space = 10; // 一个属性占多少位
-		int endcount = 8; // 满多少个换行
-		if (node2->last().mid(0,6) != "unused")
+		//! 节点的QPair
+		auto kvpair = data->rootMap->value(n1);
+		auto krows = kvpair->first;
+		auto vrows = kvpair->second;
+		if (krows.size() == 0)
 		{
-			if ((node2->size()) % endcount != 0)
-			{
-				space = 80 / (node2->size());
-				endcount = node2->size();
-				qDebug() << n1<<node2->size();
-			}
+			qDebug() << "krows.size() = 0";
+			return;
 		}
-
-
-		for (auto n2 : *node2) // 遍历属性的键
-		{					
-			if (kindex% endcount == 1) // 属性的第一个前面有$
+			
+		int rcount = 0;
+		for (auto row : krows)
+		{
+			int kcount = row.size();
+			int space = kcount <= 8 ? 10 : 80 / kcount;
+			int count = 0;
+			for (auto k : row)
 			{
-				txtOutput << "$"<<n2.rightJustified(space-1, ' '); //arg("",9, QLatin1Char(' ')); ///rightJustified(9, ' ');
-				write.append(n2);
-				kindex++;
-			}
-			else if(n2.mid(0,6)=="unused") // 一排属性没有8个用unused填充
-			{
-				auto les = (endcount - (kindex % endcount) + 1);
-				txtOutput << n2.rightJustified(les % endcount * space, ' '); //arg("", (les +1)*10, QLatin1Char(' '));
-				kindex = endcount+1;
-			}
-			else
-			{
-				txtOutput <<  n2.rightJustified(space,  ' '); //arg("", (kindex%8)*10, QLatin1Char(' '));
-				write.append(n2);
-				kindex++;
-			}
-			if (kindex % (endcount+1) == 0)
-			{	
-				txtOutput << endl;
-				int vindex = 1;
-				for (auto w : write)
+				if (count == 0)
 				{
-					if (w.mid(0, 6) == "unused")
+					txtOutput << "$"<< k.rightJustified(space - 1, ' ');
+					count++;
+				}
+				else
+				{
+					if (k.mid(0, 6) == "unused")
 					{
-						auto les = endcount - (vindex % endcount) + 1;
-						txtOutput << QString("⁣⁣⁣⁣　").rightJustified(les * space, ' '); //arg("", (les + 1) * 10, QLatin1Char(' '));
-						vindex++;
+						txtOutput << k.rightJustified((8-count)*10, ' ');
+						//count++;
 					}
 					else
 					{
-						txtOutput << node2Map->value(w).rightJustified(space, ' '); //arg("", (vindex%8)*10, QLatin1Char(' '));
-						vindex++;
-					}
+						txtOutput << k.rightJustified(space, ' ');
+						count++;
+					}						
 				}
-				txtOutput << endl;
-				write.clear();
-				kindex = 1;
 			}
+			txtOutput << endl;
+			count = 0;
+			for (int i = 0; i < row.size(); i++)
+			{
+				if (krows[rcount][i] == "unused")
+				{
+					txtOutput <<  vrows[rcount][i].rightJustified((8 - count) * 10, ' ');
+				}
+				else
+				{
+					txtOutput << vrows[rcount][i].rightJustified(space, ' ');
+					count++;
+				}					
+			}
+			txtOutput << endl;
+			rcount++;
 		}
+
+		////! 格式化输出节点属性
+		//int kindex = 1; // 准备写入第几个属性
+		//QList<QString>write; // 每一排已经写入的数据
+
+		//int space = 10; // 一个属性占多少位
+		//int endcount = 8; // 满多少个换行
+		//if (node2->last().mid(0,6) != "unused")
+		//{
+		//	if ((node2->size()) % endcount != 0)
+		//	{
+		//		space = 80 / (node2->size());
+		//		endcount = node2->size();
+		//		qDebug() << n1<<node2->size();
+		//	}
+		//}
+
+
+		//for (auto n2 : *node2) // 遍历属性的键
+		//{					
+		//	if (kindex% endcount == 1) // 属性的第一个前面有$
+		//	{
+		//		txtOutput << "$"<<n2.rightJustified(space-1, ' '); //arg("",9, QLatin1Char(' ')); ///rightJustified(9, ' ');
+		//		write.append(n2);
+		//		kindex++;
+		//	}
+		//	else if(n2.mid(0,6)=="unused") // 一排属性没有8个用unused填充
+		//	{
+		//		auto les = (endcount - (kindex % endcount) + 1);
+		//		txtOutput << n2.rightJustified(les % endcount * space, ' '); //arg("", (les +1)*10, QLatin1Char(' '));
+		//		kindex = endcount+1;
+		//	}
+		//	else
+		//	{
+		//		txtOutput <<  n2.rightJustified(space,  ' '); //arg("", (kindex%8)*10, QLatin1Char(' '));
+		//		write.append(n2);
+		//		kindex++;
+		//	}
+		//	if (kindex % (endcount+1) == 0)
+		//	{	
+		//		txtOutput << endl;
+		//		int vindex = 1;
+		//		for (auto w : write)
+		//		{
+		//			if (w.mid(0, 6) == "unused")
+		//			{
+		//				auto les = endcount - (vindex % endcount) + 1;
+		//				txtOutput << QString("⁣⁣⁣⁣　").rightJustified(les * space, ' '); //arg("", (les + 1) * 10, QLatin1Char(' '));
+		//				vindex++;
+		//			}
+		//			else
+		//			{
+		//				txtOutput << node2Map->value(w).rightJustified(space, ' '); //arg("", (vindex%8)*10, QLatin1Char(' '));
+		//				vindex++;
+		//			}
+		//		}
+		//		txtOutput << endl;
+		//		write.clear();
+		//		kindex = 1;
+		//	}
+		//}
 	}
 	f.close();
 }
