@@ -41,8 +41,13 @@ void ReadThread::run()
 	int nodeStart = 1000;
 
 	//! 按行读取文件
+	bool isBreak = false;
 	while (!in.atEnd())
 	{
+		if (isBreak)
+		{
+			break;
+		}
 		QByteArray line = file.readLine();
 		QString str(line);
 		str.remove("\n");
@@ -61,8 +66,11 @@ void ReadThread::run()
 				re->rootMap->insert(kItem, itemPair);
 				nodeStart++;
 			}
-			if(str == "*END")
+			if (str == "*END")
+			{
+				isBreak = true;
 				continue;
+			}
 			display->append(str);
 
 			itemPair = new QPair<QList<QList<QString>>, QList<QList<QString>>>;
