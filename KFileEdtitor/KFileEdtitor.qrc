@@ -1,4 +1,5 @@
 <RCC>
-    <qresource prefix="KFileEdtitor">
+    <qresource prefix="/">
+        <file>ts/kTranslation.json</file>
     </qresource>
 </RCC>

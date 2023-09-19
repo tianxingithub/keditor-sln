@@ -43,6 +43,10 @@ private:
 public:
 	//! 翻译json对象
     Translator* translator;
+    //! itemDialog对象
+//     ItemDialog* itemdialog;
+
+public:
 	//! 获取对话框数据并更新
 	void freshData();
     //! 弹出数据

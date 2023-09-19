@@ -4,7 +4,7 @@
 #include "ui_ItemWidget.h"
 #include "qpushbutton.h"
 #include "QDialog"
-#include "QTextEdit"
+#include "QLineEdit"
 #include "QPair"
 
 QT_BEGIN_NAMESPACE
@@ -33,13 +33,15 @@ public:
 	QList<QString>* vrows;
 
 	//! 修改框里面的值
-	QList<QTextEdit*> onlyValue;
+	QList<QLineEdit*> onlyValue;
 
 public:
 	//! 得到对话框里面控件的信息
 	void getDialogData();
 
-
+signals:
+	//! 数据保存后发送消息
+	void doubleClickSig();
 private:
 	Ui::ItemWidgetClass *ui;
 };

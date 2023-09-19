@@ -2,7 +2,7 @@
 #include "qfiledialog.h"
 #include <QHeaderView>
 #include "qlabel.h"
-#include "QTextEdit"
+#include "QLineEdit"
 #include "ReadThread.h"
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
@@ -22,13 +22,16 @@ KFileEdtitor::KFileEdtitor(QWidget *parent)
 	ui->horizontalLayout->addWidget(displayWidget);
 
     translator = nullptr;
-    translator = new Translator("E:/DataBase/kTranslation.json");
+    translator = new Translator(":/ts/kTranslation.json");
 
     fileRW = new ReadWrite();
     data = nullptr;
     itemDialog = nullptr;
 
     addPlot();
+
+
+    
 }
 
 KFileEdtitor::~KFileEdtitor()
@@ -127,6 +130,7 @@ void KFileEdtitor::showPairDialog()
 
 	itemDialog = new ItemDialog(this);
 	itemDialog->setWindowTitle(key);
+    connect(itemDialog, &ItemDialog::doubleClickSig, this, &KFileEdtitor::treeViewClick);
 
     auto kvPair = data->rootMap->value(key);
 
@@ -150,7 +154,7 @@ void KFileEdtitor::showPairDialog()
 
             QLabel* label = new QLabel(itemDialog);
 			//! 配置中文
-			if (translator != nullptr)
+			if (translator->json != nullptr)
 			{
 				QString jLable = translator->json->value(k).toString();
 				if (jLable != "")
@@ -181,14 +185,14 @@ void KFileEdtitor::showPairDialog()
 			//! 把unused属性的值设置为不可修改的textBrowser
             if (k.mid(0, 6) == "unused")
             {
-				QTextBrowser* value = new QTextBrowser(itemDialog);
+				QLineEdit* value = new QLineEdit(itemDialog);
 				value->setText(vRow[rowCount][i]);
                 value->setAlignment(Qt::AlignCenter);
                 value->setGeometry((w + px) * (kcount-1) + 45, (h + py) * rowCount + 35, w, h);
             }
             else
             {
-				QTextEdit* value = new QTextEdit(itemDialog);
+				QLineEdit* value = new QLineEdit(itemDialog);
 				value->setText(vRow[rowCount][i]);
                 value->setGeometry((w + px) * i + 45, (h + py) * rowCount + 35, w, h);
             }
@@ -275,7 +279,7 @@ void KFileEdtitor::showMapDialog()
         }
         else
         {
-            QTextEdit* value = new QTextEdit(itemDialog);
+            QLineEdit* value = new QLineEdit(itemDialog);
             value->setText(kv->value(k));
             value->setGeometry((w + px) * (numCount % 8) + 45, (h + py) * (numCount / 8) + 35, w, h);
         }

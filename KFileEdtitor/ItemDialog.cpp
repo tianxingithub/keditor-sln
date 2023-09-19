@@ -1,7 +1,7 @@
 #include "ItemDialog.h"
 #include "qlayout.h"
 #include "QLabel"
-#include "QTextEdit"
+#include "QLineEdit"
 #include "QDebug"
 
 ItemDialog::ItemDialog(QWidget*parent)
@@ -35,20 +35,22 @@ void ItemDialog::getDialogData()
 	QMap<QString, QString >* kv = new QMap<QString, QString>;
 	//! 遍历所有Label控件和TextEdit控件
 	QList<QLabel*> labelList = this->findChildren<QLabel*>(); // 有顺序
-	QList<QTextEdit*> textEditList = this->findChildren<QTextEdit*>(); // 有顺序
-	onlyValue = this->findChildren<QTextEdit*>();
+	QList<QLineEdit*> lineEditList = this->findChildren<QLineEdit*>(); // 有顺序
+	onlyValue = this->findChildren<QLineEdit*>();
 	//! 把键值信息写入到QMap中
 	krows = new QList<QString>;
 	vrows = new QList<QString>;
 	int kCount = labelList.size();
 	for (int i = 0; i < labelList.size(); i++) 
 	{
-		krows->append(labelList.at(i)->text());
-		vrows->append(textEditList.at(i)->toPlainText());
+		auto k = labelList.at(i)->text();
+		auto v = lineEditList.at(i)->text();
+		krows->append(k);
+		vrows->append(v);
 	}	
-
+	emit doubleClickSig();
 	//! 关闭当前窗体
 	this->close();
-
+	
 }
 
