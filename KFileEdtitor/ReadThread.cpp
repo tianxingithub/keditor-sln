@@ -102,7 +102,7 @@ void ReadThread::run()
 // 				int i = 1;
 // 			}
 			//end testing
-			str = str.simplified();
+			str = str.simplified(); // ----------------------
 			QStringList key = str.split(" "); // 下标1开始，最后一个为unused要丢弃
 
 			int len = key.length();
