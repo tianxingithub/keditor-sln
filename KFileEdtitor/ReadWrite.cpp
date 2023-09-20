@@ -4,7 +4,9 @@
 #include "qtextbrowser.h"
 #include "QDebug"
 #include "ReadThread.h"
+#include "ReadThread.h"
 #include "KFileEdtitor.h"
+
 
 ReadWrite::ReadWrite()
 {
@@ -16,16 +18,17 @@ ReadWrite::~ReadWrite()
 
 }
 
-Data* ReadWrite::readData(QString filepath, QTextBrowser* display)
+void ReadWrite::readData(QString filepath, QTextBrowser* display)
 {
-	ReadThread* readthread = new ReadThread(filepath, display);
-	readthread->run();
-	//readthread->start();
-	connect(readthread, &QThread::finished, new KFileEdtitor(), &KFileEdtitor::displayItem);
+	readthread = new ReadThread(filepath, display);
+// 	readthread->run();
+	readthread->start();
+// 	connect(readthread, &QThread::finished, new KFileEdtitor(), &KFileEdtitor::displayItem);
+	connect(readthread, &QThread::finished, this, &ReadWrite::finishedSlot);
 
-	Data* re = readthread->data;
+	
 	//Data* re = nullptr;
-	return re;
+// 	return re;
 }
 
 void ReadWrite::writeDataRoot(QString filepath, Data* data)
@@ -121,7 +124,7 @@ void ReadWrite::writeData(QString filepath, Data* data)
 	QTextStream in(&ifile);
 	while (!in.atEnd()) //! 按行读取文件
 	{
-		QByteArray line = ifile.readLine();
+		QByteArray line = ifile.readLine(); 
 		QString str(line);
 		if (str.at(0) == '*')
 		{
@@ -129,19 +132,10 @@ void ReadWrite::writeData(QString filepath, Data* data)
 			{
 				// 把读取的写进输出文件
 
-			}
-			
+			}			
 		}
 	}
-
-
-
-
-
-
-
-
-
+	
 	ofile.close();
 	ifile.close();
 }
@@ -156,4 +150,11 @@ void ReadWrite::testSlots()
 	
 	
 	qDebug() << "*****************ReadWrite::testSlots*************";
+}
+
+void ReadWrite::finishedSlot()
+{
+	int i = 1;
+	Data* re = readthread->data;
+	emit finishedSig(re);
 }

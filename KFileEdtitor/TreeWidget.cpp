@@ -42,7 +42,7 @@ void TreeWidget::initTree()
 	// 创建根节点
 	root = new QTreeWidgetItem(treeItem);
 	root->setText(0, u8"激活能量数值");
-	root->setIcon(0, QIcon("E:/Logo/fir.png"));
+	root->setIcon(0, QIcon(":/images/fir.png"));
 
 	treeItem->expandAll();  // 展开所有节点
 	treeItem->show();

@@ -6,6 +6,7 @@
 #include "ReadThread.h"
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
+#include "Data.h"
 
 KFileEdtitor::KFileEdtitor(QWidget *parent)
     : QMainWindow(parent)
@@ -25,6 +26,7 @@ KFileEdtitor::KFileEdtitor(QWidget *parent)
     translator = new Translator(":/ts/kTranslation.json");
 
     fileRW = new ReadWrite();
+    connect(fileRW, &ReadWrite::finishedSig, this, &KFileEdtitor::readOverSlot);
     data = nullptr;
     itemDialog = nullptr;
 
@@ -74,7 +76,7 @@ void KFileEdtitor::getData()
     //QString filepath = "C:/Users/HanShan/Downloads/Demo_86_1219.k";
     //QString filepath = "C:/Users/HanShan/Downloads/3layer_shot_root.k";
     
-    this->data = fileRW->readData(filepath, displayWidget->textDisplay);
+    /*this->data = */fileRW->readData(filepath, displayWidget->textDisplay);
     displayItem();
 }
 
@@ -107,10 +109,18 @@ void KFileEdtitor::displayItem()
         if (a==nullptr)
             continue;
         QTreeWidgetItem* childItem1 = new QTreeWidgetItem(treeWidget->root);
-        childItem1->setIcon(0, QIcon("E:/Logo/sec.png"));
+        childItem1->setIcon(0, QIcon(":/images/sec.png"));
         childItem1->setText(0, s);
     }
     treeWidget->treeItem->expandAll();  // 展开所有节点
+}
+
+void KFileEdtitor::readOverSlot(Data*re)
+{
+    int a = 1;
+	
+    this->data = re;
+    displayItem();
 }
 
 void KFileEdtitor::treeViewDoubleClick()

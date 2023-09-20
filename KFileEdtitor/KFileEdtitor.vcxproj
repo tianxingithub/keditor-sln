@@ -120,7 +120,7 @@
     <ClInclude Include="Data.h" />
     <QtMoc Include="ItemDialog.h" />
     <QtMoc Include="ReadThread.h" />
-    <ClInclude Include="ReadWrite.h" />
+    <QtMoc Include="ReadWrite.h" />
     <ClInclude Include="Translator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -13,6 +13,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class KFileEdtitorClass; };
 QT_END_NAMESPACE
 
+class Data;
 //! 主界面类
 class KFileEdtitor : public QMainWindow
 {
@@ -56,6 +57,8 @@ public:
     void exportData();
 	//! 显示文件的树节点信息
 	void displayItem();
+
+    void readOverSlot(Data* re);
 
 private:
     //! 文件节点树

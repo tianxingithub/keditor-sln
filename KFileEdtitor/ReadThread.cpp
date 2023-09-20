@@ -42,13 +42,14 @@ void ReadThread::run()
 
 	//! 按行读取文件
 	bool isBreak = false;
+	int rowCount = 0;
 	while (!in.atEnd())
 	{
 		if (isBreak)
 		{
 			break;
 		}
-		QByteArray line = file.readLine();
+		QByteArray line = file.readLine(); rowCount++;
 		QString str(line);
 		str.remove("\n");
 
@@ -91,16 +92,27 @@ void ReadThread::run()
 			QList<QString>kk;
 			QList<QString>vv;
 			display->append(str);
+			// tesing
+// 			if (rowCount == 48)
+// 			{
+// 				int i = 1;
+// 			}
+// 			if (rowCount == 62)
+// 			{
+// 				int i = 1;
+// 			}
+			//end testing
 			str = str.simplified();
 			QStringList key = str.split(" "); // 下标1开始，最后一个为unused要丢弃
 
 			int len = key.length();
-			line = file.readLine(); // 属性的值 下标0开始
+			line = file.readLine(); rowCount++;// 属性的值 下标0开始
 
 			QString strvalue(line);
 			strvalue.remove("\n");
 			display->append(strvalue);
-			strvalue = strvalue.simplified();
+			strvalue = strvalue.simplified(); // ----------------------
+			
 
 			QStringList value = strvalue.split(" "); // 下标0开始
 

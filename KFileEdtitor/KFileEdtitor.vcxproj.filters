@@ -75,6 +75,9 @@
     <QtMoc Include="ReadThread.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="ReadWrite.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="DisplayWidget.ui">
@@ -92,9 +95,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Translator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ReadWrite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
