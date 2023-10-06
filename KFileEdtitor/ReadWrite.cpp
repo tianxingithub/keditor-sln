@@ -43,6 +43,9 @@ void ReadWrite::writeDataRoot(QString filepath, Data* data)
 
 	//! 树节点顺序
 	auto node1 = data->rootOrder;
+
+	//! 节点对应的批注
+	auto notes = data->rootOrder_notes;
 	
 	//! 开始遍历树节点
 	for (auto n1 : *node1)

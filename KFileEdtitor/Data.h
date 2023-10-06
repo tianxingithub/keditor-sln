@@ -21,6 +21,9 @@ public:
 
 	//! 树节点的顺序
 	QList<QString>* rootOrder;
+	
+	//! 树节点对应的批注
+	QList<QString>* rootOrder_notes;
 
 	//! 已丢弃
 	//树节点属性的顺序

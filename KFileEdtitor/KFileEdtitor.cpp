@@ -130,6 +130,8 @@ void KFileEdtitor::treeViewDoubleClick()
     //freshData();
 }
 
+
+
 void KFileEdtitor::showPairDialog()
 {
 	if (this->data == nullptr)
@@ -143,7 +145,9 @@ void KFileEdtitor::showPairDialog()
     connect(itemDialog, &ItemDialog::doubleClickSig, this, &KFileEdtitor::treeViewClick);
 
     auto kvPair = data->rootMap->value(key);
-
+    auto item_index = data->rootOrder->indexOf(key);
+	auto item_notes = data->rootOrder_notes->at(item_index);
+    qDebug() << "--------------------------" << item_notes;
     auto kRow = kvPair->first;
     auto vRow = kvPair->second;
 
@@ -263,6 +267,7 @@ void KFileEdtitor::showMapDialog()
 
     kv = data->rootMapOut->value(key);
     attOrder = data->orderOut->value(key);
+
 
     if (kv == nullptr || attOrder == nullptr)
         return;
