@@ -163,32 +163,38 @@ void KFileEdtitor::showPairDialog()
             int kcount = kRow.last().size() <= 8 ? 8 : kRow.last().size();
 
             QLabel* label = new QLabel(itemDialog);
+            QLabel* label_tr = new QLabel(itemDialog);
 			//! 配置中文
 			if (translator->json != nullptr)
 			{
 				QString jLable = translator->json->value(k).toString();
 				if (jLable != "")
 				{
-					label->setText(jLable);
+					label->setText(k);
+                    label_tr->setText("jLable");
 				}
 				else
 				{
 					label->setText(k);
+                    label_tr->setText("jLable");
 				}
 			}
 			else
 			{
 				label->setText(k);
+                label_tr->setText("jLable");
 			}
 
             // 如果Lable是unused直接放在最后面
 			if (k.mid(0, 6) == "unused")
 			{
 				label->setGeometry((w + px) * (kcount-1) + 45, (h + py) * rowCount, w, h);
+                label_tr->setGeometry((w + px) * (kcount-1) + 45, (h + py) * (rowCount+1), w, h);
 			}
 			else
 			{
 				label->setGeometry((w + px) * i + 45, (h + py) * rowCount, w, h);
+                label_tr->setGeometry((w + px) * i + 45, (h + py) * (rowCount+1), w, h);
 			}
 
 			
@@ -198,13 +204,13 @@ void KFileEdtitor::showPairDialog()
 				QLineEdit* value = new QLineEdit(itemDialog);
 				value->setText(vRow[rowCount][i]);
                 value->setAlignment(Qt::AlignCenter);
-                value->setGeometry((w + px) * (kcount-1) + 45, (h + py) * rowCount + 35, w, h);
+                value->setGeometry((w + px) * (kcount-1) + 45, (h + py) * (rowCount+1) + 35, w, h);
             }
             else
             {
 				QLineEdit* value = new QLineEdit(itemDialog);
 				value->setText(vRow[rowCount][i]);
-                value->setGeometry((w + px) * i + 45, (h + py) * rowCount + 35, w, h);
+                value->setGeometry((w + px) * i + 45, (h + py) * (rowCount+1) + 35, w, h);
             }
 
         }
@@ -214,6 +220,10 @@ void KFileEdtitor::showPairDialog()
     int xcount = kRow.last().size() <= 8 ? 8 : kRow.last().size();
     
     int xx = (w + px) * (xcount+1), yy = (h + py) * (kRow.size() + 1) + 50;
+
+	// 显示节点批注
+// 	QTextBrowser* notes = new QTextBrowser(itemDialog);
+
     itemDialog->resize(xx, yy);
 	itemDialog->save->move(xx - 240, yy - 50);
 	itemDialog->save->setVisible(true);
@@ -248,33 +258,39 @@ void KFileEdtitor::showMapDialog()
     for each (auto k in *attOrder)
     {
         QLabel* label = new QLabel(itemDialog);
+        QLabel* label_tr = new QLabel(itemDialog);
         //! 配置中文
         if (translator != nullptr)
         {
             QString jLable = translator->json->value(k).toString();
             if (jLable != "")
             {
-                label->setText(jLable);
+                label->setText(k);
+                label_tr->setText(jLable);
             }
             else
             {
                 label->setText(k);
+                label_tr->setText(k);
             }
         }
         else
         {
             label->setText(k);
+            label_tr->setText(k);
         }
 
         //! 如果Lable是unused直接放在最后面
         if (k.mid(0, 6) == "unused")
         {
             label->setGeometry((w + px) * (7 % 8) + 45, (h + py) * (numCount / 8), w, h);
+            label_tr->setGeometry((w + px) * (7 % 8) + 45, (h + py) * ((numCount / 8)+1), w, h);
             numCount = numCount + (7 - (numCount % 8));
         }
         else
         {
             label->setGeometry((w + px) * (numCount % 8) + 45, (h + py) * (numCount / 8), w, h);
+            label_tr->setGeometry((w + px) * (numCount % 8) + 45, (h + py) * ((numCount / 8)+1), w, h);
         }
 
         //! 把unused属性的值设置为不可修改的textBrowser
@@ -284,19 +300,22 @@ void KFileEdtitor::showMapDialog()
             value->setText(kv->value(k));
             value->setAlignment(Qt::AlignCenter);
             numCount = numCount - (7 - (numCount % 8));
-            value->setGeometry((w + px) * (7 % 8) + 45, (h + py) * (numCount / 8) + 35, w, h);
+            value->setGeometry((w + px) * (7 % 8) + 45, (h + py) * ((numCount / 8)+1) + 35, w, h);
             numCount = numCount + (7 - (numCount % 8));
         }
         else
         {
             QLineEdit* value = new QLineEdit(itemDialog);
             value->setText(kv->value(k));
-            value->setGeometry((w + px) * (numCount % 8) + 45, (h + py) * (numCount / 8) + 35, w, h);
+            value->setGeometry((w + px) * (numCount % 8) + 45, (h + py) * ((numCount / 8)+1) + 35, w, h);
         }
         numCount++;
     }
 
     int xx = (w + px) * 9, yy = (h + py) * (numCount / 8 + 1) + 50;
+    // 显示节点批注
+    QTextBrowser* notes = new QTextBrowser(itemDialog);
+//     notes->setsize
     itemDialog->resize(xx, yy);
 
     itemDialog->save->move(xx - 240, yy - 50);
