@@ -77,7 +77,7 @@ void KFileEdtitor::getData()
     //QString filepath = "C:/Users/HanShan/Downloads/3layer_shot_root.k";
     
     /*this->data = */fileRW->readData(filepath, displayWidget->textDisplay);
-    displayItem();
+//     displayItem();
 }
 
 void KFileEdtitor::exportData()
@@ -187,18 +187,18 @@ void KFileEdtitor::showPairDialog()
 				if (jLable != "")
 				{
 					label->setText(k);
-                    label_tr->setText(u8"翻译");
+                    label_tr->setText(u8"翻译"+k);
 				}
 				else
 				{
 					label->setText(k);
-                    label_tr->setText(u8"翻译");
+                    label_tr->setText(u8"翻译" + k);
 				}
 			}
 			else
 			{
 				label->setText(k);
-                label_tr->setText(u8"翻译");
+                label_tr->setText(u8"翻译" + k);
 			}
 
             // 如果Lable是unused直接放在最后面
@@ -238,7 +238,9 @@ void KFileEdtitor::showPairDialog()
     int xx = (w + px) * (xcount+1), yy = (h + py) * (kRow.size() + 1) + 50+ py_tr_v;
 
 	// 显示节点批注
-// 	QTextBrowser* notes = new QTextBrowser(itemDialog);
+	QTextBrowser* textBro_notes = new QTextBrowser(itemDialog); //item_notes
+    textBro_notes->setGeometry(45, yy-110, 390, 80); // 设置 QTextBrowser 的位置和大小
+    textBro_notes->setPlainText(item_notes);
 
     itemDialog->resize(xx, yy);
 	itemDialog->save->move(xx - 240, yy - 50);
@@ -455,7 +457,11 @@ void KFileEdtitor::treeViewClick()
         model->setItem(lineCount, 1, new QStandardItem(showV[i]));
         lineCount++;
     }
+    auto notes = data->rootOrder_notes->at(index);
+	model->setItem(lineCount, 0, new QStandardItem(notes));
+	model->setItem(lineCount, 1, new QStandardItem());
 
+    treeWidget->itemAttr->setSpan(lineCount, 0, 1, 2);
     /* 显示 */
     treeWidget->itemAttr->show();
 }

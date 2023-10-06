@@ -81,7 +81,7 @@ void ReadThread::run()
 				isBreak = true;
 				continue;
 			}
-			display->append(str);
+			display->append(QString::number(rowCount) + "  " +str);
 
 			itemPair = new QPair<QList<QList<QString>>, QList<QList<QString>>>;
 			k = new QList<QList<QString>>;
@@ -103,12 +103,13 @@ void ReadThread::run()
 			if (isChineseCharacter(str.at(1)))// ÊÇÅú×¢
 			{
 				notes = notes + str.mid(1) + u8"¡£";
+				display->append(QString::number(rowCount) + "  " + str);
 			}
 			else if (str.at(1) == " ")
 			{
 				QList<QString>kk;
 				QList<QString>vv;
-				display->append(str);
+				display->append(QString::number(rowCount) + "  " + str);
 				// tesing
 	// 			if (rowCount == 48)
 	// 			{
@@ -127,7 +128,7 @@ void ReadThread::run()
 
 				QString strvalue(line);
 				strvalue.remove("\n");
-				display->append(strvalue);
+				display->append(QString::number(rowCount) + "  " + strvalue);
 				strvalue = strvalue.simplified(); // ----------------------
 
 

@@ -40,10 +40,11 @@ void ItemDialog::getDialogData()
 	//! 把键值信息写入到QMap中
 	krows = new QList<QString>;
 	vrows = new QList<QString>;
-	int kCount = labelList.size();
-	for (int i = 0; i < labelList.size(); i++) 
+// 	int kCount = labelList.size();
+
+	for (int i = 0; i < lineEditList.size(); i++)
 	{
-		auto k = labelList.at(i)->text();
+		auto k = labelList.at(i*2)->text();
 		auto v = lineEditList.at(i)->text();
 		krows->append(k);
 		vrows->append(v);

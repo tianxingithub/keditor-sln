@@ -13,6 +13,10 @@ TreeWidget::TreeWidget(QWidget *parent)
 
 	treeItem = new QTreeWidget(splitter);
 	itemAttr = new QTableView(splitter);
+	itemAttr->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+	itemAttr->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	itemAttr->setWordWrap(true);
+	itemAttr->setTextElideMode(Qt::ElideNone);
 
 	QVBoxLayout* layout = new QVBoxLayout();
 	layout->addWidget(splitter);
