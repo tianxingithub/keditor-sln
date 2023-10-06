@@ -155,6 +155,9 @@ void KFileEdtitor::showPairDialog()
     int w = 90, h = 30, px = 10, py = 40;
     int numCount = 0;
     int rowCount = 0;
+
+    int py_tr_v=0;
+	int py_tr_k=0;
     for (auto row : kRow)//遍历第一行的属性
     {
         for (int i=0;i<row.size();i++)
@@ -164,6 +167,15 @@ void KFileEdtitor::showPairDialog()
 
             QLabel* label = new QLabel(itemDialog);
             QLabel* label_tr = new QLabel(itemDialog);
+            py_tr_v = (rowCount + 1) * (h-16);
+            if (rowCount == 0)
+            {
+                py_tr_k = rowCount * h;
+            } 
+            else 
+            {
+                py_tr_k = rowCount * (h - 16);
+            } 
 			//! 配置中文
 			if (translator->json != nullptr)
 			{
@@ -171,30 +183,30 @@ void KFileEdtitor::showPairDialog()
 				if (jLable != "")
 				{
 					label->setText(k);
-                    label_tr->setText("jLable");
+                    label_tr->setText(u8"翻译");
 				}
 				else
 				{
 					label->setText(k);
-                    label_tr->setText("jLable");
+                    label_tr->setText(u8"翻译");
 				}
 			}
 			else
 			{
 				label->setText(k);
-                label_tr->setText("jLable");
+                label_tr->setText(u8"翻译");
 			}
 
             // 如果Lable是unused直接放在最后面
 			if (k.mid(0, 6) == "unused")
 			{
-				label->setGeometry((w + px) * (kcount-1) + 45, (h + py) * rowCount, w, h);
-                label_tr->setGeometry((w + px) * (kcount-1) + 45, (h + py) * (rowCount+1), w, h);
+				label->setGeometry((w + px) * (kcount-1) + 45, (h + py) * rowCount+py_tr_k, w, h);
+                label_tr->setGeometry((w + px) * (kcount-1) + 45, (h + py) * rowCount+py_tr_v, w, h);
 			}
 			else
 			{
-				label->setGeometry((w + px) * i + 45, (h + py) * rowCount, w, h);
-                label_tr->setGeometry((w + px) * i + 45, (h + py) * (rowCount+1), w, h);
+				label->setGeometry((w + px) * i + 45, (h + py) * rowCount+py_tr_k, w, h);
+                label_tr->setGeometry((w + px) * i + 45, (h + py) * rowCount+py_tr_v, w, h);
 			}
 
 			
@@ -204,13 +216,13 @@ void KFileEdtitor::showPairDialog()
 				QLineEdit* value = new QLineEdit(itemDialog);
 				value->setText(vRow[rowCount][i]);
                 value->setAlignment(Qt::AlignCenter);
-                value->setGeometry((w + px) * (kcount-1) + 45, (h + py) * (rowCount+1) + 35, w, h);
+                value->setGeometry((w + px) * (kcount-1) + 45, (h + py) * rowCount+py_tr_v + 35, w, h);
             }
             else
             {
 				QLineEdit* value = new QLineEdit(itemDialog);
 				value->setText(vRow[rowCount][i]);
-                value->setGeometry((w + px) * i + 45, (h + py) * (rowCount+1) + 35, w, h);
+                value->setGeometry((w + px) * i + 45, (h + py) * rowCount+py_tr_v + 35, w, h);
             }
 
         }
@@ -219,7 +231,7 @@ void KFileEdtitor::showPairDialog()
 
     int xcount = kRow.last().size() <= 8 ? 8 : kRow.last().size();
     
-    int xx = (w + px) * (xcount+1), yy = (h + py) * (kRow.size() + 1) + 50;
+    int xx = (w + px) * (xcount+1), yy = (h + py) * (kRow.size() + 1) + 50+ py_tr_v;
 
 	// 显示节点批注
 // 	QTextBrowser* notes = new QTextBrowser(itemDialog);
