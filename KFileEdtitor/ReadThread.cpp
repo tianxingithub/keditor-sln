@@ -139,6 +139,7 @@ void ReadThread::run()
 					QT_TRY
 					{
 						itemOrderOut->append(key[i + 1]);
+					qDebug() << key[i + 1];
 						if (key[i + 1].mid(0, 6) == "unused")
 						{
 							kk.append(key[i + 1]);

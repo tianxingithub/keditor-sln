@@ -22,7 +22,7 @@ QJsonObject* Translator::readJson()
 	QByteArray jsonData = file.readAll();
 
 	// 指定文件编码
-	QTextCodec* codec = QTextCodec::codecForName("GBK");
+	QTextCodec* codec = QTextCodec::codecForName("UTF-8");
 	QString jsonString = codec->toUnicode(jsonData);
 
 	// 解析JSON数据

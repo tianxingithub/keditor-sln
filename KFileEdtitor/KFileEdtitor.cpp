@@ -187,18 +187,18 @@ void KFileEdtitor::showPairDialog()
 				if (jLable != "")
 				{
 					label->setText(k);
-                    label_tr->setText(u8"翻译"+k);
+                    label_tr->setText(jLable);
 				}
 				else
 				{
 					label->setText(k);
-                    label_tr->setText(u8"翻译" + k);
+                    label_tr->setText(k);
 				}
 			}
 			else
 			{
 				label->setText(k);
-                label_tr->setText(u8"翻译" + k);
+                label_tr->setText(k);
 			}
 
             // 如果Lable是unused直接放在最后面
@@ -453,8 +453,25 @@ void KFileEdtitor::treeViewClick()
         {
             continue;
         }
-        model->setItem(lineCount, 0, new QStandardItem(showK[i]));
-        model->setItem(lineCount, 1, new QStandardItem(showV[i]));
+        if (translator->json != nullptr)
+        {
+            QString lable_tr = translator->json->value(showK[i]).toString();
+            if (lable_tr != "")
+            {
+				model->setItem(lineCount, 0, new QStandardItem(showK[i] + "(" + lable_tr + ")"));
+				model->setItem(lineCount, 1, new QStandardItem(showV[i]));
+            }
+			else
+			{
+				model->setItem(lineCount, 0, new QStandardItem(showK[i]));
+				model->setItem(lineCount, 1, new QStandardItem(showV[i]));
+			}
+        }
+        else
+        {
+			model->setItem(lineCount, 0, new QStandardItem(showK[i]));
+			model->setItem(lineCount, 1, new QStandardItem(showV[i]));
+        }
         lineCount++;
     }
     auto notes = data->rootOrder_notes->at(index);
