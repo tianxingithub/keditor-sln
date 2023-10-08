@@ -68,7 +68,8 @@ void ReadThread::run()
 				continue;
 			if (kItem != "")
 			{
-				kItem = QString::number(nodeStart) + kItem; // 序号+节点 1000NT_SOLID
+// 				kItem = QString::number(nodeStart) + kItem; // 序号+节点 1000NT_SOLID
+				kItem = kItem + "@"+ QString::number(nodeStart); // 节点+序号 NT_SOLID@1000
 				itemPair->first = *k;
 				itemPair->second = *v;
 				re->rootList->append(itemPair);
@@ -88,10 +89,12 @@ void ReadThread::run()
 			v = new QList<QList<QString>>;
 
 			//! 添加树节点顺序
-			re->rootOrder->append(QString::number(nodeStart) + str.mid(1));
+// 			re->rootOrder->append(QString::number(nodeStart) + str.mid(1));
+			re->rootOrder->append(str.mid(1)+"@"+ QString::number(nodeStart));
 			
 			str = str.simplified();
 			kItem = str.mid(1);		
+			qDebug() << kItem;
 			notes = " ";
 
 			itemMapOut = new QMap<QString, QString>();
@@ -139,7 +142,7 @@ void ReadThread::run()
 					QT_TRY
 					{
 						itemOrderOut->append(key[i + 1]);
-					qDebug() << key[i + 1];
+// 					qDebug() << key[i + 1];
 						if (key[i + 1].mid(0, 6) == "unused")
 						{
 							kk.append(key[i + 1]);
