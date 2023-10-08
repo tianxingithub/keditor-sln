@@ -159,5 +159,5 @@ void ReadWrite::finishedSlot()
 {
 	int i = 1;
 	Data* re = readthread->data;
-	emit finishedSig(re);
+	emit readFinishedSig(re);
 }

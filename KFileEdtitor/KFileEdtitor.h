@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
+#include <QHash>
 #include "ui_KFileEdtitor.h"
 #include "TreeWidget.h"
 #include "DisplayWidget.h"
@@ -63,6 +64,8 @@ public:
 private:
     //! 文件节点树
     TreeWidget* treeWidget;
+    //! 节点树父节点
+    QHash<QString, QTreeWidgetItem*>* parentNodes;
     //! 文本内容
     DisplayWidget* displayWidget;
     //! 弹出的对话框

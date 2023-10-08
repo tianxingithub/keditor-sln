@@ -28,7 +28,7 @@ public slots:
 public:
 	void finishedSlot();
 signals:
-	void finishedSig(Data* re);
+	void readFinishedSig(Data* re);
 public:
 	ReadThread* readthread;
 };

@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_ReadWrite_t {
     QByteArrayData data[13];
-    char stringdata0[111];
+    char stringdata0[115];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,21 +32,21 @@ struct qt_meta_stringdata_ReadWrite_t {
 static const qt_meta_stringdata_ReadWrite_t qt_meta_stringdata_ReadWrite = {
     {
 QT_MOC_LITERAL(0, 0, 9), // "ReadWrite"
-QT_MOC_LITERAL(1, 10, 11), // "finishedSig"
-QT_MOC_LITERAL(2, 22, 0), // ""
-QT_MOC_LITERAL(3, 23, 5), // "Data*"
-QT_MOC_LITERAL(4, 29, 2), // "re"
-QT_MOC_LITERAL(5, 32, 8), // "readData"
-QT_MOC_LITERAL(6, 41, 8), // "filepath"
-QT_MOC_LITERAL(7, 50, 13), // "QTextBrowser*"
-QT_MOC_LITERAL(8, 64, 7), // "display"
-QT_MOC_LITERAL(9, 72, 13), // "writeDataRoot"
-QT_MOC_LITERAL(10, 86, 4), // "data"
-QT_MOC_LITERAL(11, 91, 9), // "writeData"
-QT_MOC_LITERAL(12, 101, 9) // "testSlots"
+QT_MOC_LITERAL(1, 10, 15), // "readFinishedSig"
+QT_MOC_LITERAL(2, 26, 0), // ""
+QT_MOC_LITERAL(3, 27, 5), // "Data*"
+QT_MOC_LITERAL(4, 33, 2), // "re"
+QT_MOC_LITERAL(5, 36, 8), // "readData"
+QT_MOC_LITERAL(6, 45, 8), // "filepath"
+QT_MOC_LITERAL(7, 54, 13), // "QTextBrowser*"
+QT_MOC_LITERAL(8, 68, 7), // "display"
+QT_MOC_LITERAL(9, 76, 13), // "writeDataRoot"
+QT_MOC_LITERAL(10, 90, 4), // "data"
+QT_MOC_LITERAL(11, 95, 9), // "writeData"
+QT_MOC_LITERAL(12, 105, 9) // "testSlots"
 
     },
-    "ReadWrite\0finishedSig\0\0Data*\0re\0"
+    "ReadWrite\0readFinishedSig\0\0Data*\0re\0"
     "readData\0filepath\0QTextBrowser*\0display\0"
     "writeDataRoot\0data\0writeData\0testSlots"
 };
@@ -92,7 +92,7 @@ void ReadWrite::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         auto *_t = static_cast<ReadWrite *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->finishedSig((*reinterpret_cast< Data*(*)>(_a[1]))); break;
+        case 0: _t->readFinishedSig((*reinterpret_cast< Data*(*)>(_a[1]))); break;
         case 1: _t->readData((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QTextBrowser*(*)>(_a[2]))); break;
         case 2: _t->writeDataRoot((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< Data*(*)>(_a[2]))); break;
         case 3: _t->writeData((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< Data*(*)>(_a[2]))); break;
@@ -114,7 +114,7 @@ void ReadWrite::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         int *result = reinterpret_cast<int *>(_a[0]);
         {
             using _t = void (ReadWrite::*)(Data * );
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&ReadWrite::finishedSig)) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&ReadWrite::readFinishedSig)) {
                 *result = 0;
                 return;
             }
@@ -163,7 +163,7 @@ int ReadWrite::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void ReadWrite::finishedSig(Data * _t1)
+void ReadWrite::readFinishedSig(Data * _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);

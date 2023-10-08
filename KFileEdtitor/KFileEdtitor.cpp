@@ -6,6 +6,7 @@
 #include "ReadThread.h"
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
+
 #include "Data.h"
 
 KFileEdtitor::KFileEdtitor(QWidget *parent)
@@ -26,9 +27,12 @@ KFileEdtitor::KFileEdtitor(QWidget *parent)
     translator = new Translator(":/ts/kTranslation.json");
 
     fileRW = new ReadWrite();
-    connect(fileRW, &ReadWrite::finishedSig, this, &KFileEdtitor::readOverSlot);
+    connect(fileRW, &ReadWrite::readFinishedSig, this, &KFileEdtitor::readOverSlot);
     data = nullptr;
     itemDialog = nullptr;
+
+    parentNodes = new QHash<QString, QTreeWidgetItem*>();
+
 
     addPlot();
 
@@ -218,6 +222,7 @@ void KFileEdtitor::showPairDialog()
             if (k.mid(0, 6) == "unused")
             {
 				QLineEdit* value = new QLineEdit(itemDialog);
+                value->setReadOnly(true); // ÉèÖÃÎªÖ»¶Á
 				value->setText(vRow[rowCount][i]);
                 value->setAlignment(Qt::AlignCenter);
                 value->setGeometry((w + px) * (kcount-1) + 45, (h + py) * rowCount+py_tr_v + 35, w, h);
