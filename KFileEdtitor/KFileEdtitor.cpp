@@ -163,14 +163,17 @@ void KFileEdtitor::showPairDialog()
 	QTreeWidgetItem* item = treeWidget->treeItem->currentItem();
 	QString key = item->text(0);
     QString parent_text = item->parent()->text(0);
+    QString item_text = item->text(0);
     if (item->parent())
     {
-        if (parent_text == u8"激活能量数值")
+        if (parent_text == u8"激活能量数值" || item->text(0) == "")
             return;
 
         // 	if (key == u8"激活能量数值") return;
         key = parent_text +"_" + key;
         itemDialog = new ItemDialog(this);
+        //(parent_text + "_" + item_text.mid(0, item_text.length() -5)));
+//         itemDialog->setWindowTitle(parent_text + "_" + item_text.mid(0, item_text.length() - 5));
         itemDialog->setWindowTitle(key);
         connect(itemDialog, &ItemDialog::doubleClickSig, this, &KFileEdtitor::treeViewClick);
 
@@ -436,6 +439,7 @@ void KFileEdtitor::treeViewClick()
     //! 得到当前点击的键
     QTreeWidgetItem* item = treeWidget->treeItem->currentItem();
     QString parent_text = item->parent()->text(0);
+    QString item_text = item->text(0);
     if (item->parent())
     {
         if (parent_text == u8"激活能量数值" || item->text(0)=="")
@@ -450,7 +454,7 @@ void KFileEdtitor::treeViewClick()
         /* 设置表格标题行(输入数据为QStringList类型) */
         model->setHorizontalHeaderLabels({ u8"属性", u8"值" });
         model->setItem(0, 0, new QStandardItem(u8"名字"));
-        model->setItem(0, 1, new QStandardItem(item->text(0)));
+        model->setItem(0, 1, new QStandardItem(parent_text + "_" + item_text.mid(0, item_text.length() -5)));
 
         /* 设置表格视图数据 */
         treeWidget->itemAttr->setModel(model);

@@ -50,7 +50,8 @@ void ReadWrite::writeDataRoot(QString filepath, Data* data)
 	//! 开始遍历树节点
 	for (auto n1 : *node1)
 	{
-		txtOutput << "*"+n1.mid(4) << endl;
+		auto n = n1.mid(0, n1.length() - 5);
+		txtOutput << "*"+n1.mid(0,n1.length()-5) << endl;
 		
 		//! 节点的QPair
 		auto kvpair = data->rootMap->value(n1);
