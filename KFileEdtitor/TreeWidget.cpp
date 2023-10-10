@@ -50,4 +50,5 @@ void TreeWidget::initTree()
 
 	treeItem->expandAll();  // 展开所有节点
 	treeItem->show();
+	
 }

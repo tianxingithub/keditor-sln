@@ -31,7 +31,7 @@ KFileEdtitor::KFileEdtitor(QWidget *parent)
     data = nullptr;
     itemDialog = nullptr;
 
-    parentNodes = new QHash<QString, QTreeWidgetItem*>();
+//     parentNodes = new QHash<QString, QTreeWidgetItem*>();
 
 
     addPlot();
@@ -102,21 +102,34 @@ void KFileEdtitor::exportData()
 
 void KFileEdtitor::displayItem()
 {
-
-
     if (data == nullptr)
         return;
     treeWidget->treeItem->setRootIsDecorated(false);
-    for each (auto s in *(data->rootOrder))
+    auto parent_nodes = data->rootOrder;
+
+    foreach (auto s , *(data->rootOrder))
     {
         auto a = data->rootMap->value(s);
         if (a==nullptr)
             continue;
-        QTreeWidgetItem* childItem1 = new QTreeWidgetItem(treeWidget->root);
+        QStringList parts = s.split("_");
+        QString parentName = parts[0]; // 获取父节点名称
+
+		// 检查父节点是否已存在，如果不存在则创建
+        if (!parentNodes.contains(parentName))
+        {
+            QTreeWidgetItem* parentNode = new QTreeWidgetItem(treeWidget->root);
+            parentNode->setText(0, parentName);
+            parentNode->setIcon(0, QIcon(":/images/fir.png"));
+            parentNodes[parentName] = parentNode;
+        }
+
+        QTreeWidgetItem* childItem1 = new QTreeWidgetItem(parentNodes[parentName]);
         childItem1->setIcon(0, QIcon(":/images/sec.png"));
-        childItem1->setText(0, s);
+        childItem1->setText(0, s.mid(parentName.size()+1));
     }
     treeWidget->treeItem->expandAll();  // 展开所有节点
+    treeWidget->treeItem->sortItems(0, Qt::AscendingOrder);
 }
 
 void KFileEdtitor::readOverSlot(Data*re)
@@ -142,117 +155,124 @@ void KFileEdtitor::showPairDialog()
 		return;
 	QTreeWidgetItem* item = treeWidget->treeItem->currentItem();
 	QString key = item->text(0);
-	if (key == u8"激活能量数值")return;
-
-	itemDialog = new ItemDialog(this);
-	itemDialog->setWindowTitle(key);
-    connect(itemDialog, &ItemDialog::doubleClickSig, this, &KFileEdtitor::treeViewClick);
-
-    auto kvPair = data->rootMap->value(key);
-    auto item_index = data->rootOrder->indexOf(key);
-	auto item_notes = data->rootOrder_notes->at(item_index);
-    qDebug() << "--------------------------" << item_notes;
-    auto kRow = kvPair->first;
-    auto vRow = kvPair->second;
-
-    if (kRow.size() == 0)
+    QString parent_text = item->parent()->text(0);
+    if (item->parent())
     {
-        qDebug() << "数据出错，k.size()=0,属性无值";
-        return;
-    }
-    int w = 90, h = 30, px = 10, py = 40;
-    int numCount = 0;
-    int rowCount = 0;
+        if (parent_text == u8"激活能量数值")
+            return;
 
-    int py_tr_v=0;
-	int py_tr_k=0;
-    for (auto row : kRow)//遍历第一行的属性
-    {
-        for (int i=0;i<row.size();i++)
+        // 	if (key == u8"激活能量数值") return;
+        key = parent_text +"_" + key;
+        itemDialog = new ItemDialog(this);
+        itemDialog->setWindowTitle(key);
+        connect(itemDialog, &ItemDialog::doubleClickSig, this, &KFileEdtitor::treeViewClick);
+
+        auto kvPair = data->rootMap->value(key);
+        auto item_index = data->rootOrder->indexOf(key);
+        auto item_notes = data->rootOrder_notes->at(item_index);
+        qDebug() << "--------------------------" << item_notes;
+        auto kRow = kvPair->first;
+        auto vRow = kvPair->second;
+
+        if (kRow.size() == 0)
         {
-            auto k = row[i];
-            int kcount = kRow.last().size() <= 8 ? 8 : kRow.last().size();
-
-            QLabel* label = new QLabel(itemDialog);
-            QLabel* label_tr = new QLabel(itemDialog);
-            py_tr_v = (rowCount + 1) * (h-16);
-            if (rowCount == 0)
-            {
-                py_tr_k = rowCount * h;
-            } 
-            else 
-            {
-                py_tr_k = rowCount * (h - 16);
-            } 
-			//! 配置中文
-			if (translator->json != nullptr)
-			{
-				QString jLable = translator->json->value(k).toString();
-				if (jLable != "")
-				{
-					label->setText(k);
-                    label_tr->setText(jLable);
-				}
-				else
-				{
-					label->setText(k);
-                    label_tr->setText(k);
-				}
-			}
-			else
-			{
-				label->setText(k);
-                label_tr->setText(k);
-			}
-
-            // 如果Lable是unused直接放在最后面
-			if (k.mid(0, 6) == "unused")
-			{
-				label->setGeometry((w + px) * (kcount-1) + 45, (h + py) * rowCount+py_tr_k, w, h);
-                label_tr->setGeometry((w + px) * (kcount-1) + 45, (h + py) * rowCount+py_tr_v, w, h);
-			}
-			else
-			{
-				label->setGeometry((w + px) * i + 45, (h + py) * rowCount+py_tr_k, w, h);
-                label_tr->setGeometry((w + px) * i + 45, (h + py) * rowCount+py_tr_v, w, h);
-			}
-
-			
-			//! 把unused属性的值设置为不可修改的textBrowser
-            if (k.mid(0, 6) == "unused")
-            {
-				QLineEdit* value = new QLineEdit(itemDialog);
-                value->setReadOnly(true); // 设置为只读
-				value->setText(vRow[rowCount][i]);
-                value->setAlignment(Qt::AlignCenter);
-                value->setGeometry((w + px) * (kcount-1) + 45, (h + py) * rowCount+py_tr_v + 35, w, h);
-            }
-            else
-            {
-				QLineEdit* value = new QLineEdit(itemDialog);
-				value->setText(vRow[rowCount][i]);
-                value->setGeometry((w + px) * i + 45, (h + py) * rowCount+py_tr_v + 35, w, h);
-            }
-
+            qDebug() << "数据出错，k.size()=0,属性无值";
+            return;
         }
-        rowCount++;
+        int w = 90, h = 30, px = 10, py = 40;
+        int numCount = 0;
+        int rowCount = 0;
+
+        int py_tr_v = 0;
+        int py_tr_k = 0;
+        for (auto row : kRow)//遍历第一行的属性
+        {
+            for (int i = 0; i < row.size(); i++)
+            {
+                auto k = row[i];
+                int kcount = kRow.last().size() <= 8 ? 8 : kRow.last().size();
+
+                QLabel* label = new QLabel(itemDialog);
+                QLabel* label_tr = new QLabel(itemDialog);
+                py_tr_v = (rowCount + 1) * (h - 16);
+                if (rowCount == 0)
+                {
+                    py_tr_k = rowCount * h;
+                }
+                else
+                {
+                    py_tr_k = rowCount * (h - 16);
+                }
+                //! 配置中文
+                if (translator->json != nullptr)
+                {
+                    QString jLable = translator->json->value(k).toString();
+                    if (jLable != "")
+                    {
+                        label->setText(k);
+                        label_tr->setText(jLable);
+                    }
+                    else
+                    {
+                        label->setText(k);
+                        label_tr->setText(k);
+                    }
+                }
+                else
+                {
+                    label->setText(k);
+                    label_tr->setText(k);
+                }
+
+                // 如果Lable是unused直接放在最后面
+                if (k.mid(0, 6) == "unused")
+                {
+                    label->setGeometry((w + px) * (kcount - 1) + 45, (h + py) * rowCount + py_tr_k, w, h);
+                    label_tr->setGeometry((w + px) * (kcount - 1) + 45, (h + py) * rowCount + py_tr_v, w, h);
+                }
+                else
+                {
+                    label->setGeometry((w + px) * i + 45, (h + py) * rowCount + py_tr_k, w, h);
+                    label_tr->setGeometry((w + px) * i + 45, (h + py) * rowCount + py_tr_v, w, h);
+                }
+
+
+                //! 把unused属性的值设置为不可修改的textBrowser
+                if (k.mid(0, 6) == "unused")
+                {
+                    QLineEdit* value = new QLineEdit(itemDialog);
+                    value->setReadOnly(true); // 设置为只读
+                    value->setText(vRow[rowCount][i]);
+                    value->setAlignment(Qt::AlignCenter);
+                    value->setGeometry((w + px) * (kcount - 1) + 45, (h + py) * rowCount + py_tr_v + 35, w, h);
+                }
+                else
+                {
+                    QLineEdit* value = new QLineEdit(itemDialog);
+                    value->setText(vRow[rowCount][i]);
+                    value->setGeometry((w + px) * i + 45, (h + py) * rowCount + py_tr_v + 35, w, h);
+                }
+
+            }
+            rowCount++;
+        }
+
+        int xcount = kRow.last().size() <= 8 ? 8 : kRow.last().size();
+
+        int xx = (w + px) * (xcount + 1), yy = (h + py) * (kRow.size() + 1) + 50 + py_tr_v;
+
+        // 显示节点批注
+        QTextBrowser* textBro_notes = new QTextBrowser(itemDialog); //item_notes
+        textBro_notes->setGeometry(45, yy - 110, 390, 80); // 设置 QTextBrowser 的位置和大小
+        textBro_notes->setPlainText(item_notes);
+
+        itemDialog->resize(xx, yy);
+        itemDialog->save->move(xx - 240, yy - 50);
+        itemDialog->save->setVisible(true);
+        itemDialog->cacel->move(xx - 140, yy - 50);
+        itemDialog->cacel->setVisible(true);
+        itemDialog->show();
     }
-
-    int xcount = kRow.last().size() <= 8 ? 8 : kRow.last().size();
-    
-    int xx = (w + px) * (xcount+1), yy = (h + py) * (kRow.size() + 1) + 50+ py_tr_v;
-
-	// 显示节点批注
-	QTextBrowser* textBro_notes = new QTextBrowser(itemDialog); //item_notes
-    textBro_notes->setGeometry(45, yy-110, 390, 80); // 设置 QTextBrowser 的位置和大小
-    textBro_notes->setPlainText(item_notes);
-
-    itemDialog->resize(xx, yy);
-	itemDialog->save->move(xx - 240, yy - 50);
-	itemDialog->save->setVisible(true);
-	itemDialog->cacel->move(xx - 140, yy - 50);
-	itemDialog->cacel->setVisible(true);
-    itemDialog->show();
 }
 
 void KFileEdtitor::showMapDialog()
@@ -408,82 +428,89 @@ void KFileEdtitor::treeViewClick()
 
     //! 得到当前点击的键
     QTreeWidgetItem* item = treeWidget->treeItem->currentItem();
-    if (item->text(0) == u8"激活能量数值")
-        return;
-    freshData();
-
-    /* 创建数据模型 */
-    QStandardItemModel* model = new QStandardItemModel();
-    /* 设置表格标题行(输入数据为QStringList类型) */
-    model->setHorizontalHeaderLabels({ u8"属性", u8"值" });
-    model->setItem(0, 0, new QStandardItem(u8"名字"));
-    model->setItem(0, 1, new QStandardItem(item->text(0)));
-
-    /* 设置表格视图数据 */
-    treeWidget->itemAttr->setModel(model);
-    treeWidget->itemAttr->verticalHeader()->hide();//不显示序号  
-    
-    auto a = item->text(0);
-    auto b = data->rootMapOut;
-    auto itemValue = data->rootMap->value(item->text(0));  // nullptr
-    //auto valueOrder = data->rootOrder->value(item->text(0));
-
-    auto itemPairOut = data->rootMap->value(a);
-    int index = data->rootOrder->indexOf(a);
-    auto itemPair = data->rootMap->value(a);
-    auto itemK = itemPair->first;
-    auto itemv = itemPair->second;
-
-    QList<QString> showK;
-    for (auto row : itemK) {
-        for (auto i : row) {
-            showK.append(i);
-        }
-    }
-	QList<QString> showV;
-	for (auto row : itemv) {
-		for (auto i : row) {
-			showV.append(i);
-		}
-	}
-    
-
-    if (itemValue == nullptr )//|| valueOrder == nullptr
-        return;
-
-    int lineCount = 1;
-    for (int i = 0; i < showK.size(); i++)
+    QString parent_text = item->parent()->text(0);
+    if (item->parent())
     {
-        if (showK[i].mid(0, 6) == "unused")
-        {
-            continue;
-        }
-        if (translator->json != nullptr)
-        {
-            QString lable_tr = translator->json->value(showK[i]).toString();
-            if (lable_tr != "")
-            {
-				model->setItem(lineCount, 0, new QStandardItem(showK[i] + "(" + lable_tr + ")"));
-				model->setItem(lineCount, 1, new QStandardItem(showV[i]));
-            }
-			else
-			{
-				model->setItem(lineCount, 0, new QStandardItem(showK[i]));
-				model->setItem(lineCount, 1, new QStandardItem(showV[i]));
-			}
-        }
-        else
-        {
-			model->setItem(lineCount, 0, new QStandardItem(showK[i]));
-			model->setItem(lineCount, 1, new QStandardItem(showV[i]));
-        }
-        lineCount++;
-    }
-    auto notes = data->rootOrder_notes->at(index);
-	model->setItem(lineCount, 0, new QStandardItem(notes));
-	model->setItem(lineCount, 1, new QStandardItem());
+        if (parent_text == u8"激活能量数值")
+            return;
 
-    treeWidget->itemAttr->setSpan(lineCount, 0, 1, 2);
-    /* 显示 */
-    treeWidget->itemAttr->show();
+//     if (item->text(0) == u8"激活能量数值")
+//         return;
+        freshData();
+
+        /* 创建数据模型 */
+        QStandardItemModel* model = new QStandardItemModel();
+        /* 设置表格标题行(输入数据为QStringList类型) */
+        model->setHorizontalHeaderLabels({ u8"属性", u8"值" });
+        model->setItem(0, 0, new QStandardItem(u8"名字"));
+        model->setItem(0, 1, new QStandardItem(item->text(0)));
+
+        /* 设置表格视图数据 */
+        treeWidget->itemAttr->setModel(model);
+        treeWidget->itemAttr->verticalHeader()->hide();//不显示序号  
+
+        auto a = parent_text + "_" + item->text(0);
+        auto b = data->rootMapOut;
+        auto itemValue = data->rootMap->value(a);  // nullptr
+        //auto valueOrder = data->rootOrder->value(item->text(0));
+
+        auto itemPairOut = data->rootMap->value(a);
+        int index = data->rootOrder->indexOf(a);
+        auto itemPair = data->rootMap->value(a);
+        auto itemK = itemPair->first;
+        auto itemv = itemPair->second;
+
+        QList<QString> showK;
+        for (auto row : itemK) {
+            for (auto i : row) {
+                showK.append(i);
+            }
+        }
+        QList<QString> showV;
+        for (auto row : itemv) {
+            for (auto i : row) {
+                showV.append(i);
+            }
+        }
+
+
+        if (itemValue == nullptr)//|| valueOrder == nullptr
+            return;
+
+        int lineCount = 1;
+        for (int i = 0; i < showK.size(); i++)
+        {
+            if (showK[i].mid(0, 6) == "unused")
+            {
+                continue;
+            }
+            if (translator->json != nullptr)
+            {
+                QString lable_tr = translator->json->value(showK[i]).toString();
+                if (lable_tr != "")
+                {
+                    model->setItem(lineCount, 0, new QStandardItem(showK[i] + "(" + lable_tr + ")"));
+                    model->setItem(lineCount, 1, new QStandardItem(showV[i]));
+                }
+                else
+                {
+                    model->setItem(lineCount, 0, new QStandardItem(showK[i]));
+                    model->setItem(lineCount, 1, new QStandardItem(showV[i]));
+                }
+            }
+            else
+            {
+                model->setItem(lineCount, 0, new QStandardItem(showK[i]));
+                model->setItem(lineCount, 1, new QStandardItem(showV[i]));
+            }
+            lineCount++;
+        }
+        auto notes = data->rootOrder_notes->at(index);
+        model->setItem(lineCount, 0, new QStandardItem(notes));
+        model->setItem(lineCount, 1, new QStandardItem());
+
+        treeWidget->itemAttr->setSpan(lineCount, 0, 1, 2);
+        /* 显示 */
+        treeWidget->itemAttr->show();
+    }
 }

@@ -65,7 +65,7 @@ private:
     //! 文件节点树
     TreeWidget* treeWidget;
     //! 节点树父节点
-    QHash<QString, QTreeWidgetItem*>* parentNodes;
+    QHash<QString, QTreeWidgetItem*> parentNodes;
     //! 文本内容
     DisplayWidget* displayWidget;
     //! 弹出的对话框
