@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>ts/kTranslation.json</file>
         <file>images/fir.png</file>
         <file>images/sec.png</file>
     </qresource>

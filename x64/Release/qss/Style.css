@@ -1,0 +1,414 @@
+
+/** 批注说明：
+# 1.必须单独一行【不确定】
+# 2.不能放在样式内部【不确定】
+3.需要区分大小写
+4. 批注不能用//
+*/
+
+
+
+
+/* 文本垂直样式没生效*/
+* {
+	font-family: "思源黑体";
+	font-size: 14px;
+	line-height: 22px;	 
+	text-align: center; 	
+	vertical-align: middle; 
+}
+
+/* 主界面窗体*/
+SARibbonMainWindow {
+	background-color: #1f76cb; 
+	border: 0px solid #1f76cb;  
+}
+
+/*未见效果
+QGroupBox {
+	background-color:rgb(240,242,245)
+}
+
+QDialog {
+	background-color:red; 
+}*/
+
+/*
+QWidget {
+	background-color: #1f76cb; 
+}
+
+*/
+
+/* 顶部状态栏 */
+SARibbonBar {
+	background-color: #1f76cb;
+	border: solid #33ffff;
+	/*border-width: 1px 1px 0px 1px;*/
+}
+
+/*未找到明显变化
+SARibbonButtonGroupWidget{
+	background-color: transparent;
+}*/
+
+/*未找到明显变化
+SARibbonPannel > SARibbonButtonGroupWidget {
+	border: 1px solid #c2d0df;
+}*/
+
+
+
+/* QGroupBox内的QLineEdit */
+QLineEdit{
+	background-color: white;
+	border: 2px solid #e0e0e0;
+	min-height: 18px;	
+	margin: 4px 4px 4px 4px;
+	width: 210px;
+}
+
+QLineEdit:hover{
+	background-color: white;
+	border: 2px solid #479dff;
+	margin: 4px 4px 4px 4px solid #d1e9ff;
+}
+
+QLineEdit:focus{
+	background-color: white;
+	border: 2px solid rgb(57,109,180);
+	margin: 4px 4px 4px 4px solid #d1e9ff;
+}
+
+QLineEdit:disabled{
+	background-color: #f0f0f0;
+	border: 2px solid #ccc;
+	margin: 4px 4px 4px 4px solid #ccc;
+	color:#999
+}
+
+/*为什么不生效*/
+QDialog QLineEdit{
+	height: 18px;
+	margin: 0px;
+	width: 100px;
+}
+QDialog QLineEdit:hover{
+	height: 18px;
+	margin: 0px;
+	width: 100px;
+}
+QDialog QLineEdit:focus{
+	height: 18px;
+	margin: 0px;
+	width: 100px;
+}
+QDialog QLineEdit:disabled{
+	height: 18px;
+	margin: 0px;
+	width: 100px;
+}
+
+
+/* QGroupBox内的QComboBox */
+QComboBox{
+	background-color: white;
+	border: 2px solid #e0e0e0;
+	height: 30px;	
+	margin: 4px 4px 4px 4px;
+}
+
+QComboBox:hover{
+	background-color: white;
+	border: 2px solid #479dff;
+	margin: 4px 4px 4px 4px solid #d1e9ff;
+}
+
+QComboBox:focus{
+	background-color: white;
+	border: 2px solid rgb(57,109,180);
+	margin: 4px 4px 4px 4px solid #d1e9ff;
+}
+
+QComboBox:disabled{
+	background-color: #f0f0f0;
+	border: 1px solid #ccc;
+	margin: 4px 4px 4px 4px solid #ccc;
+	color:#999
+}
+
+QComboBox QAbstractItemView{
+	selection-color: rgb(0,0,0);
+	selection-background-color: rgb(235,244,255);
+	selection-border: 0px solid;
+	selection-line-height: 30px;
+	selection-font-size: 18px;
+}
+
+
+/* 全局QPushButton设置，特殊需求要重写所有状态 */
+QPushButton {
+	background-color: rgb(0,109,234);
+	color:white;
+	border:0px;
+	padding:8px 15px;
+	border-radius:5px;
+}/* 
+height: 24px;
+margin:0px;*/
+
+QPushButton:hover {
+	background-color: rgb(71,157,255);
+	
+}/*	color:white;border-radius:0px;
+	height: 24px;
+	border: 0px;*/
+
+/*似乎没有作用，反而会把上面的样式覆盖
+QPushButton:active {
+	background-color: rgb(0,109,234);
+	
+}*/
+
+QPushButton:disabled {
+	background-color: rgb(131,184,240);
+	
+}
+
+/*QTreeWidget::item不起作用，原因还没去找*/
+/*
+QTreeWidget::item:odd{
+	background-color:rgb(131,184,240);
+}
+QTreeWidget::item:even{
+	background-color:#00ff80;
+}
+QTaleWidget::item:odd{
+	background-color:rgb(131,184,240);
+}
+QTaleWidget::item:even{
+	background-color:#00ff80;
+}
+*/
+
+/*未看见变化之处
+QTabWidget {
+	background-color:white;
+	border: 1px solid #ccc;
+}*/
+
+
+QTabBar::Tab {
+	background-color:transparent;
+	min-width:80px;
+	margin: 5px 10px;
+	color: white;
+	
+}
+/*顶部状态栏的样式，加在头部会失效*/
+/*border: 1px solid #ccc;*/
+/*width: calc(100%+20px);*/
+/**/
+
+QTabBar::tab:selected {
+	background-color: transparent;
+	/*border-bottom: 2px solid rgb(22,93,255);*/
+	border-left: 1px solid bold red;
+	border-right: 1px solid bold r;
+	/*margin-left: 5px;
+	margin-right: 5px;
+	color:rgb(30,135,254);*/
+	font-weight: bold; 
+}
+
+QTabWidget::pane {
+	border: 0px ;
+}
+
+/*Tab分割线*/
+QTaleWidget::tab-bar{
+	alignment:left;
+}
+
+
+/*可拖拽出来的TAB，没看见变化处
+ads--CDockContainerWidget {
+	background: red;
+}
+
+
+ads--CDockContainerWidget {
+	border-color: rgb(22,93,255);
+	border-style: solid;
+	border-wdith: 0 1px 0 0 ;
+	padding 0 0px;
+}*/
+
+
+
+/*[activeTab="true"]选中的状态*/
+/*ads--CDockWidgetTab[activeTab="true"]估计真得写两次才行，只写一次测试不生效*/
+ads--CDockWidgetTab[activeTab="true"]{
+	background-color: white;
+	border:1px solid rgb(229,230,232);
+	padding: 0px;
+	
+	margin-top: 5px;
+	margin-right: 5px;
+	
+}
+
+/*ads--tab 里面的btn*/
+ads--CDockWidgetTab QPushButton{
+	background-color:rgb(242,243,245);
+	padding:0px;
+	margin:0px;
+	border:0px;
+}/*background-image: url(./images/btnclose.png);	
+	*/
+
+ads--CDockWidgetTab QPushButton:hover{
+	background-color:rgb(242,243,245);
+	padding:0px;
+	margin:0px;
+	border:0px;
+}
+ads--CDockWidgetTab {
+	background-color: rgb(247,248,250);
+	border:1px solid rgb(229,230,232);
+	padding:3px;
+	margin-top: 5px;
+	margin-right: 5px;
+}
+/*ads--CDockWidgetTab[activeTab="true"]估计真得写两次才行，只写一次测试不生效*/
+ads--CDockWidgetTab[activeTab="true"] {
+	background-color: white;
+	border:1px solid rgb(229,230,232);
+	padding:3px;
+	margin-top: 5px;
+	margin-right: 5px;
+	
+}
+
+/*ads tab横条*/
+ads--CDockAreaWidget{
+	background-color: rgb(240,242,245);
+	border: 1px solid white;
+	
+}/*margin: 5px;*/
+
+
+
+/**/
+SAWindowToolButton { 
+  background-color: rgb(247,248,250); 
+  border:none;
+}
+/*未找到变化处*/
+SAWindowToolButton:focus {
+  font-weight: bold;
+  background-color: white;
+}
+SARibbonPannel {
+  background-color: rgb(247,248,250);
+  border: 0px;
+  color: #666666;
+}
+
+SARibbonMenu::item:hover {
+    color:rgb(22,93,255);
+    border: 1px solid #FCD364;
+}
+
+/*设置标题栏*/
+QHeaderView::section{
+	background-color: rgb(247,248,250);
+}
+
+/*通过名字设置样式，似乎没生效（没看见变化）*/
+/*
+#tabsMenuButton{
+	background-color:rgb(247,248,250);
+	border:1px solid rgb(229,230,232);
+}
+
+#dockAreaCloseButton{
+	background-color:transparent;
+}
+
+#detachGroupButton {
+	background-color:rgb(247,248,250);
+	border:1px solid rgb(229,230,232);
+}*/
+ 
+
+QCheckBox::indicator {
+	
+	
+	image:url(./images/check-default.png)
+}
+/*
+background-color:white;
+border: 1px solid rgb(229,230,235);
+border-radius: 10px;*/
+
+/*复选框响应*/
+QCheckBox::indicator:hover {
+	
+	image:url(./images/check-hover.png)
+	/*可以添加注释*/
+}
+/*border: 1px solid rgb(71,157,250);*/
+
+QCheckBox::indicator:checked {
+	
+	
+	image:url(./images/check-checked.png)
+}
+/*border: 1px solid rgb(71,157,250);color:white;*/
+
+QCheckBox::indicator:indeterminate {
+	image:url(./images/check-indeterminate.png)
+	
+}
+/*color:white;border:1px;*/
+
+/*单选框响应*/
+QRadioButton::indicator{
+	
+	image: url(./images/radio-default.png)
+	
+}
+
+
+QRadioButton::indicator:hover {
+	
+	image: url(./images/radio-hover.png)
+}
+/*background-color:rgb(30,137,255);
+	border-radius: 12px;*/
+
+QRadioButton::indicator:checked {
+	
+	image: url(./images/radio-checked.png)
+}
+
+/*background-color:rgb(30,137,255);
+	border-radius: 12px;*/
+
+/*url(:/ads/images/detach-button.svg)*/
+
+/*模型树的响应*/
+QTreeView::branch:closed:has-children {
+	image: url(./images/tree-open.png)
+}
+
+QTreeView::branch:open:has-children {
+	image: url(./images/tree-close.png)
+}
+
+
+
+
+
+

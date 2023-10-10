@@ -166,7 +166,7 @@ void KFileEdtitor::showPairDialog()
     QString item_text = item->text(0);
     if (item->parent())
     {
-        if (parent_text == u8"激活能量数值" || item->text(0) == "")
+        if (parent_text == u8"激活能量数值" || item->text(0) == "" || item_text == u8"激活能量数值")
             return;
 
         // 	if (key == u8"激活能量数值") return;
@@ -238,12 +238,16 @@ void KFileEdtitor::showPairDialog()
                 if (k.mid(0, 6) == "unused")
                 {
                     label->setGeometry((w + px) * (kcount - 1) + 45, (h + py) * rowCount + py_tr_k, w, h);
+//                     label->setAlignment(Qt::AlignCenter);
                     label_tr->setGeometry((w + px) * (kcount - 1) + 45, (h + py) * rowCount + py_tr_v, w, h);
+//                     label_tr->setAlignment(Qt::AlignCenter);
                 }
                 else
                 {
                     label->setGeometry((w + px) * i + 45, (h + py) * rowCount + py_tr_k, w, h);
+//                     label->setAlignment(Qt::AlignCenter);
                     label_tr->setGeometry((w + px) * i + 45, (h + py) * rowCount + py_tr_v, w, h);
+//                     label_tr->setAlignment(Qt::AlignCenter);
                 }
 
 
@@ -269,18 +273,31 @@ void KFileEdtitor::showPairDialog()
 
         int xcount = kRow.last().size() <= 8 ? 8 : kRow.last().size();
 
-        int xx = (w + px) * (xcount + 1), yy = (h + py) * (kRow.size() + 1) + 50 + py_tr_v;
+        int xx = (w + px) * (xcount + 1) - 20;
+        int yy = (h + py) * (kRow.size() + 1) + 50 + py_tr_v;
 
         // 显示节点批注
-        QTextBrowser* textBro_notes = new QTextBrowser(itemDialog); //item_notes
-        textBro_notes->setGeometry(45, yy - 110, 390, 80); // 设置 QTextBrowser 的位置和大小
-        textBro_notes->setPlainText(item_notes);
+        if (item_notes != " ")
+        {
+            yy += 30;
+			QTextBrowser* textBro_notes = new QTextBrowser(itemDialog); //item_notes
+			textBro_notes->setGeometry(45, yy - 140, 790, 80); // 设置 QTextBrowser 的位置和大小
+			textBro_notes->setPlainText(item_notes);            
+        }
+        else
+        {
+            yy -= 60;
+        }
 
         itemDialog->resize(xx, yy);
-        itemDialog->save->move(xx - 240, yy - 50);
+        itemDialog->setFixedSize(xx, yy);
+        itemDialog->save->move(xx - 235, yy - 45);
+        itemDialog->save->resize(w, h);
         itemDialog->save->setVisible(true);
-        itemDialog->cacel->move(xx - 140, yy - 50);
+        itemDialog->cacel->move(xx - 135, yy - 45);
+        itemDialog->cacel->resize(w, h);
         itemDialog->cacel->setVisible(true);
+
         itemDialog->show();
     }
 }
@@ -442,7 +459,7 @@ void KFileEdtitor::treeViewClick()
     QString item_text = item->text(0);
     if (item->parent())
     {
-        if (parent_text == u8"激活能量数值" || item->text(0)=="")
+        if (parent_text == u8"激活能量数值" || item->text(0)=="" || item_text == u8"激活能量数值")
             return;
 
 //     if (item->text(0) == u8"激活能量数值")
