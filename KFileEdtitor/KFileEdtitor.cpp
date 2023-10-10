@@ -161,11 +161,16 @@ void KFileEdtitor::showPairDialog()
 	if (this->data == nullptr)
 		return;
 	QTreeWidgetItem* item = treeWidget->treeItem->currentItem();
+	QString item_text = item->text(0);
+
+	if (item_text == u8"激活能量数值") return;
+
 	QString key = item->text(0);
-    QString parent_text = item->parent()->text(0);
-    QString item_text = item->text(0);
+    QString parent_text;
+    
     if (item->parent())
     {
+        parent_text = item->parent()->text(0);
         if (parent_text == u8"激活能量数值" || item->text(0) == "" || item_text == u8"激活能量数值")
             return;
 
@@ -455,10 +460,14 @@ void KFileEdtitor::treeViewClick()
 
     //! 得到当前点击的键
     QTreeWidgetItem* item = treeWidget->treeItem->currentItem();
-    QString parent_text = item->parent()->text(0);
     QString item_text = item->text(0);
+    if (item_text == u8"激活能量数值")return;
+
+    QString parent_text;
+    
     if (item->parent())
     {
+        parent_text = item->parent()->text(0);
         if (parent_text == u8"激活能量数值" || item->text(0)=="" || item_text == u8"激活能量数值")
             return;
 
