@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\HanShan\AppData\Local\Temp\w2jaa15n.wgd;D:\Qt5.12.1\5.12.1\msvc2015_64\include;D:\Qt5.12.1\5.12.1\msvc2015_64\include\QtWidgets;D:\Qt5.12.1\5.12.1\msvc2015_64\include\QtGui;D:\Qt5.12.1\5.12.1\msvc2015_64\include\QtANGLE;D:\Qt5.12.1\5.12.1\msvc2015_64\include\QtCore;C:\Users\HanShan\AppData\Local\Temp\w2jaa15n.wgd;C:\VulkanSDK\1.0.51.0\include;D:\Qt5.12.1\5.12.1\msvc2015_64\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\HanShan\AppData\Local\Temp\hqq41z5d.dvs;D:\Qt5.12.1\5.12.1\msvc2015_64\include;D:\Qt5.12.1\5.12.1\msvc2015_64\include\QtWidgets;D:\Qt5.12.1\5.12.1\msvc2015_64\include\QtGui;D:\Qt5.12.1\5.12.1\msvc2015_64\include\QtANGLE;D:\Qt5.12.1\5.12.1\msvc2015_64\include\QtCore;C:\Users\HanShan\AppData\Local\Temp\hqq41z5d.dvs;C:\VulkanSDK\1.0.51.0\include;D:\Qt5.12.1\5.12.1\msvc2015_64\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>.\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>

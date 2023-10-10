@@ -40,7 +40,7 @@ public:
 	//! ¸ù½Úµã
 	QTreeWidgetItem* root;
 
-private:
+public:
 	void initTree();
 	void initTable();
 };

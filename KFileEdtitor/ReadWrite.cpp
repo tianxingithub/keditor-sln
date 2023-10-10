@@ -21,9 +21,9 @@ ReadWrite::~ReadWrite()
 void ReadWrite::readData(QString filepath, QTextBrowser* display)
 {
 	readthread = new ReadThread(filepath, display);
-	readthread->run(); finishedSlot();
+	readthread->run();  finishedSlot();
 // 	readthread->start();
-// 	connect(readthread, &QThread::finished, new KFileEdtitor(), &KFileEdtitor::displayItem);
+
 	connect(readthread, &QThread::finished, this, &ReadWrite::finishedSlot);
 
 	

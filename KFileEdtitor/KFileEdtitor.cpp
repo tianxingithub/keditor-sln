@@ -15,6 +15,10 @@ KFileEdtitor::KFileEdtitor(QWidget *parent)
 {
     ui->setupUi(this);
 
+	fileRW = new ReadWrite();
+	data = nullptr;
+	itemDialog = nullptr;
+
     treeWidget = new TreeWidget(ui->centralWidget);
     treeWidget->setMinimumSize(250, 600);
     ui->verticalLayout->addWidget(treeWidget);
@@ -24,18 +28,11 @@ KFileEdtitor::KFileEdtitor(QWidget *parent)
 	ui->horizontalLayout->addWidget(displayWidget);
 
     translator = nullptr;
-    translator = new Translator(":/ts/kTranslation.json");
+    translator = new Translator("./ts/kTranslation.json");
 
-    fileRW = new ReadWrite();
-    connect(fileRW, &ReadWrite::readFinishedSig, this, &KFileEdtitor::readOverSlot);
-    data = nullptr;
-    itemDialog = nullptr;
-
-//     parentNodes = new QHash<QString, QTreeWidgetItem*>();
-
-
+    
     addPlot();
-
+    connect(fileRW, &ReadWrite::readFinishedSig, this, &KFileEdtitor::readOverSlot);
 
     
 }
@@ -76,9 +73,19 @@ void KFileEdtitor::getData()
         "k files (*.k);;All files (*.*)");
     if (filepath == nullptr)
         return;
+
     //QString filepath = "C:/Users/HanShan/Downloads/Demo_86.k";
     //QString filepath = "C:/Users/HanShan/Downloads/Demo_86_1219.k";
     //QString filepath = "C:/Users/HanShan/Downloads/3layer_shot_root.k";
+    if (data)
+    {
+        delete data;
+        data = nullptr;
+        displayWidget->textDisplay->clear();
+        treeWidget->treeItem->clear();
+        treeWidget->initTree();
+        parentNodes = QHash<QString, QTreeWidgetItem*>();
+    }
     
     /*this->data = */fileRW->readData(filepath, displayWidget->textDisplay);
 //     displayItem();
@@ -120,12 +127,12 @@ void KFileEdtitor::displayItem()
         {
             QTreeWidgetItem* parentNode = new QTreeWidgetItem(treeWidget->root);
             parentNode->setText(0, parentName);
-            parentNode->setIcon(0, QIcon(":/images/fir.png"));
+            parentNode->setIcon(0, QIcon("./images/fir.png"));
             parentNodes[parentName] = parentNode;
         }
 
         QTreeWidgetItem* childItem1 = new QTreeWidgetItem(parentNodes[parentName]);
-        childItem1->setIcon(0, QIcon(":/images/sec.png"));
+        childItem1->setIcon(0, QIcon("./images/sec.png"));
         childItem1->setText(0, s.mid(parentName.size()+1));
     }
     treeWidget->treeItem->expandAll();  // 展开所有节点
@@ -431,7 +438,7 @@ void KFileEdtitor::treeViewClick()
     QString parent_text = item->parent()->text(0);
     if (item->parent())
     {
-        if (parent_text == u8"激活能量数值")
+        if (parent_text == u8"激活能量数值" || item->text(0)=="")
             return;
 
 //     if (item->text(0) == u8"激活能量数值")
@@ -452,6 +459,8 @@ void KFileEdtitor::treeViewClick()
         auto a = parent_text + "_" + item->text(0);
         auto b = data->rootMapOut;
         auto itemValue = data->rootMap->value(a);  // nullptr
+		if (itemValue == nullptr)//|| valueOrder == nullptr
+			return;
         //auto valueOrder = data->rootOrder->value(item->text(0));
 
         auto itemPairOut = data->rootMap->value(a);
@@ -459,6 +468,8 @@ void KFileEdtitor::treeViewClick()
         auto itemPair = data->rootMap->value(a);
         auto itemK = itemPair->first;
         auto itemv = itemPair->second;
+		if (itemK.size() == 0)
+			return;
 
         QList<QString> showK;
         for (auto row : itemK) {
@@ -472,10 +483,6 @@ void KFileEdtitor::treeViewClick()
                 showV.append(i);
             }
         }
-
-
-        if (itemValue == nullptr)//|| valueOrder == nullptr
-            return;
 
         int lineCount = 1;
         for (int i = 0; i < showK.size(); i++)
